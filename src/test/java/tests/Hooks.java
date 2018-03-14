@@ -16,9 +16,9 @@ public class Hooks {
     public void initializeDriver() {
         String oS = System.getProperty("os.name").toLowerCase();
         if (oS.contains("windows")) {
-            System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/chromedriver.exe");
+            System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/drivers/2.36/chromedriver.exe");
         } else {
-            System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/chromedriver.mac");
+            System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/drivers/2.36/chromedriver.mac");
         }
         driver = new ChromeDriver();
         wait = new WebDriverWait(driver, 5);
