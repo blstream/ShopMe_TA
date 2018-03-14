@@ -13,7 +13,13 @@ public class Hooks {
     String baseUrl = "http://automationpractice.com";
 
     @Before(order = 1)
-    public void beforeScenario() {
+    public void initializeDriver() {
+        String oS = System.getProperty("os.name").toLowerCase();
+        if (oS.contains("windows")) {
+            System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/chromedriver.exe");
+        } else {
+            System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/chromedriver.mac");
+        }
         driver = new ChromeDriver();
         wait = new WebDriverWait(driver, 5);
         driver.manage().window().maximize();
@@ -32,8 +38,11 @@ public class Hooks {
     }
 
     @After(order = 1)
-    public void afterScenario() {
-        driver.quit();
+    public void destroyDriver() {
+        if (driver != null) {
+            driver.quit();
+            driver = null;
+        }
         System.out.println("This will run after the every Scenario");
     }
 }
