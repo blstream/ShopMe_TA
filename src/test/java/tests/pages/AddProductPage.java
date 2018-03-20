@@ -7,6 +7,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import static tests.Hooks.driver;
 
+@Deprecated
 public class AddProductPage {
 
     String shopMessage = "Product successfully added to your shopping cart";

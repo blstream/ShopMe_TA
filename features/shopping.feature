@@ -1,4 +1,4 @@
-@test @shopping
+@deprecated @test @shopping
 Feature: Possibility to buy sth from the Internet shop
   Authenticated users can buy sth from the Internet shop using a bank wire or a check
 

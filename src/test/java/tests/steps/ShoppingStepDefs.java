@@ -10,6 +10,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static tests.steps.StartStepDefs.logger;
 
+@Deprecated
 public class ShoppingStepDefs {
 
     SearchProductPage searchProductPage = new SearchProductPage();
@@ -78,5 +79,3 @@ public class ShoppingStepDefs {
         logger.info("TEST END - Successful shopping process");
     }
 }
-
-

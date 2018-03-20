@@ -7,6 +7,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import static tests.Hooks.driver;
 
+@Deprecated
 public class StartPage {
 
     String mainPageUrl = "http://automationpractice.com/index.php";

@@ -1,4 +1,4 @@
-@test @signIn
+@deprecated @test @signIn
 Feature: Authentication to the application
   Authentication form for a regular user
   Authenticated users can see the personal information such as first name, last name, email address and date of birth

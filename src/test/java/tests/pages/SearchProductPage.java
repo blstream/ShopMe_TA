@@ -7,6 +7,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import static tests.Hooks.driver;
 
+@Deprecated
 public class SearchProductPage {
 
     @FindBy(how = How.NAME, using = "search_query")
