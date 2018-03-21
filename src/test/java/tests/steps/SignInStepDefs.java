@@ -10,6 +10,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static tests.steps.StartStepDefs.logger;
 
+@Deprecated
 public class SignInStepDefs {
 
     SignInPage signInPage = new SignInPage();

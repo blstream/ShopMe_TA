@@ -7,6 +7,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import static tests.Hooks.driver;
 
+@Deprecated
 public class SignInPage {
 
     @FindBy(how = How.LINK_TEXT, using = "Sign in")

@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import static tests.Hooks.driver;
 import static tests.Hooks.wait;
 
+@Deprecated
 public class OrderHistoryPage {
 
     @FindBy(how = How.LINK_TEXT, using = "Details")

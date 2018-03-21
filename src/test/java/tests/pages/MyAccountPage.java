@@ -7,7 +7,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import static tests.Hooks.driver;
 
-
+@Deprecated
 public class MyAccountPage {
 
     @FindBy(how = How.CSS, using = "a[title=\"Information\"] > span")

@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import static tests.Hooks.driver;
 import static tests.Hooks.wait;
 
+@Deprecated
 public class ProceedingPage {
 
     @FindBy(how = How.CSS, using = "a.button-medium")

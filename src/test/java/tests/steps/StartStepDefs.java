@@ -7,6 +7,7 @@ import tests.pages.*;
 
 import static org.junit.Assert.assertTrue;
 
+@Deprecated
 public class StartStepDefs {
 
     final static Logger logger = Logger.getLogger(StartStepDefs.class);
