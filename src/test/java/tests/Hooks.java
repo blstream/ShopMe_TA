@@ -10,7 +10,6 @@ public class Hooks {
 
     public static WebDriver driver;
     public static WebDriverWait wait;
-    String baseUrl = "http://automationpractice.com";
 
     @Before(order = 1)
     public void initializeDriver() {
@@ -23,7 +22,6 @@ public class Hooks {
         driver = new ChromeDriver();
         wait = new WebDriverWait(driver, 5);
         driver.manage().window().maximize();
-        driver.get(baseUrl);
         System.out.println("This will run before the every Scenario");
     }
 
