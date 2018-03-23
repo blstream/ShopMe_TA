@@ -2,8 +2,15 @@ Feature: PRODPFIP-21 Searching for a service in the ShopMe website
   As a user I want to be able to search the service so that I can see search results
 
   Scenario Outline: Positive flow of searching - search results are displayed in a valid way
-    Given that I am on the main page
-    When I enter a searching phrase "<searching_phrase>" into the search field
+    Given that there are no services added
+    And I add services via BE
+      | odśnieżanie                  |
+      | programowanie C#             |
+      | programowanie Java           |
+      | profesjonalne mycie okien    |
+      | naprawa pralka Amica AWB10i2 |
+    When I navigate to the main page
+    And I enter a searching phrase "<searching_phrase>" into the search field
     And I click the search button
     Then I am on the search result page
     And I see that each title from search results is up to 30 characters and contain "<searching_phrase>"
