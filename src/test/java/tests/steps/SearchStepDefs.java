@@ -14,6 +14,7 @@ import io.restassured.response.ResponseBody;
 import io.restassured.specification.RequestSpecification;
 import tests.pages.SearchResultsPage;
 import tests.pages.SearchServicePage;
+
 import java.util.HashMap;
 import java.util.List;
 
@@ -27,7 +28,15 @@ public class SearchStepDefs {
 
     @Given("^that there are no services added$")
     public void thatThereAreNoServicesAdded() {
-//        DELETE method is not working
+        RestAssured.baseURI = "https://patronage2018.intive-projects.com/api";
+        RequestSpecification httpRequest = RestAssured.given();
+        Response response = httpRequest.get("/offers");
+        ResponseBody body = response.getBody();
+        List<HashMap> offers = new JsonPath(body.asString()).get(".");
+        for (int i = 0; i < offers.size(); i++) {
+            String offer = offers.get(i).get("id").toString();
+            RestAssured.given().when().delete("/offers/" + offer);
+        }
     }
 
     @And("^I add services via BE$")
@@ -89,8 +98,8 @@ public class SearchStepDefs {
     public void iSeeThatTitleOfTheServiceContains(String searchPhrase) {
         List<String> titles = searchResultsPage.getElementsTitles();
         for (int i = 0; i < titles.size(); i++) {
-            String title = titles.get(i);
-            assertTrue(title.contains(searchPhrase));
+            String title = titles.get(i).toLowerCase();
+            assertTrue(title.contains(searchPhrase.toLowerCase()));
         }
     }
 

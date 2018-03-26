@@ -1,7 +1,7 @@
 Feature: PRODPFIP-21 Searching for a service in the ShopMe website
   As a user I want to be able to search the service so that I can see search results
 
-  Scenario Outline: Positive flow of searching - search results are displayed in a valid way
+  Scenario Outline: Positive flow of searching - search results contain correct title, price and are correctly sorted by date
     Given that there are no services added
     And I add services via BE
       | odśnieżanie                  |
