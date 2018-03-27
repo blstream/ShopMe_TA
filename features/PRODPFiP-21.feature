@@ -1,7 +1,7 @@
 Feature: PRODPFIP-21 Searching for a service in the ShopMe website
   As a user I want to be able to search the service so that I can see search results
 
-  Scenario Outline: Positive flow of searching - search results are displayed in a valid way
+  Scenario Outline: Positive flow of searching - search results contain correct title, price and are correctly sorted by date
     Given that there are no services added
     And I add services via BE
       | odśnieżanie                  |
@@ -32,7 +32,7 @@ Feature: PRODPFIP-21 Searching for a service in the ShopMe website
     Then I can see error message "<error_message>"
 
     Examples:
-      | searching_phrase | error_message                                 |
-      | c                | Wpisana fraza jest za krótka                  |
-      | 1234567890       | Podaj frazę nie składającą się z samych liczb |
+      | searching_phrase | error_message                                      |
+      | c                | Podaj frazę składającą się z większej liczby liter |
+      | 1234567890       | Podaj frazę nieskładającą się z samych liczb       |
 
