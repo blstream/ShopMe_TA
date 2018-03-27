@@ -37,6 +37,8 @@ public class SearchStepDefs {
             String offer = offers.get(i).get("id").toString();
             RestAssured.given().when().delete("/offers/" + offer);
         }
+        RestAssured.get("/offers");
+        assertTrue(offers.size() == 0);
     }
 
     @And("^I add services via BE$")
@@ -101,6 +103,7 @@ public class SearchStepDefs {
             String title = titles.get(i).toLowerCase();
             assertTrue(title.contains(searchPhrase.toLowerCase()));
         }
+        System.out.println("");
     }
 
     @And("^I see basic price and added data of each record$")

@@ -32,7 +32,7 @@ Feature: PRODPFIP-21 Searching for a service in the ShopMe website
     Then I can see error message "<error_message>"
 
     Examples:
-      | searching_phrase | error_message                                 |
-      | c                | Wpisana fraza jest za krótka                  |
-      | 1234567890       | Podaj frazę nie składającą się z samych liczb |
+      | searching_phrase | error_message                                      |
+      | c                | Podaj frazę składającą się z większej liczby liter |
+      | 1234567890       | Podaj frazę nieskładającą się z samych liczb       |
 
