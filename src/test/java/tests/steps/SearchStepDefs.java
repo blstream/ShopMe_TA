@@ -2,6 +2,7 @@ package tests.steps;
 
 import com.google.gson.JsonObject;
 import cucumber.api.DataTable;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -134,5 +135,10 @@ public class SearchStepDefs {
     public void iCanSeeErrorMessage(String expectedErrorMessage) {
         String errorMessage = searchResultsPage.getErrorMessage();
         assertTrue(errorMessage.contains(expectedErrorMessage));
+    }
+
+    @And("^I press Enter key$")
+    public void iPressEnterKey() {
+        searchServicePage.submitByEnter();
     }
 }
