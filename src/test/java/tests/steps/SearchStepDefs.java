@@ -37,7 +37,9 @@ public class SearchStepDefs {
             String offer = offers.get(i).get("id").toString();
             RestAssured.given().when().delete("/offers/" + offer);
         }
-        RestAssured.get("/offers");
+        response = httpRequest.get("/offers");
+        body = response.getBody();
+        offers = new JsonPath(body.asString()).get(".");
         assertTrue(offers.size() == 0);
     }
 
