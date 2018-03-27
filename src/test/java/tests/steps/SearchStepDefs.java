@@ -103,7 +103,6 @@ public class SearchStepDefs {
             String title = titles.get(i).toLowerCase();
             assertTrue(title.contains(searchPhrase.toLowerCase()));
         }
-        System.out.println("");
     }
 
     @And("^I see basic price and added data of each record$")
