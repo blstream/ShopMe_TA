@@ -19,6 +19,7 @@ public class SearchServicePage {
     public WebElement searchSubmit;
 
     public SearchServicePage() {
+
         PageFactory.initElements(driver, this);
     }
 
@@ -28,6 +29,7 @@ public class SearchServicePage {
     }
 
     public void getSearchResult(String searchPhrase) {
+        searchField.clear();
         searchField.sendKeys(searchPhrase);
     }
 
@@ -35,5 +37,7 @@ public class SearchServicePage {
         searchSubmit.click();
     }
 
-    public void submitByEnter() {searchSubmit.sendKeys(Keys.ENTER);}
+    public void submitByEnter() {
+        searchSubmit.sendKeys(Keys.ENTER);
+    }
 }

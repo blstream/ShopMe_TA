@@ -12,13 +12,17 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.response.ResponseBody;
 import io.restassured.specification.RequestSpecification;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import tests.pages.SearchResultsPage;
 import tests.pages.SearchServicePage;
 
 import java.util.HashMap;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static tests.Hooks.wait;
 
 public class SearchStepDefs {
 
@@ -43,8 +47,8 @@ public class SearchStepDefs {
         assertTrue(offers.size() == 0);
     }
 
-    @And("^I add services via BE$")
-    public void iAddServicesViaBE(DataTable services) {
+    @And("^I add services$")
+    public void iAddServices(DataTable services) {
 
         DataTable dt = services;
         RestAssured.baseURI = "https://patronage2018.intive-projects.com/api/";
@@ -139,5 +143,22 @@ public class SearchStepDefs {
     @And("^I press Enter key$")
     public void iPressEnterKey() {
         searchServicePage.submitByEnter();
+    }
+
+    @Then("^I can see no results message \"([^\"]*)\"$")
+    public void iCanSeeNoResultsMessage(String expectedNoResultsMessage) {
+        String NoResultsMessage = searchResultsPage.getNoResultsMessage();
+        assertEquals(expectedNoResultsMessage, NoResultsMessage);
+    }
+
+    @And("^I see service \"([^\"]*)\" at the first place$")
+    public void iSeeServiceAtTheFirstPlace(String NewService) {
+        String firstService = searchResultsPage.getFirstService();
+        assertTrue(firstService.contains(NewService));
+    }
+
+    @Then("^search results for the new phrase \"([^\"]*)\" are visible$")
+    public void searchResultsForTheNewPhraseAreVisible(String arg0) {
+        searchResultsPage.areNewResultsPresent(arg0);
     }
 }
