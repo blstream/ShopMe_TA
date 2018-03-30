@@ -135,4 +135,9 @@ public class SearchStepDefs {
         String errorMessage = searchResultsPage.getErrorMessage();
         assertTrue(errorMessage.contains(expectedErrorMessage));
     }
+
+    @And("^I press Enter key$")
+    public void iPressEnterKey() {
+        searchServicePage.submitByEnter();
+    }
 }
