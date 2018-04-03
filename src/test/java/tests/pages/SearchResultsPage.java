@@ -6,6 +6,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +21,13 @@ public class SearchResultsPage {
     @FindBy(how = How.CLASS_NAME, using = "search__message-error")
     public WebElement errorMessageField;
 
+    @FindBy(how = How.CLASS_NAME, using = "no-search-results__paragraph")
+    public WebElement noResultsField;
+
+    @FindBy(how = How.CLASS_NAME, using = "services-item")
+    public WebElement firstService;
+
+
     public SearchResultsPage() {
         PageFactory.initElements(driver, this);
     }
@@ -27,6 +35,10 @@ public class SearchResultsPage {
     public boolean isResultsPresent() {
         wait.until(ExpectedConditions.visibilityOf(resultsList));
         return resultsList.isDisplayed();
+    }
+
+    public void areNewResultsPresent(String expectedService) {
+        wait.until(ExpectedConditions.textToBePresentInElement(firstService, expectedService));
     }
 
     public List<String> getElementsTitles() {
@@ -58,5 +70,14 @@ public class SearchResultsPage {
 
     public String getErrorMessage() {
         return errorMessageField.getText();
+    }
+
+    public String getNoResultsMessage() {
+        wait.until(ExpectedConditions.visibilityOf(noResultsField));
+        return noResultsField.getText();
+    }
+
+    public String getFirstService() {
+        return firstService.getText();
     }
 }
