@@ -25,7 +25,7 @@ public class SearchResultsPage {
     public WebElement noResultsField;
 
     @FindBy(how = How.CLASS_NAME, using = "services-item")
-    public WebElement FirstService;
+    public WebElement firstService;
 
 
     public SearchResultsPage() {
@@ -78,6 +78,6 @@ public class SearchResultsPage {
     }
 
     public String getFirstService() {
-        return FirstService.getText();
+        return firstService.getText();
     }
 }
