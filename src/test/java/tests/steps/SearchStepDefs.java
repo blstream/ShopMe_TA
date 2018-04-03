@@ -147,18 +147,18 @@ public class SearchStepDefs {
 
     @Then("^I can see no results message \"([^\"]*)\"$")
     public void iCanSeeNoResultsMessage(String expectedNoResultsMessage) {
-        String NoResultsMessage = searchResultsPage.getNoResultsMessage();
-        assertEquals(expectedNoResultsMessage, NoResultsMessage);
+        String noResultsMessage = searchResultsPage.getNoResultsMessage();
+        assertEquals(expectedNoResultsMessage, noResultsMessage);
     }
 
     @And("^I see service \"([^\"]*)\" at the first place$")
-    public void iSeeServiceAtTheFirstPlace(String NewService) {
+    public void iSeeServiceAtTheFirstPlace(String newService) {
         String firstService = searchResultsPage.getFirstService();
-        assertTrue(firstService.contains(NewService));
+        assertTrue(firstService.contains(newService));
     }
 
     @Then("^search results for the new phrase \"([^\"]*)\" are visible$")
-    public void searchResultsForTheNewPhraseAreVisible(String arg0) {
-        searchResultsPage.areNewResultsPresent(arg0);
+    public void searchResultsForTheNewPhraseAreVisible(String expectedService) {
+        searchResultsPage.areNewResultsPresent(expectedService);
     }
 }
