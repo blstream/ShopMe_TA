@@ -37,8 +37,8 @@ public class SearchResultsPage {
         return resultsList.isDisplayed();
     }
 
-    public void areNewResultsPresent(String arg0) {
-        wait.until(ExpectedConditions.textToBePresentInElement(FirstService, arg0));
+    public void areNewResultsPresent(String expectedFirstService) {
+        wait.until(ExpectedConditions.textToBePresentInElement(firstService, expectedFirstService));
     }
 
     public List<String> getElementsTitles() {
