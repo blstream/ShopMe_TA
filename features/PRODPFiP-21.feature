@@ -1,11 +1,11 @@
 Feature: PRODPFIP-21 Searching for a service in the ShopMe website
   As a user I want to be able to search the service so that I can see search results
 
-  Scenario Outline: Positive flow of searching - search results contain correct title, price and are correctly sorted by date
+  Scenario Outline: Positive flow of searching with submit by the search button - search results contain correct title, price and are correctly sorted by date
     Given that there are no services added
-    And I add services via BE
+    And I add services
       | odśnieżanie                  |
-      | programowanie C#             |
+      | programowanie Python         |
       | programowanie Java           |
       | profesjonalne mycie okien    |
       | naprawa pralka Amica AWB10i2 |
@@ -20,7 +20,7 @@ Feature: PRODPFIP-21 Searching for a service in the ShopMe website
     Examples:
       | searching_phrase             |
       | odśnieżanie                  |
-      | programowanie C#             |
+      | programowanie Python         |
       | programowanie Java           |
       | profesjonalne mycie okien    |
       | naprawa pralka Amica AWB10i2 |
@@ -36,11 +36,11 @@ Feature: PRODPFIP-21 Searching for a service in the ShopMe website
       | c                | Podaj frazę składającą się z większej liczby liter |
       | 1234567890       | Podaj frazę nieskładającą się z samych liczb       |
 
-  Scenario Outline: Positive flow of searching - search results are displayed in a valid way with submit by enter key
+  Scenario Outline: Positive flow of searching with submit by enter key - search results contain correct title, price and are correctly sorted by date
     Given that there are no services added
-    And I add services via BE
+    And I add services
       | odśnieżanie                  |
-      | programowanie C#             |
+      | programowanie Python         |
       | programowanie Java           |
       | profesjonalne mycie okien    |
       | naprawa pralka Amica AWB10i2 |
@@ -55,7 +55,7 @@ Feature: PRODPFIP-21 Searching for a service in the ShopMe website
     Examples:
       | searching_phrase             |
       | odśnieżanie                  |
-      | programowanie C#             |
+      | programowanie Python         |
       | programowanie Java           |
       | profesjonalne mycie okien    |
       | naprawa pralka Amica AWB10i2 |
