@@ -5,15 +5,15 @@ Feature:  PRODPFIP-40 Adding new service - basic flow
     Given I go to ShopMe main page
     And I push add service button
     And I can see adding form
-
+@Current
   Scenario Outline: Adding new basic service with valid credentials
     When I fill in title with "<title>"
     And I choose category "<category>"
     And I fill in name with "<name>"
     And I fill in email with "<email>"
     And I fill in phone with "<phone>"
-    And I fill in basicPrice with "<basic_price>"
     And I fill in basicDescription with "<basic_description>"
+    And I fill in basicPrice with "<basic_price>"
     And I fill in aboutMe with "<about_me>"
     And I press Add service button
     Then I should see confirmation message "Pomyślnie dodano ofertę"
@@ -38,12 +38,12 @@ Feature:  PRODPFIP-40 Adding new service - basic flow
     And I fill in name with "testName"
     And I fill in email with "test@email.com"
     And I fill in phone with "000000000"
-    And I fill in basicPrice with "20"
-    And I fill in expandedPrice with "<expanded_price>"
-    And I fill in extraPrice with "<extra_price>"
     And I fill in basicDescription with "basic_description"
+    And I fill in basicPrice with "20"
     And I fill in expandedDescription with "<expanded_description>"
+    And I fill in expandedPrice with "<expanded_price>"
     And I fill in extraDescription with "<extra_description>"
+    And I fill in extraPrice with "<extra_price>"
     And I fill in aboutMe with "aboutMe"
     And I press Add service button
     Then I should see confirmation message "Pomyślnie dodano ofertę"
@@ -82,16 +82,16 @@ Feature:  PRODPFIP-40 Adding new service - basic flow
     And I press Add service button
     Then New service with 500 character descriptions is added
     And I should see confirmation message "Pomyślnie dodano ofertę"
-
+  @AddService
   Scenario: Adding new basic service with 800 character aboutMe description
     When I fill in title with "Usługi prawnicze"
     And I choose category "Prawo"
     And I fill in name with "testName"
     And I fill in email with "test@gmail.com"
     And I fill in phone with "000000000"
-    And I fill in basicPrice with "200"
-    And I fill in basicDescription with "description"
     And I fill in aboutMe with 800 characters
+    And I fill in basicDescription with "description"
+    And I fill in basicPrice with "200"
     And I press Add service button
     Then New service with 800 character aboutMe is added
     And I should see confirmation message "Pomyślnie dodano ofertę"
