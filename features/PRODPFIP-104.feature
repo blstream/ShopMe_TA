@@ -17,7 +17,6 @@ Feature: PRODPFIP-104 User registration
     And I fill in all necessary personal data with "<phone_number>", "<bank_account>"
     And I fill in all necessary address data with "<street>", "<number>", "<city>", "<post_code>"
     And I select dataForInvoice checkbox
-    And I can see hidden fields for invoice data
     And I fill in all necessary invoice data with "<c_name>", "<nip>", "<c_street>", "<c_number>", "<c_post_code>", "<c_city>"
     And I accept terms of personal data processing
     And I push Register button
