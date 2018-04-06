@@ -21,6 +21,9 @@ public class ServiceProfilePage {
     @FindBy(how = How.CLASS_NAME, using = "offer-details__contact--container--email")
     public WebElement userEmail;
 
+    @FindBy(how = How.CLASS_NAME, using = "offer-details__contact--button")
+    public WebElement showButton;
+
     @FindBy(how = How.CLASS_NAME, using = "offer-details__contact--container--phone")
     public WebElement userPhone;
 
@@ -63,43 +66,47 @@ public class ServiceProfilePage {
     }
 
     public String getUserEmailFieldText(){
-        return userEmail.getAttribute("value");
+        return userEmail.getText();
     }
 
     public String getUserPhoneFieldText() {
-        return userPhone.getAttribute("value");
+        return userPhone.getText();
     }
 
     public String getUserInfoFieldText() {
-        return userInfo.getAttribute("value");
+        return userInfo.getText();
     }
 
     public String getBasicInfoFieldText() {
-        return basicInfo.getAttribute("value");
+        return basicInfo.getText();
     }
 
     public String getBasicPriceFieldText() {
-        return basicPrice.getAttribute("value");
+        return basicPrice.getText();
     }
 
     public String getExtendedInfoFieldText() {
-        return extendedInfo.getAttribute("value");
+        return extendedInfo.getText();
     }
 
     public String getExtendedPriceFieldText() {
-        return extendedPrice.getAttribute("value");
+        return extendedPrice.getText();
     }
 
     public String getExtraInfoFieldText() {
-        return extraInfo.getAttribute("value");
+        return extraInfo.getText();
     }
 
     public String getExtraPriceFieldText() {
-        return extraPrice.getAttribute("value");
+        return extraPrice.getText();
+    }
+
+    public void showUserEmail(){
+        showButton.click();
+    }
+
+    public void showUserPhone(){
+        showButton.click();
     }
 }
 
-//public void getTosCheck() {
-//        if (!tosCheck.isSelected()) {
-//            tosCheck.click();
-//        }
