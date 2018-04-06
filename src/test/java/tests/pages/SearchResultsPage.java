@@ -80,4 +80,10 @@ public class SearchResultsPage {
     public String getFirstService() {
         return firstService.getText();
     }
+
+    public void chooseFirstSearchResult() {
+        List<WebElement> list = driver.findElements(By.className("services-item"));
+        list.get(0).click();
+    }
 }
+

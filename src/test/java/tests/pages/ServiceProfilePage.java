@@ -50,6 +50,56 @@ public class ServiceProfilePage {
         PageFactory.initElements(driver, this);
     }
 
+    public String getTitleFieldText(){
+        return serviceTitle.getText();
+    }
 
+    public String getCategoryFieldText(){
+        return serviceCategory.getText();
+    }
+
+    public String getUserNameFieldText(){
+        return userName.getText();
+    }
+
+    public String getUserEmailFieldText(){
+        return userEmail.getAttribute("value");
+    }
+
+    public String getUserPhoneFieldText() {
+        return userPhone.getAttribute("value");
+    }
+
+    public String getUserInfoFieldText() {
+        return userInfo.getAttribute("value");
+    }
+
+    public String getBasicInfoFieldText() {
+        return basicInfo.getAttribute("value");
+    }
+
+    public String getBasicPriceFieldText() {
+        return basicPrice.getAttribute("value");
+    }
+
+    public String getExtendedInfoFieldText() {
+        return extendedInfo.getAttribute("value");
+    }
+
+    public String getExtendedPriceFieldText() {
+        return extendedPrice.getAttribute("value");
+    }
+
+    public String getExtraInfoFieldText() {
+        return extraInfo.getAttribute("value");
+    }
+
+    public String getExtraPriceFieldText() {
+        return extraPrice.getAttribute("value");
+    }
 }
 
+//public void getTosCheck() {
+//        if (!tosCheck.isSelected()) {
+//            tosCheck.click();
+//        }
