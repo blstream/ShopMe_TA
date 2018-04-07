@@ -12,7 +12,7 @@ import static tests.Hooks.wait;
 
 public class SearchServicePage {
 
-    String mainPageUrl = "http://localhost:3000/";//"https://patronage2018.intive-projects.com/";
+    String mainPageUrl ="https://patronage2018.intive-projects.com/";// "http://localhost:3000/";
 
     @FindBy(how = How.ID, using = "search__input")
     public WebElement searchField;

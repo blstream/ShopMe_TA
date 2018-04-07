@@ -5,7 +5,7 @@ Feature:  PRODPFIP-40 Adding new service - basic flow
     Given I go to ShopMe main page
     And I push add service button
     And I can see adding form
-@Current
+
   Scenario Outline: Adding new basic service with valid credentials
     When I fill in title with "<title>"
     And I choose category "<category>"
@@ -20,7 +20,7 @@ Feature:  PRODPFIP-40 Adding new service - basic flow
 
     Examples:
       | title                                                  | category            | name                 | email          | phone      | basic_price | basic_description | about_me |
-      | bb                                                     | Budowa              | testName             | test@email.com | 000000000  | 20          | description       | aboutMe  |
+      | bb                                                     | transport           | testName             | test@email.com | 000000000  | 20          | description       | aboutMe  |
       | Ogród                                                  | Ogród               | tes                  | test@email.com | 000000000  | 200         | description       | aboutMe  |
       | Usługi warsztatowe                                     | Usługi warsztatowe  | testName             | t@e.co         | 000000000  | 2000        | description       | aboutMe  |
       | Programowanie                                          | Programowanie       | testName             | test@email.com | 000000000  | 20          | description       | aboutMe  |
@@ -50,11 +50,11 @@ Feature:  PRODPFIP-40 Adding new service - basic flow
 
     Examples:
       | title            | category         | expanded_price | extra_price | expanded_description | extra_description |
-      | Zespoły i muzyka | Zespoły i muzyka | 30             |             | d                    |                   |
+      | Zespoły i muzyka | transport        | 30             |  test       | d                    |     test          |
       | Naprawa i serwis | Naprawa i serwis | 30             |             | description          |                   |
       | Korepetycje      | Korepetycje      | 30             | 40          | description          | d                 |
       | Księgowość       | Księgowość       | 30             | 40          | description          | description       |
-
+  @Current
   Scenario: Adding new basic service with 500 character description
     When I fill in title with "Usługi prawnicze"
     And I choose category "Prawo"
@@ -64,7 +64,7 @@ Feature:  PRODPFIP-40 Adding new service - basic flow
     And I fill in basicPrice with "200"
     And I fill in basicDescription with 500 characters
     And I press Add service button
-    Then New service with 500 character description is added
+    Then New basic service with 500 character description is added
     And I should see confirmation message "Pomyślnie dodano ofertę"
 
   Scenario: Adding new service with extensions with 500 character description
@@ -80,12 +80,12 @@ Feature:  PRODPFIP-40 Adding new service - basic flow
     And I fill in extraDescription with 500 characters
     And I fill in extraPrice with "400"
     And I press Add service button
-    Then New service with 500 character descriptions is added
+    Then New service with 500 character expanded and extra descriptions is added
     And I should see confirmation message "Pomyślnie dodano ofertę"
-  @AddService
+  @Current
   Scenario: Adding new basic service with 800 character aboutMe description
     When I fill in title with "Usługi prawnicze"
-    And I choose category "Prawo"
+    And I choose category "Transport"
     And I fill in name with "testName"
     And I fill in email with "test@gmail.com"
     And I fill in phone with "000000000"

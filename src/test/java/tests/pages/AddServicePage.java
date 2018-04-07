@@ -9,13 +9,16 @@ import io.restassured.specification.RequestSpecification;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
 import org.junit.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import tests.steps.AddServiceStepDefs;
 
+import javax.xml.xpath.XPath;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -61,11 +64,61 @@ public class AddServicePage {
     @FindBy(how = How.NAME, using = "offer__user-additional-info")
     public WebElement aboutMe;
 
-    @FindBy(how = How.CLASS_NAME, using = "add-form__submit")
+    @FindBy(how = How.CLASS_NAME, using = "form__button")
     public WebElement submitButton;
 
-    @FindBy(how = How.CSS, using = "add-form")
+    @FindBy(how = How.CSS, using = "#root > div > main > section > div > h1")
     public WebElement confirmationMessage;
+
+    @FindBy(how = How.CLASS_NAME, using = "input-select__item-option")
+    public WebElement selectOption;
+
+    public String getRA_title() {
+        return RA_title;
+    }
+
+    public String getRA_basicDescription() {
+        return RA_basicDescription;
+    }
+
+    public String getRA_extendedDescription() {
+        return RA_extendedDescription;
+    }
+
+    public String getRA_extraDescription() {
+        return RA_extraDescription;
+    }
+
+    public String getRA_aboutMe() {
+        return RA_aboutMe;
+    }
+
+    public String RA_title;
+    public String RA_basicDescription;
+    public String RA_extendedDescription;
+    public String RA_extraDescription;
+    public String RA_aboutMe;
+
+    public void setRA_title(String RA_title) {
+        this.RA_title = RA_title;
+    }
+
+    public void setRA_basicDescription(String RA_basicDescription) {
+        this.RA_basicDescription = RA_basicDescription;
+    }
+
+    public void setRA_extendedDescription(String RA_extendedDescription) {
+        this.RA_extendedDescription = RA_extendedDescription;
+    }
+
+    public void setRA_extraDescription(String RA_extraDescription) {
+        this.RA_extraDescription = RA_extraDescription;
+    }
+
+    public void setRA_aboutMe(String RA_aboutMe) {
+        this.RA_aboutMe = RA_aboutMe;
+    }
+
 
     public AddServicePage() {
         PageFactory.initElements(driver, this);
@@ -112,7 +165,8 @@ public class AddServicePage {
     }
 
     public void pushSubmitButton() {
-        wait.until(ExpectedConditions.elementToBeClickable(submitButton)).click();
+        wait.until(ExpectedConditions.elementToBeClickable(submitButton));
+        submitButton.click();
     }
 
     public void sendBasicDescription(int length) {
@@ -144,13 +198,27 @@ public class AddServicePage {
     }
 
     public void verifyIfConfirmationMessageIsDisplayed(String message) {
-        assert (confirmationMessage.isDisplayed());
-        assert (confirmationMessage.getText().contains(message));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("root")));
+        wait.until(ExpectedConditions.visibilityOf(confirmationMessage));
+        // wait.until(ExpectedConditions.textToBePresentInElementValue(confirmationMessage,message));
+        // Assert.assertTrue(confirmationMessage.isDisplayed());
+        //Assert.assertTrue(confirmationMessage.getText().contains(message));
+    }
+
+    public void waitUntilSelectOptionsAreVisible() {
+        wait.until(ExpectedConditions.visibilityOf(selectOption));
     }
 
     public void selectServiceCategory(String category) {
+        waitUntilSelectOptionsAreVisible();
         Select selectCategory = new Select(serviceCategory);
-        selectCategory.selectByValue(category);
+
+        if (category.isEmpty()) {
+            return;
+        } else {
+            selectCategory.selectByValue(category);
+        }
+
     }
 
     public void verifyIfFormIsVisible() {
@@ -158,142 +226,34 @@ public class AddServicePage {
         Assert.assertTrue(offerTitle.isDisplayed());
     }
 
-    public class AddServiceData {
-        public String title;
-        public String category;
-        public String basicDescription;
-        public String basicPrice;
-        public String extendedDescription;
-        public String extendedPrice;
-        public String extraDescription;
-        public String extraPrice;
-        public String name;
-        public String email;
-        public String phone;
-        public String aboutMe;
-
-        public String getTitle() {
-            return title;
-        }
-
-        public void setTitle(String title) {
-            this.title = title;
-        }
-
-        public String getCategory() {
-            return category;
-        }
-
-        public void setCategory(String category) {
-            this.category = category;
-        }
-
-        public String getBasicDescription() {
-            return basicDescription;
-        }
-
-        public void setBasicDescription(String basicDescription) {
-            this.basicDescription = basicDescription;
-        }
-
-        public String getBasicPrice() {
-            return basicPrice;
-        }
-
-        public void setBasicPrice(String basicPrice) {
-            this.basicPrice = basicPrice;
-        }
-
-        public String getExtendedDescription() {
-            return extendedDescription;
-        }
-
-        public void setExtendedDescription(String extendedDescription) {
-            this.extendedDescription = extendedDescription;
-        }
-
-        public String getExtendedPrice() {
-            return extendedPrice;
-        }
-
-        public void setExtendedPrice(String extendedPrice) {
-            this.extendedPrice = extendedPrice;
-        }
-
-        public String getExtraDescription() {
-            return extraDescription;
-        }
-
-        public void setExtraDescription(String extraDescription) {
-            this.extraDescription = extraDescription;
-        }
-
-        public String getExtraPrice() {
-            return extraPrice;
-        }
-
-        public void setExtraPrice(String extraPrice) {
-            this.extraPrice = extraPrice;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getEmail() {
-            return email;
-        }
-
-        public void setEmail(String email) {
-            this.email = email;
-        }
-
-        public String getPhone() {
-            return phone;
-        }
-
-        public void setPhone(String phone) {
-            this.phone = phone;
-        }
-
-        public String getAboutMe() {
-            return aboutMe;
-        }
-
-        public void setAboutMe(String aboutMe) {
-            this.aboutMe = aboutMe;
-        }
-    }
-
-
-    public void RestAssured(AddServiceData addServiceData) {
+    public void RA_checkTitle() {
         Boolean check = false;
-        ArrayList<AddServiceData> objects = new ArrayList<AddServiceData>();
         RestAssured.baseURI = "https://patronage2018.intive-projects.com/api";
         RequestSpecification httpRequest = RestAssured.given();
         Response response = httpRequest.get("/offers");
         ResponseBody body = response.getBody();
-        List<HashMap> offers = new JsonPath(body.asString()).get(".");
-        for (int i = 0; i < offers.size(); i++) {
-            AddServiceData restAssuredData = new AddServiceData();
-            restAssuredData.title = offers.get(i).get("title").toString();
-            restAssuredData.category = offers.get(i).get("category").toString();
-            restAssuredData.basicDescription = offers.get(i).get("baseDescription").toString();
-            restAssuredData.basicPrice = offers.get(i).get("basePrice").toString();
-            restAssuredData.extendedDescription = offers.get(i).get("extendedDescription").toString();
-            restAssuredData.extendedPrice = offers.get(i).get("extendedPrice").toString();
-            restAssuredData.extraDescription = offers.get(i).get("extraDescription").toString();
-            restAssuredData.extraPrice = offers.get(i).get("extraPrice").toString();
-            restAssuredData.name = offers.get(i).get("name").toString();
-            restAssuredData.phone = offers.get(i).get("phoneNumber").toString();
-            restAssuredData.email = offers.get(i).get("email").toString();
-            restAssuredData.aboutMe = offers.get(i).get("additionalInfo").toString();
-            objects.add(restAssuredData);
-            if (restAssuredData.equals(addServiceData)) {
+        JsonPath jsonPathEvaluator = response.jsonPath();
+        List<String> titles = jsonPathEvaluator.getList("content.name");
+        for (String n : titles) {
+            String tmp = RA_title;
+            if (n == tmp) {
+                check = true;
+                break;
+            }
+        }
+    }
+
+    public void RA_checkBasicDescription() {
+        Boolean check = false;
+        RestAssured.baseURI = "https://patronage2018.intive-projects.com/api";
+        RequestSpecification httpRequest = RestAssured.given();
+        Response response = httpRequest.get("/offers");
+        ResponseBody body = response.getBody();
+        JsonPath jsonPathEvaluator = response.jsonPath();
+        List<String> baseDescription = jsonPathEvaluator.getList("baseDescription");
+        for (String n : baseDescription) {
+            String tmp = RA_basicDescription;
+            if (n == tmp) {
                 check = true;
                 break;
             }
@@ -301,5 +261,60 @@ public class AddServicePage {
         Assert.assertTrue(check);
     }
 
+    public void RA_checkExtendedDescription() {
+        Boolean check = false;
+        RestAssured.baseURI = "https://patronage2018.intive-projects.com/api";
+        RequestSpecification httpRequest = RestAssured.given();
+        Response response = httpRequest.get("/offers");
+        ResponseBody body = response.getBody();
+        JsonPath jsonPathEvaluator = response.jsonPath();
+        List<String> extendedDescription = jsonPathEvaluator.getList("extendedDescription");
+        for (String n : extendedDescription) {
+            String tmp = RA_extendedDescription;
+            if (n == tmp) {
+                check = true;
+                break;
+            }
+        }
+        Assert.assertTrue(check);
+    }
+
+    public void RA_checkAboutMe() {
+        Boolean check = false;
+        RestAssured.baseURI = "https://patronage2018.intive-projects.com/api";
+        RequestSpecification httpRequest = RestAssured.given();
+        Response response = httpRequest.get("/offers");
+        ResponseBody body = response.getBody();
+        JsonPath jsonPathEvaluator = response.jsonPath();
+        List<String> aboutMe = jsonPathEvaluator.getList("user.additionalInfo");
+        for(String n: aboutMe) {
+            String tmp = RA_aboutMe;
+            if (n == tmp) {
+                check = true;
+                break;
+            }
+        }
+        Assert.assertTrue(check);
 }
+    public void RA_checkExtraDescription() {
+        Boolean check = false;
+        RestAssured.baseURI = "https://patronage2018.intive-projects.com/api";
+        RequestSpecification httpRequest = RestAssured.given();
+        Response response = httpRequest.get("/offers");
+        ResponseBody body = response.getBody();
+        JsonPath jsonPathEvaluator = response.jsonPath();
+        List<String> extraDescription = jsonPathEvaluator.getList("extraDescription");
+        for (String n : extraDescription) {
+            String tmp = RA_extraDescription;
+            if (n == tmp) {
+                check = true;
+                break;
+            }
+        }
+        Assert.assertTrue(check);
+    }
+
+    }
+
+
 
