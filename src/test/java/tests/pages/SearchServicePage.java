@@ -10,7 +10,7 @@ import static tests.Hooks.driver;
 
 public class SearchServicePage {
 
-    String mainPageUrl = "https://patronage2018.intive-projects.com/";
+    String mainPageUrl = "http://localhost:3000/";
 
     @FindBy(how = How.ID, using = "search__input")
     public WebElement searchField;

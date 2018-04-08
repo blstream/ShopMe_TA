@@ -84,6 +84,11 @@ public class SearchResultsPage {
     public void chooseFirstSearchResult() {
         List<WebElement> list = driver.findElements(By.className("services-item"));
         list.get(0).click();
+        try {
+            Thread.sleep(2000L);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
 
