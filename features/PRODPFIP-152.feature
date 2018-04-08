@@ -11,11 +11,12 @@ Feature: PRODPFIP-152 Specify requirements to searching functionality
     When I try to fill in search field with 1 character
     Then the search button is not clickable
     And I can not submit searching by pressing Enter
+    And I can see error message "Podaj frazę składającą się z większej liczby liter"
 
-  Scenario Outline: Positive flow of searching - searching phrase must have minimum 3 and maximum 30 characters
+  Scenario Outline: Positive flow of searching - searching phrase must have minimum 2 and maximum 30 characters
     Given that there are no services added
     And I add services
-      | dom                            |
+      | QA                             |
       | fotografia ślubna tanio okazja |
     When I navigate to the main page
     And I enter a searching phrase "<searching_phrase>" into the search field
@@ -24,6 +25,6 @@ Feature: PRODPFIP-152 Specify requirements to searching functionality
 
     Examples:
       | searching_phrase               |
-      | dom                            |
+      | QA                             |
       | fotografia ślubna tanio okazja |
 
