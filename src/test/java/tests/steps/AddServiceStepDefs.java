@@ -1,5 +1,6 @@
 package tests.steps;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -23,7 +24,8 @@ public class AddServiceStepDefs {
     }
 
     @And("^I can see adding form$")
-    public void iCanSeeAddingForm() { addServicePage.verifyIfFormIsVisible(); }
+    public void iCanSeeAddingForm() { addServicePage.verifyIfFormIsVisible();
+    }
 
     @When("^I fill in title with \"([^\"]*)\"$")
     public void iFillInTitleWith(String title) {
@@ -32,7 +34,8 @@ public class AddServiceStepDefs {
     }
 
     @And("^I choose category \"([^\"]*)\"$")
-    public void iChooseCategory(String category) { addServicePage.selectServiceCategory(category); }
+    public void iChooseCategory(String category) { addServicePage.selectServiceCategory(category);
+    }
 
     @And("^I fill in name with \"([^\"]*)\"$")
     public void iFillInNameWith(String name) { addServicePage.sendName(name); }
@@ -59,13 +62,11 @@ public class AddServiceStepDefs {
     }
 
     @And("^I press Add service button$")
-    public void iPressAddServiceButton() {
-        addServicePage.pushSubmitButton();
-    }
-
+    public void iPressAddServiceButton() { addServicePage.pushSubmitButton(); }
 
     @And("^I fill in expandedPrice with \"([^\"]*)\"$")
-    public void iFillInExpandedPriceWith(String expandedPrice) { addServicePage.sendExpandedPrice(expandedPrice); }
+    public void iFillInExpandedPriceWith(String expandedPrice) {
+        addServicePage.sendExpandedPrice(expandedPrice); }
 
     @And("^I fill in extraPrice with \"([^\"]*)\"$")
     public void iFillInExtraPriceWith(String extraPrice) { addServicePage.sendExtraPrice(extraPrice); }
@@ -76,11 +77,6 @@ public class AddServiceStepDefs {
         addServicePage.setRA_extendedDescription(expandedDescription);
     }
 
-    @And("^I fill in extraDescription with \"([^\"]*)\"$")
-    public void iFillInExtraDescriptionWith(String extraDescription) {
-        addServicePage.sendExtraDescription(extraDescription);
-        addServicePage.setRA_extraDescription(extraDescription);
-    }
 
     @And("^I fill in basicDescription with (\\d+) characters$")
     public void iFillInBasicDescriptionWithCharacters(int arg0) {
@@ -88,19 +84,12 @@ public class AddServiceStepDefs {
         addServicePage.setRA_basicDescription(addServicePage.generateString(arg0));
     }
 
-
     @And("^I fill in expandedDescription with (\\d+) characters$")
     public void iFillInExpandedDescriptionWithCharacters(int arg0) {
         addServicePage.sendExpandedDescription(arg0);
         addServicePage.setRA_extendedDescription(addServicePage.generateString(arg0));
     }
 
-    @And("^I fill in extraDescription with (\\d+) characters$")
-    public void iFillInExtraDescriptionWithCharacters(int arg0) {
-
-        addServicePage.sendExtraDescription(arg0);
-        addServicePage.setRA_extraDescription(addServicePage.generateString(arg0));
-    }
 
     @And("^I fill in aboutMe with (\\d+) characters$")
     public void iFillInAboutMeWithCharacters(int arg0) {
@@ -109,19 +98,38 @@ public class AddServiceStepDefs {
     }
 
     @Then("^New service with (\\d+) character aboutMe is added$")
-    public void newServiceWithCharacterAboutMeIsAdded(int arg0) { addServicePage.RA_checkAboutMe(); }
+    public void newServiceWithCharacterAboutMeIsAdded(int arg0) {
+        addServicePage.RA_checkAboutMe();
+    }
 
     @Then("^I should see confirmation message \"([^\"]*)\"$")
     public void iShouldSeeConfirmationMessage(String confirmationMessage) {
-        //addServicePage.verifyIfConfirmationMessageIsDisplayed(confirmationMessage);
+        addServicePage.verifyIfConfirmationMessageIsVisible(confirmationMessage);
         addServicePage.RA_checkTitle();
 
     }
 
     @Then("^New basic service with (\\d+) character description is added$")
-    public void newBasicServiceWithCharacterDescriptionIsAdded(int arg0) { addServicePage.RA_checkBasicDescription(); }
+    public void newBasicServiceWithCharacterDescriptionIsAdded(int arg0) {
+        addServicePage.RA_checkBasicDescription();
+    }
 
     @Then("^New service with (\\d+) character expanded and extra descriptions is added$")
-    public void newServiceWithCharacterExpandedAndExtraDescriptionsIsAdded(int arg0) { addServicePage.RA_checkExtraDescription();}
+    public void newServiceWithCharacterExpandedAndExtraDescriptionsIsAdded(int arg0) {
+        addServicePage.RA_checkExtendedDescription();
+        addServicePage.RA_checkExtraDescription();
+    }
+
+    @And("^I fill in extraDescription with \"([^\"]*)\"$")
+    public void iFillInExtraDescriptionWith(String arg0) {
+        addServicePage.sendExtraDescription1(arg0);
+        addServicePage.setRA_extraDescription(arg0);
+    }
+
+    @And("^I fill in extraDescription with (\\d+) characters$")
+    public void iFillInExtraDescriptionWithCharacters(int arg0)  {
+        addServicePage.sendExtraDescription(arg0);
+        addServicePage.setRA_extraDescription(addServicePage.generateString(arg0));
+    }
 }
 
