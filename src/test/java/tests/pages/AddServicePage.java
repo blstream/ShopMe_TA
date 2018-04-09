@@ -1,11 +1,7 @@
-
 package tests.pages;
 
-
 import io.restassured.RestAssured;
-import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
-import io.restassured.response.ResponseBody;
 import io.restassured.specification.RequestSpecification;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
@@ -15,6 +11,7 @@ import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -135,7 +132,7 @@ public class AddServicePage {
     }
 
     public void sendExtraDescription1(String description) {
-            extraDescription.sendKeys(description);
+        extraDescription.sendKeys(description);
     }
 
     public void sendExtraPrice(String extra_price) {
@@ -180,7 +177,7 @@ public class AddServicePage {
         userPhone.sendKeys(phone);
     }
 
-    public void verifyIfConfirmationMessageIsVisible(String message){
+    public void verifyIfConfirmationMessageIsVisible(String message) {
         wait.until(ExpectedConditions.visibilityOf(confirmationMessage));
         Assert.assertTrue(confirmationMessage.isDisplayed());
         Assert.assertTrue(confirmationMessage.getText().contains(message));
@@ -236,52 +233,53 @@ public class AddServicePage {
         }
         Assert.assertTrue(check);
     }
-        public void RA_checkExtendedDescription () {
-            Boolean check = false;
-            RestAssured.baseURI = "https://patronage2018.intive-projects.com/api";
-            RequestSpecification httpRequest = RestAssured.given();
-            Response response = httpRequest.get("/offers");
-            List<String> extendedDescriptions = response.jsonPath().getList("content.extendedDescription");
-            for (String n : extendedDescriptions) {
-                if (n.equals(RA_extendedDescription)) {
-                    check = true;
-                    break;
-                }
-            }
-            Assert.assertTrue(check);
-        }
 
-        public void RA_checkAboutMe () {
-            Boolean check = false;
-            RestAssured.baseURI = "https://patronage2018.intive-projects.com/api";
-            RequestSpecification httpRequest = RestAssured.given();
-            Response response = httpRequest.get("/offers");
-            List<String> additionalInfos = response.jsonPath().getList("content.user.additionalInfo");
-            for (String n : additionalInfos) {
-                if (n.equals(RA_aboutMe)) {
-                    check = true;
-                    break;
-                }
+    public void RA_checkExtendedDescription() {
+        Boolean check = false;
+        RestAssured.baseURI = "https://patronage2018.intive-projects.com/api";
+        RequestSpecification httpRequest = RestAssured.given();
+        Response response = httpRequest.get("/offers");
+        List<String> extendedDescriptions = response.jsonPath().getList("content.extendedDescription");
+        for (String n : extendedDescriptions) {
+            if (n.equals(RA_extendedDescription)) {
+                check = true;
+                break;
             }
-            Assert.assertTrue(check);
         }
-
-        public void RA_checkExtraDescription () {
-            Boolean check = false;
-            RestAssured.baseURI = "https://patronage2018.intive-projects.com/api";
-            RequestSpecification httpRequest = RestAssured.given();
-            Response response = httpRequest.get("/offers");
-            List<String> extraDescriptions = response.jsonPath().getList("content.extraDescription");
-            for (String n : extraDescriptions) {
-                if (n.equals(RA_extraDescription)) {
-                    check = true;
-                    break;
-                }
-            }
-            Assert.assertTrue(check);
-        }
-
+        Assert.assertTrue(check);
     }
+
+    public void RA_checkAboutMe() {
+        Boolean check = false;
+        RestAssured.baseURI = "https://patronage2018.intive-projects.com/api";
+        RequestSpecification httpRequest = RestAssured.given();
+        Response response = httpRequest.get("/offers");
+        List<String> additionalInfos = response.jsonPath().getList("content.user.additionalInfo");
+        for (String n : additionalInfos) {
+            if (n.equals(RA_aboutMe)) {
+                check = true;
+                break;
+            }
+        }
+        Assert.assertTrue(check);
+    }
+
+    public void RA_checkExtraDescription() {
+        Boolean check = false;
+        RestAssured.baseURI = "https://patronage2018.intive-projects.com/api";
+        RequestSpecification httpRequest = RestAssured.given();
+        Response response = httpRequest.get("/offers");
+        List<String> extraDescriptions = response.jsonPath().getList("content.extraDescription");
+        for (String n : extraDescriptions) {
+            if (n.equals(RA_extraDescription)) {
+                check = true;
+                break;
+            }
+        }
+        Assert.assertTrue(check);
+    }
+
+}
 
 
 

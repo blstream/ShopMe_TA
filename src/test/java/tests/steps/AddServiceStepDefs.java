@@ -1,6 +1,5 @@
 package tests.steps;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -24,7 +23,8 @@ public class AddServiceStepDefs {
     }
 
     @And("^I can see adding form$")
-    public void iCanSeeAddingForm() { addServicePage.verifyIfFormIsVisible();
+    public void iCanSeeAddingForm() {
+        addServicePage.verifyIfFormIsVisible();
     }
 
     @When("^I fill in title with \"([^\"]*)\"$")
@@ -34,20 +34,29 @@ public class AddServiceStepDefs {
     }
 
     @And("^I choose category \"([^\"]*)\"$")
-    public void iChooseCategory(String category) { addServicePage.selectServiceCategory(category);
+    public void iChooseCategory(String category) {
+        addServicePage.selectServiceCategory(category);
     }
 
     @And("^I fill in name with \"([^\"]*)\"$")
-    public void iFillInNameWith(String name) { addServicePage.sendName(name); }
+    public void iFillInNameWith(String name) {
+        addServicePage.sendName(name);
+    }
 
     @And("^I fill in email with \"([^\"]*)\"$")
-    public void iFillInEmailWith(String email) { addServicePage.sendEmail(email); }
+    public void iFillInEmailWith(String email) {
+        addServicePage.sendEmail(email);
+    }
 
     @And("^I fill in phone with \"([^\"]*)\"$")
-    public void iFillInPhoneWith(String phone) { addServicePage.sendUserPhone(phone); }
+    public void iFillInPhoneWith(String phone) {
+        addServicePage.sendUserPhone(phone);
+    }
 
     @And("^I fill in basicPrice with \"([^\"]*)\"$")
-    public void iFillInBasicPriceWith(String basicPrice) { addServicePage.sendBasicPrice(basicPrice); }
+    public void iFillInBasicPriceWith(String basicPrice) {
+        addServicePage.sendBasicPrice(basicPrice);
+    }
 
     @And("^I fill in basicDescription with \"([^\"]*)\"$")
     public void iFillInBasicDescriptionWith(String basicDescription) {
@@ -62,14 +71,19 @@ public class AddServiceStepDefs {
     }
 
     @And("^I press Add service button$")
-    public void iPressAddServiceButton() { addServicePage.pushSubmitButton(); }
+    public void iPressAddServiceButton() {
+        addServicePage.pushSubmitButton();
+    }
 
     @And("^I fill in expandedPrice with \"([^\"]*)\"$")
     public void iFillInExpandedPriceWith(String expandedPrice) {
-        addServicePage.sendExpandedPrice(expandedPrice); }
+        addServicePage.sendExpandedPrice(expandedPrice);
+    }
 
     @And("^I fill in extraPrice with \"([^\"]*)\"$")
-    public void iFillInExtraPriceWith(String extraPrice) { addServicePage.sendExtraPrice(extraPrice); }
+    public void iFillInExtraPriceWith(String extraPrice) {
+        addServicePage.sendExtraPrice(extraPrice);
+    }
 
     @And("^I fill in expandedDescription with \"([^\"]*)\"$")
     public void iFillInExpandedDescriptionWith(String expandedDescription) {
@@ -127,7 +141,7 @@ public class AddServiceStepDefs {
     }
 
     @And("^I fill in extraDescription with (\\d+) characters$")
-    public void iFillInExtraDescriptionWithCharacters(int arg0)  {
+    public void iFillInExtraDescriptionWithCharacters(int arg0) {
         addServicePage.sendExtraDescription(arg0);
         addServicePage.setRA_extraDescription(addServicePage.generateString(arg0));
     }
