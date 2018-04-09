@@ -23,5 +23,5 @@ Feature: PRODPFIP-23 Possibility to see the profile page of the service
 
     Examples:
       | searching_phrase | title | category | user_name | email           | phone     | user_info | basic_info | basic_price | extended_info | extended_price | extra_info | extra_price |
-      | test             | test  | inne     | test      | test@domain.com | 888555222 | test      | test       | Cena: 10zł  | test          | Cena: 20zł     | test       | Cena: 30zł  |
+      | test             | test  | budowa   | test      | test@domain.com | 888555222 | test      | test       | Cena: 10zł  | test          | Cena: 20zł     | test       | Cena: 30zł  |
 
