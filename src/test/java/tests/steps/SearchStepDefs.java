@@ -36,15 +36,27 @@ public class SearchStepDefs {
         RequestSpecification httpRequest = RestAssured.given();
         Response response = httpRequest.get("/offers");
         ResponseBody body = response.getBody();
-        List<HashMap> offers = new JsonPath(body.asString()).get(".");
-        for (int i = 0; i < offers.size(); i++) {
-            String offer = offers.get(i).get("id").toString();
-            RestAssured.given().when().delete("/offers/" + offer);
+
+        HashMap offersResponse = new JsonPath(body.asString()).get(".");
+        List<HashMap> offers = (List<HashMap>) offersResponse.get("content");
+        Integer total = Integer.parseInt(offersResponse.get("totalElements").toString());
+        if (total <= 0) {
+            return;
         }
-        response = httpRequest.get("/offers");
-        body = response.getBody();
-        offers = new JsonPath(body.asString()).get(".");
-        assertTrue(offers.size() == 0);
+        for (; ; ) {
+            for (int i = 0; i < offers.size(); i++) {
+                String offer = offers.get(i).get("id").toString();
+                RestAssured.given().when().delete("/offers/" + offer);
+                }
+            response = httpRequest.get("/offers");
+            body = response.getBody();
+            offersResponse = new JsonPath(body.asString()).get(".");
+            offers = (List<HashMap>) offersResponse.get("content");
+            total = Integer.parseInt(offersResponse.get("totalElements").toString());
+            if (total <= 0) {
+                break;
+                }
+        }
     }
 
     @And("^I add services$")
@@ -130,7 +142,7 @@ public class SearchStepDefs {
         for (int i = 0; i < dates.size() - 1; i++) {
             Long nextDataL = Long.valueOf(dates.get(i + 1));
             Long actualDateL = Long.valueOf(dates.get(i));
-            assertTrue(actualDateL <= nextDataL);
+            assertTrue(actualDateL >= nextDataL);
         }
     }
 
