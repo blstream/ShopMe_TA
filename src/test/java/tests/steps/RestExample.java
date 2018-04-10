@@ -1,5 +1,6 @@
 package tests.steps;
 
+import com.google.gson.Gson;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -8,6 +9,7 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.response.ResponseBody;
 import io.restassured.specification.RequestSpecification;
+import tests.objects.Staff;
 
 import java.util.HashMap;
 import java.util.List;
@@ -71,7 +73,7 @@ public class RestExample {
 
 //        RestAssured.baseURI = "http://restapi.demoqa.com/utilities/weather/city";
         Response response = RestAssured.given().get("http://restapi.demoqa.com/utilities/weather/city/Szczecin");
-        RestAssured.given().get("http://restapi.demoqa.com/utilities/weather/city/Szczecin").then().assertThat().statusCode(500);
+        RestAssured.given().get("http://restapi.demoqa.com/utilities/weather/city/Szczecin").then().assertThat().statusCode(200);
 
         // Retrieve the body of the Response
         ResponseBody body = response.getBody();
@@ -80,9 +82,10 @@ public class RestExample {
         // By using the ResponseBody.asString() method, we can convert the  body
         // into the string representation.
         System.out.println("Response Body is: " + body.asString());
-    }
-//    Gson gson = new Gson();
 
-//    Staff staff = gson.fromJson(body.asString(), Staff.class);
-//        System.out.println("OBJECT is: " + staff.toString());
+        Gson gson = new Gson();
+
+        Staff staff = gson.fromJson(body.asString(), Staff.class);
+        System.out.println("OBJECT is: " + staff.toString());
+    }
 }
