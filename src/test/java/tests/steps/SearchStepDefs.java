@@ -17,8 +17,11 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import tests.pages.SearchResultsPage;
 import tests.pages.SearchServicePage;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -150,9 +153,12 @@ public class SearchStepDefs {
     public void allResultsAreSortedInDescendingWay() {
         List<String> dates = searchResultsPage.getElementsDates();
         for (int i = 0; i < dates.size() - 1; i++) {
-            Long nextDataL = Long.valueOf(dates.get(i + 1));
-            Long actualDateL = Long.valueOf(dates.get(i));
-            assertTrue(actualDateL >= nextDataL);
+            String nextDataL = String.valueOf(dates.get(i + 1));
+            String actualDateL = String.valueOf(dates.get(i));
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+            LocalDate dateNext = LocalDate.parse(nextDataL, formatter);
+            LocalDate dateActual = LocalDate.parse(actualDateL, formatter);
+            assertTrue(dateNext.compareTo(dateActual) >= 0);
         }
     }
 
