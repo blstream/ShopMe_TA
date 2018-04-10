@@ -12,8 +12,6 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.response.ResponseBody;
 import io.restassured.specification.RequestSpecification;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import tests.pages.SearchResultsPage;
 import tests.pages.SearchServicePage;
 
@@ -22,7 +20,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static tests.Hooks.wait;
+
 
 public class SearchStepDefs {
 
@@ -160,5 +158,19 @@ public class SearchStepDefs {
     @Then("^search results for the new phrase \"([^\"]*)\" are visible$")
     public void searchResultsForTheNewPhraseAreVisible(String expectedService) {
         searchResultsPage.areNewResultsPresent(expectedService);
+    }
+
+    @When("^I try to fill in search field with (\\d+) characters$")
+    public void iTryToFillInSearchFieldWithCharacters(int phraseLength) {
+        searchServicePage.sendBasicDescription(phraseLength);
+    }
+
+    @Then("^I should see in search field exactly (\\d+) characters$")
+    public void iShouldSeeInSearchFieldExactlyCharacters(int expectedPhraseLength) {
+
+    }
+
+    @Then("^the search button is not clickable$")
+    public void theSearchButtonIsNotClickable() {
     }
 }

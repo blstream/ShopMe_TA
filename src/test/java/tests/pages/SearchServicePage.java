@@ -1,5 +1,6 @@
 package tests.pages;
 
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -40,4 +41,13 @@ public class SearchServicePage {
     public void submitByEnter() {
         searchSubmit.sendKeys(Keys.ENTER);
     }
+
+    public String generateString(int phraseLength) {
+        return StringUtils.leftPad("", phraseLength, 'a');
+    }
+
+    public void sendBasicDescription(int phraseLength) {
+        searchField.sendKeys(generateString(phraseLength));
+    }
+    
 }
