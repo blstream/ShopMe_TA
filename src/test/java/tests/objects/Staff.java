@@ -21,7 +21,7 @@ public class Staff {
         if (Humidity != null ? !Humidity.equals(staff.Humidity) : staff.Humidity != null) return false;
         if (WeatherDescription != null ? !WeatherDescription.equals(staff.WeatherDescription) : staff.WeatherDescription != null)
             return false;
-        if (WindSpeed != null ? !WindSpeed.equals(staff.WindSpeed) : staff.WindSpeed != null) return false;
+  //      if (WindSpeed != null ? !WindSpeed.equals(staff.WindSpeed) : staff.WindSpeed != null) return false;
         return WindDirectionDegree != null ? WindDirectionDegree.equals(staff.WindDirectionDegree) : staff.WindDirectionDegree == null;
     }
 

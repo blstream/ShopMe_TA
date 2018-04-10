@@ -6,6 +6,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import tests.objects.MyServices;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -90,5 +91,28 @@ public class SearchResultsPage {
             e.printStackTrace();
         }
     }
+    public String getTitle(int line) {
+        List<WebElement> titlesWebElements = resultsList.findElements(By.className("services-item__title"));
+        return titlesWebElements.get(line).getText();
+    }
+    public String getPrice(int line ) {
+        List<WebElement> pricesWebElements = resultsList.findElements(By.className("services-item__price"));
+        return pricesWebElements.get(line).getText();
+    }
+
+    public String getDate(int line) {
+        List<WebElement> datesWebElements = resultsList.findElements(By.className("services-item__date"));
+        return datesWebElements.get(line).getText();
+    }
+
+    public MyServices getService(int line) {
+//        String title
+//                Float
+        Long date = 1523368623815L;
+        Float price = 12.34F;
+        MyServices service = new MyServices(date, getTitle(line), price);
+        return service;
+    }
+
 }
 
