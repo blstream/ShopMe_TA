@@ -1,11 +1,13 @@
 package tests.pages;
 
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 
+import static org.junit.Assert.assertFalse;
 import static tests.Hooks.driver;
 
 public class SearchServicePage {
@@ -18,8 +20,8 @@ public class SearchServicePage {
     @FindBy(how = How.CLASS_NAME, using = "form__button--submit")
     public WebElement searchSubmit;
 
-    public SearchServicePage() {
 
+    public SearchServicePage() {
         PageFactory.initElements(driver, this);
     }
 
@@ -39,5 +41,21 @@ public class SearchServicePage {
 
     public void submitByEnter() {
         searchSubmit.sendKeys(Keys.ENTER);
+    }
+
+    public String generateString(int phraseLength) {
+        return StringUtils.leftPad("", phraseLength, 'a');
+    }
+
+    public void sendSearchPhrase(int phraseLength) {
+        searchField.sendKeys(generateString(phraseLength));
+    }
+
+    public int getSearchPhraseLength() {
+        return searchField.getAttribute("value").length();
+    }
+
+    public void searchBtnIsNotClickable() {
+       assertFalse(searchSubmit.isEnabled());
     }
 }
