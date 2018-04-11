@@ -11,6 +11,8 @@ import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -63,6 +65,11 @@ public class AddServicePage {
     @FindBy(how = How.CLASS_NAME, using = "input-select__item-option")
     public WebElement selectOption;
 
+    @FindBy(how = How.CLASS_NAME, using = "add-form")
+    public WebElement error;
+
+    private List<String> valuesBefore = new ArrayList<>();
+    private List<String> valuesAfter = new ArrayList<>();
     public String RA_title;
     public String RA_basicDescription;
     public String RA_extendedDescription;
@@ -125,12 +132,20 @@ public class AddServicePage {
         expandedPrice.sendKeys(expanded_price);
     }
 
-    public void sendExtraDescription1(String description) {
-        extraDescription.sendKeys(description);
+    public void sendExtraDescription(String description) {
+        if (description.isEmpty()) {
+            return;
+        } else {
+            extraDescription.sendKeys(description);
+        }
     }
 
-    public void sendExtraPrice(String extra_price) {
-        extraPrice.sendKeys(extra_price);
+    public void sendExtraPrice(String extraPrice) {
+        if (extraPrice.isEmpty()) {
+            return;
+        } else {
+            this.extraPrice.sendKeys(extraPrice);
+        }
     }
 
     public void sendAboutMe(String about_me) {
@@ -182,7 +197,7 @@ public class AddServicePage {
     }
 
     public void verifyIfFormIsVisible() {
-        wait.until(ExpectedConditions.elementToBeClickable(submitButton));
+        waitUntilPageIsLoaded();
         Assert.assertTrue(offerTitle.isDisplayed());
     }
 
@@ -259,5 +274,93 @@ public class AddServicePage {
             }
         }
         Assert.assertTrue(check);
+    }
+
+    private void saveAllValues(List<String> values) {
+        values.clear();
+        values.add(offerTitle.getAttribute("value"));
+        values.add(serviceCategory.getAttribute("value"));
+        values.add(basicDescription.getAttribute("value"));
+        values.add(basicPrice.getAttribute("value"));
+        values.add(expandedDescription.getAttribute("value"));
+        values.add(expandedPrice.getAttribute("value"));
+        values.add(extraDescription.getAttribute("value"));
+        values.add(extraPrice.getAttribute("value"));
+        values.add(userName.getAttribute("value"));
+        values.add(userEmail.getAttribute("value"));
+        values.add(userPhone.getAttribute("value"));
+        values.add(aboutMe.getAttribute("value"));
+    }
+
+    public void verifyIfValuesEqualsAfterPageRefresh() {
+        Assert.assertEquals(valuesBefore, valuesAfter);
+    }
+
+    public void verifyIfValidationErrorMessageIsVisible(String message) {
+        waitUntilPageIsLoaded();
+        Assert.assertTrue(error.getText().contains(message));
+    }
+
+    public void waitUntilPageIsLoaded() {
+        wait.until(ExpectedConditions.elementToBeClickable(submitButton));
+    }
+
+    public void verifyIfTitleInputLimited(int expectedLength) {
+        int actualLength = offerTitle.getAttribute("value").length();
+        Assert.assertEquals(expectedLength, actualLength);
+    }
+
+    public void verifyIfNameInputLimited(int expectedLength) {
+        int actualLength = userName.getAttribute("value").length();
+        Assert.assertEquals(expectedLength, actualLength);
+    }
+
+    public void verifyIfPhoneInputLimited(int expectedLength) {
+        int actualLength = userPhone.getAttribute("value").length();
+        Assert.assertEquals(expectedLength, actualLength);
+    }
+
+    public void verifyIfBasicPriceInputLimited(int expectedLength) {
+        String price = basicPrice.getAttribute("value");
+        int placeOfComma = price.indexOf(',');
+        int actualLength = price.length() - placeOfComma - 4;
+        Assert.assertEquals(expectedLength,actualLength);
+    }
+
+    public void verifyIfBasicDescriptionInputLimited(int expectedLength) {
+        int actualLength = basicDescription.getAttribute("value").length();
+        Assert.assertEquals(expectedLength, actualLength);
+    }
+
+    public void verifyIfExpandedDescriptionInputLimited(int expectedLength) {
+        int actualLength = expandedDescription.getAttribute("value").length();
+        Assert.assertEquals(expectedLength, actualLength);
+    }
+
+    public void verifyIfExtraDescritpionInputLimited(int expectedLength) {
+        int actualLength = extraDescription.getAttribute("value").length();
+        Assert.assertEquals(expectedLength, actualLength);
+    }
+
+    public void verifyIfAboutMeInputLimited(int expectedLength) {
+        int actualLength = aboutMe.getAttribute("value").length();
+        Assert.assertEquals(expectedLength, actualLength);
+    }
+
+    public void verifyIfExpandedDescriptionAndPriceAreBlocked() {
+        boolean isEnabled = expandedDescription.isEnabled();
+        Assert.assertFalse(isEnabled);
+    }
+
+    public void verifyIfExtraDescriptionAndPriceAreBlocked() {
+        boolean isEnabled = extraDescription.isEnabled();
+        Assert.assertFalse(isEnabled);
+    }
+
+    public void pushSubmitButtonWithFail() {
+        waitUntilPageIsLoaded();
+        saveAllValues(valuesBefore);
+        submitButton.click();
+        saveAllValues(valuesAfter);
     }
 }

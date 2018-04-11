@@ -1,5 +1,6 @@
 package tests.steps;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -132,7 +133,7 @@ public class AddServiceStepDefs {
 
     @And("^I fill in extraDescription with \"([^\"]*)\"$")
     public void iFillInExtraDescriptionWith(String extraDescription) {
-        addServicePage.sendExtraDescription1(extraDescription);
+        addServicePage.sendExtraDescription(extraDescription);
         addServicePage.setRA_extraDescription(extraDescription);
     }
 
@@ -140,6 +141,81 @@ public class AddServiceStepDefs {
     public void iFillInExtraDescriptionWithCharacters(int phraseLength) {
         addServicePage.sendExtraDescription(phraseLength);
         addServicePage.setRA_extraDescription(addServicePage.generateString(phraseLength));
+    }
+
+    @Then("^I should see an error message \"([^\"]*)\" next to the required field$")
+    public void iShouldSeeAnErrorMessageNextToTheRequiredField(String message) {
+        addServicePage.verifyIfValidationErrorMessageIsVisible(message);
+    }
+
+    @And("^I should see a message \"([^\"]*)\"$")
+    public void iShouldSeeAMessage(String message) {
+        addServicePage.verifyIfValidationErrorMessageIsVisible(message);
+    }
+
+    @And("^I should see inserted values in filled fields$")
+    public void iShouldSeeInsertedValuesInFilledFields() {
+        addServicePage.verifyIfValuesEqualsAfterPageRefresh();
+    }
+
+    @And("^I should see an error message \"([^\"]*)\" next to the field with invalid data$")
+    public void iShouldSeeAnErrorMessageNextToTheFieldWithInvalidData(String error_message) {
+        addServicePage.verifyIfValidationErrorMessageIsVisible(error_message);
+    }
+
+    @Then("^I should see in about_me maximum (\\d+) characters$")
+    public void iShouldSeeInAbout_meMaximumCharacters(int maximumLength) {
+        addServicePage.verifyIfAboutMeInputLimited(maximumLength);
+    }
+
+    @Then("^I should see in title maximum (\\d+) characters$")
+    public void iShouldSeeInTitleMaximumCharacters(int maximumLength) {
+        addServicePage.verifyIfTitleInputLimited(maximumLength);
+    }
+
+    @Then("^I should see in name  maximum (\\d+) characters$")
+    public void iShouldSeeInNameMaximumCharacters(int maximumLength) {
+        addServicePage.verifyIfNameInputLimited(maximumLength);
+    }
+
+    @Then("^I should see in basic_price maximum (\\d+) decimal places$")
+    public void iShouldSeeInBasic_priceMaximumDecimalPlaces(int maximumLength) {
+        addServicePage.verifyIfBasicPriceInputLimited(maximumLength);
+    }
+
+    @And("^I should see in phone maximum (\\d+) characters$")
+    public void iShouldSeeInPhoneMaximumCharacters(int maximumLength) {
+        addServicePage.verifyIfPhoneInputLimited(maximumLength);
+    }
+
+    @Then("^I should see that expanded_description and expanded_price fields are blocked$")
+    public void iShouldSeeThatExpanded_descriptionAndExpanded_priceFieldsAreBlocked() {
+        addServicePage.verifyIfExpandedDescriptionAndPriceAreBlocked();
+    }
+
+    @Then("^I should see that extra_description and extra_price fields are blocked$")
+    public void iShouldSeeThatExtra_descriptionAndExtra_priceFieldsAreBlocked() {
+        addServicePage.verifyIfExtraDescriptionAndPriceAreBlocked();
+    }
+
+    @Then("^I should see in expanded_description maximum (\\d+) characters$")
+    public void iShouldSeeInExpanded_descriptionMaximumCharacters(int maximumLength) {
+        addServicePage.verifyIfExpandedDescriptionInputLimited(maximumLength);
+    }
+
+    @And("^I should see in extra_description maximum (\\d+) characters$")
+    public void iShouldSeeInExtra_descriptionMaximumCharacters(int maximumLength) {
+        addServicePage.verifyIfExtraDescritpionInputLimited(maximumLength);
+    }
+
+    @Then("^I should see in basic_description maximum (\\d+) characters$")
+    public void iShouldSeeInBasic_descriptionMaximumCharacters(int maximumLength) {
+        addServicePage.verifyIfBasicDescriptionInputLimited(maximumLength);
+    }
+
+    @And("^I press Add service button with fail$")
+    public void iPressAddServiceButtonWithFail() {
+        addServicePage.pushSubmitButtonWithFail();
     }
 }
 
