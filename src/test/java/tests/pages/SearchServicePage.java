@@ -5,8 +5,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import static tests.Hooks.driver;
+import static tests.Hooks.wait;
 
 public class SearchServicePage {
 
@@ -29,6 +31,7 @@ public class SearchServicePage {
     }
 
     public void getSearchResult(String searchPhrase) {
+        wait.until(ExpectedConditions.visibilityOf(searchField));
         searchField.clear();
         searchField.sendKeys(searchPhrase);
     }
