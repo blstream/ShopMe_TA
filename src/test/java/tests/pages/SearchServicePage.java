@@ -7,7 +7,10 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.concurrent.TimeUnit;
+
 import static tests.Hooks.driver;
+import static tests.Hooks.wait;
 
 public class SearchServicePage {
 
@@ -19,8 +22,8 @@ public class SearchServicePage {
     @FindBy(how = How.CLASS_NAME, using = "form__button--submit")
     public WebElement searchSubmit;
 
-    public SearchServicePage() {
 
+    public SearchServicePage() {
         PageFactory.initElements(driver, this);
     }
 
@@ -46,8 +49,15 @@ public class SearchServicePage {
         return StringUtils.leftPad("", phraseLength, 'a');
     }
 
-    public void sendBasicDescription(int phraseLength) {
+    public void sendSearchPhrase(int phraseLength) {
         searchField.sendKeys(generateString(phraseLength));
     }
-    
+
+    public int getSearchPhraseLength() {
+        return searchField.getAttribute("value").length();
+    }
+
+    public boolean searchBtnIsNotClickable() {
+        return searchSubmit.isEnabled();
+    }
 }

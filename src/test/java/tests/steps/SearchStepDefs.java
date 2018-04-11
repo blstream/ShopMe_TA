@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 
@@ -162,15 +163,17 @@ public class SearchStepDefs {
 
     @When("^I try to fill in search field with (\\d+) characters$")
     public void iTryToFillInSearchFieldWithCharacters(int phraseLength) {
-        searchServicePage.sendBasicDescription(phraseLength);
+        searchServicePage.sendSearchPhrase(phraseLength);
     }
 
     @Then("^I should see in search field exactly (\\d+) characters$")
     public void iShouldSeeInSearchFieldExactlyCharacters(int expectedPhraseLength) {
-
+        int phraseLength = searchServicePage.getSearchPhraseLength();
+        assertEquals(expectedPhraseLength, phraseLength);
     }
 
     @Then("^the search button is not clickable$")
     public void theSearchButtonIsNotClickable() {
+        assertFalse(searchServicePage.searchBtnIsNotClickable());
     }
 }
