@@ -21,10 +21,13 @@ public class ServiceProfilePage {
     @FindBy(how = How.CLASS_NAME, using = "offer-details__contact--container--email")
     public WebElement userEmail;
 
+    @FindBy(how = How.CLASS_NAME, using = "offer-details__contact--button")
+    public WebElement showButton;
+
     @FindBy(how = How.CLASS_NAME, using = "offer-details__contact--container--phone")
     public WebElement userPhone;
 
-    @FindBy(how = How.CLASS_NAME, using = "offer-details__contact--additional-info")
+    @FindBy(how = How.XPATH, using = "//*[@id=\"root\"]/div/main/div/div[1]/div[2]/p")
     public WebElement userInfo;
 
     @FindBy(how = How.CLASS_NAME, using = "offer-details__offers--base--description")
@@ -50,6 +53,60 @@ public class ServiceProfilePage {
         PageFactory.initElements(driver, this);
     }
 
+    public String getTitleFieldText(){
+        return serviceTitle.getText();
+    }
 
+    public String getCategoryFieldText(){
+        return serviceCategory.getText();
+    }
+
+    public String getUserNameFieldText(){
+        return userName.getText();
+    }
+
+    public String getUserEmailFieldText(){
+        return userEmail.getText();
+    }
+
+    public String getUserPhoneFieldText() {
+        return userPhone.getText();
+    }
+
+    public String getUserInfoFieldText() {
+        return userInfo.getText();
+    }
+
+    public String getBasicInfoFieldText() {
+        return basicInfo.getText();
+    }
+
+    public String getBasicPriceFieldText() {
+        return basicPrice.getText();
+    }
+
+    public String getExtendedInfoFieldText() {
+        return extendedInfo.getText();
+    }
+
+    public String getExtendedPriceFieldText() {
+        return extendedPrice.getText();
+    }
+
+    public String getExtraInfoFieldText() {
+        return extraInfo.getText();
+    }
+
+    public String getExtraPriceFieldText() {
+        return extraPrice.getText();
+    }
+
+    public void showUserEmail(){
+        showButton.click();
+    }
+
+    public void showUserPhone(){
+        showButton.click();
+    }
 }
 

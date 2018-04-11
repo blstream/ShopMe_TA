@@ -80,4 +80,15 @@ public class SearchResultsPage {
     public String getFirstService() {
         return firstService.getText();
     }
+
+    public void chooseFirstSearchResult() {
+        List<WebElement> list = driver.findElements(By.className("services-item__title"));
+        list.get(0).click();
+        try {
+            Thread.sleep(2000L);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 }
+
