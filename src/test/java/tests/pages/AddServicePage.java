@@ -11,7 +11,6 @@ import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
-
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -86,9 +85,7 @@ public class AddServicePage {
         this.RA_basicDescription = RA_basicDescription;
     }
 
-    public void setRA_extendedDescription(String RA_extendedDescription) {
-        this.RA_extendedDescription = RA_extendedDescription;
-    }
+    public void setRA_extendedDescription(String RA_extendedDescription) { this.RA_extendedDescription = RA_extendedDescription; }
 
     public void setRA_extraDescription(String RA_extraDescription) {
         this.RA_extraDescription = RA_extraDescription;
@@ -97,7 +94,6 @@ public class AddServicePage {
     public void setRA_aboutMe(String RA_aboutMe) {
         this.RA_aboutMe = RA_aboutMe;
     }
-
 
     public AddServicePage() {
         PageFactory.initElements(driver, this);
@@ -123,9 +119,7 @@ public class AddServicePage {
         basicPrice.sendKeys(price);
     }
 
-    public void sendExpandedDescription(String expanded_description) {
-        expandedDescription.sendKeys(expanded_description);
-    }
+    public void sendExpandedDescription(String expanded_description) { expandedDescription.sendKeys(expanded_description); }
 
     public void sendExpandedPrice(String expanded_price) {
         expandedPrice.sendKeys(expanded_price);
@@ -149,25 +143,13 @@ public class AddServicePage {
         waitForResult();
     }
 
-    public void sendBasicDescription(int length) {
+    public void sendBasicDescription(int length) { basicDescription.sendKeys(generateString(length)); }
 
-        basicDescription.sendKeys(generateString(length));
-    }
+    public void sendExpandedDescription(int length) { expandedDescription.sendKeys(generateString(length)); }
 
-    public void sendExpandedDescription(int length) {
+    public void sendExtraDescription(int length) { extraDescription.sendKeys(generateString(length)); }
 
-        expandedDescription.sendKeys(generateString(length));
-    }
-
-    public void sendExtraDescription(int length) {
-
-        extraDescription.sendKeys(generateString(length));
-    }
-
-    public void sendAboutMeDescription(int length) {
-
-        aboutMe.sendKeys(generateString(length));
-    }
+    public void sendAboutMeDescription(int length) { aboutMe.sendKeys(generateString(length)); }
 
     public String generateString(int length) {
         return StringUtils.leftPad("", length, 'a');
@@ -278,10 +260,4 @@ public class AddServicePage {
         }
         Assert.assertTrue(check);
     }
-
 }
-
-
-
-
-

@@ -93,26 +93,25 @@ public class AddServiceStepDefs {
 
 
     @And("^I fill in basicDescription with (\\d+) characters$")
-    public void iFillInBasicDescriptionWithCharacters(int arg0) {
-        addServicePage.sendBasicDescription(arg0);
-        addServicePage.setRA_basicDescription(addServicePage.generateString(arg0));
+    public void iFillInBasicDescriptionWithCharacters(int phraseLength) {
+        addServicePage.sendBasicDescription(phraseLength);
+        addServicePage.setRA_basicDescription(addServicePage.generateString(phraseLength));
     }
 
     @And("^I fill in expandedDescription with (\\d+) characters$")
-    public void iFillInExpandedDescriptionWithCharacters(int arg0) {
-        addServicePage.sendExpandedDescription(arg0);
-        addServicePage.setRA_extendedDescription(addServicePage.generateString(arg0));
+    public void iFillInExpandedDescriptionWithCharacters(int phraseLength) {
+        addServicePage.sendExpandedDescription(phraseLength);
+        addServicePage.setRA_extendedDescription(addServicePage.generateString(phraseLength));
     }
 
-
     @And("^I fill in aboutMe with (\\d+) characters$")
-    public void iFillInAboutMeWithCharacters(int arg0) {
-        addServicePage.sendAboutMeDescription(arg0);
-        addServicePage.setRA_aboutMe(addServicePage.generateString(arg0));
+    public void iFillInAboutMeWithCharacters(int phraseLength) {
+        addServicePage.sendAboutMeDescription(phraseLength);
+        addServicePage.setRA_aboutMe(addServicePage.generateString(phraseLength));
     }
 
     @Then("^New service with (\\d+) character aboutMe is added$")
-    public void newServiceWithCharacterAboutMeIsAdded(int arg0) {
+    public void newServiceWithCharacterAboutMeIsAdded(int phraseLength) {
         addServicePage.RA_checkAboutMe();
     }
 
@@ -120,30 +119,27 @@ public class AddServiceStepDefs {
     public void iShouldSeeConfirmationMessage(String confirmationMessage) {
         addServicePage.verifyIfConfirmationMessageIsVisible(confirmationMessage);
         addServicePage.RA_checkTitle();
-
     }
 
     @Then("^New basic service with (\\d+) character description is added$")
-    public void newBasicServiceWithCharacterDescriptionIsAdded(int arg0) {
-        addServicePage.RA_checkBasicDescription();
-    }
+    public void newBasicServiceWithCharacterDescriptionIsAdded(int phraseLength) { addServicePage.RA_checkBasicDescription(); }
 
     @Then("^New service with (\\d+) character expanded and extra descriptions is added$")
-    public void newServiceWithCharacterExpandedAndExtraDescriptionsIsAdded(int arg0) {
+    public void newServiceWithCharacterExpandedAndExtraDescriptionsIsAdded(int phraseLength) {
         addServicePage.RA_checkExtendedDescription();
         addServicePage.RA_checkExtraDescription();
     }
 
     @And("^I fill in extraDescription with \"([^\"]*)\"$")
-    public void iFillInExtraDescriptionWith(String arg0) {
-        addServicePage.sendExtraDescription1(arg0);
-        addServicePage.setRA_extraDescription(arg0);
+    public void iFillInExtraDescriptionWith(String extraDescription) {
+        addServicePage.sendExtraDescription1(extraDescription);
+        addServicePage.setRA_extraDescription(extraDescription);
     }
 
     @And("^I fill in extraDescription with (\\d+) characters$")
-    public void iFillInExtraDescriptionWithCharacters(int arg0) {
-        addServicePage.sendExtraDescription(arg0);
-        addServicePage.setRA_extraDescription(addServicePage.generateString(arg0));
+    public void iFillInExtraDescriptionWithCharacters(int phraseLength) {
+        addServicePage.sendExtraDescription(phraseLength);
+        addServicePage.setRA_extraDescription(addServicePage.generateString(phraseLength));
     }
 }
 
