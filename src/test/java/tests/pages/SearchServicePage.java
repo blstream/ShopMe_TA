@@ -67,4 +67,4 @@ public class SearchServicePage {
             wait.until(ExpectedConditions.elementToBeClickable(newServiceButton)).click();
         }
     }
-}
+
