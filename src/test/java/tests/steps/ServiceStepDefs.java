@@ -3,7 +3,6 @@ package tests.steps;
 import cucumber.api.java.en.And;
 import tests.pages.SearchResultsPage;
 import tests.pages.ServiceProfilePage;
-
 import static org.junit.Assert.assertEquals;
 
 public class ServiceStepDefs {
