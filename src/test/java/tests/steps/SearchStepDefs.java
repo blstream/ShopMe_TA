@@ -14,13 +14,10 @@ import io.restassured.response.ResponseBody;
 import io.restassured.specification.RequestSpecification;
 import tests.pages.SearchResultsPage;
 import tests.pages.SearchServicePage;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
