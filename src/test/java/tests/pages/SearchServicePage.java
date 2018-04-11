@@ -7,6 +7,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 
+import static org.junit.Assert.assertFalse;
 import static tests.Hooks.driver;
 
 public class SearchServicePage {
@@ -54,7 +55,7 @@ public class SearchServicePage {
         return searchField.getAttribute("value").length();
     }
 
-    public boolean searchBtnIsNotClickable() {
-        return searchSubmit.isEnabled();
+    public void searchBtnIsNotClickable() {
+       assertFalse(searchSubmit.isEnabled());
     }
 }

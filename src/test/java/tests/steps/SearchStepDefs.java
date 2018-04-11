@@ -199,6 +199,6 @@ public class SearchStepDefs {
 
     @Then("^the search button is not clickable$")
     public void theSearchButtonIsNotClickable() {
-        assertFalse(searchServicePage.searchBtnIsNotClickable());
+        searchServicePage.searchBtnIsNotClickable();
     }
 }
