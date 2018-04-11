@@ -6,9 +6,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import static org.junit.Assert.assertFalse;
 import static tests.Hooks.driver;
+import static tests.Hooks.wait;
 
 public class SearchServicePage {
 
@@ -20,42 +22,49 @@ public class SearchServicePage {
     @FindBy(how = How.CLASS_NAME, using = "form__button--submit")
     public WebElement searchSubmit;
 
+    @FindBy(how = How.CLASS_NAME, using = "add-offer__link")
+    public WebElement newServiceButton;
 
     public SearchServicePage() {
-        PageFactory.initElements(driver, this);
+            PageFactory.initElements(driver, this);
+        }
+
+        public String goToMainPage () {
+            driver.get(mainPageUrl);
+            return driver.getCurrentUrl();
+        }
+
+        public void getSearchResult (String searchPhrase){
+            searchField.clear();
+            searchField.sendKeys(searchPhrase);
+        }
+
+        public void submitMySearch () {
+            searchSubmit.click();
+        }
+
+        public void submitByEnter () {
+            searchSubmit.sendKeys(Keys.ENTER);
+        }
+
+        public String generateString ( int phraseLength){
+            return StringUtils.leftPad("", phraseLength, 'a');
+        }
+
+        public void sendSearchPhrase ( int phraseLength){
+            searchField.sendKeys(generateString(phraseLength));
+        }
+
+        public int getSearchPhraseLength () {
+            return searchField.getAttribute("value").length();
+        }
+
+        public void searchBtnIsNotClickable () {
+            assertFalse(searchSubmit.isEnabled());
+        }
+
+        public void pushNewServiceButton () {
+            wait.until(ExpectedConditions.elementToBeClickable(newServiceButton)).click();
+        }
     }
 
-    public String goToMainPage() {
-        driver.get(mainPageUrl);
-        return driver.getCurrentUrl();
-    }
-
-    public void getSearchResult(String searchPhrase) {
-        searchField.clear();
-        searchField.sendKeys(searchPhrase);
-    }
-
-    public void submitMySearch() {
-        searchSubmit.click();
-    }
-
-    public void submitByEnter() {
-        searchSubmit.sendKeys(Keys.ENTER);
-    }
-
-    public String generateString(int phraseLength) {
-        return StringUtils.leftPad("", phraseLength, 'a');
-    }
-
-    public void sendSearchPhrase(int phraseLength) {
-        searchField.sendKeys(generateString(phraseLength));
-    }
-
-    public int getSearchPhraseLength() {
-        return searchField.getAttribute("value").length();
-    }
-
-    public void searchBtnIsNotClickable() {
-       assertFalse(searchSubmit.isEnabled());
-    }
-}
