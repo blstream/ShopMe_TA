@@ -26,8 +26,6 @@ public class SearchServicePage {
     public WebElement newServiceButton;
 
     public SearchServicePage() {
-
-    public SearchServicePage() {
             PageFactory.initElements(driver, this);
         }
 
