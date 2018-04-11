@@ -17,8 +17,11 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import tests.pages.SearchResultsPage;
 import tests.pages.SearchServicePage;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -36,15 +39,31 @@ public class SearchStepDefs {
         RequestSpecification httpRequest = RestAssured.given();
         Response response = httpRequest.get("/offers");
         ResponseBody body = response.getBody();
-        List<HashMap> offers = new JsonPath(body.asString()).get(".");
-        for (int i = 0; i < offers.size(); i++) {
-            String offer = offers.get(i).get("id").toString();
-            RestAssured.given().when().delete("/offers/" + offer);
+        HashMap offersResponse = new JsonPath(body.asString()).get(".");
+        List<HashMap> offers = (List<HashMap>) offersResponse.get("content");
+        Integer total = Integer.parseInt(offersResponse.get("totalElements").toString());
+
+        if (total <= 0) {
+            return;
         }
-        response = httpRequest.get("/offers");
-        body = response.getBody();
-        offers = new JsonPath(body.asString()).get(".");
-        assertTrue(offers.size() == 0);
+
+        for (; ; ) {
+
+            for (int i = 0; i < offers.size(); i++) {
+                String offer = offers.get(i).get("id").toString();
+                RestAssured.given().when().delete("/offers/" + offer);
+            }
+            response = httpRequest.get("/offers");
+            body = response.getBody();
+            offersResponse = new JsonPath(body.asString()).get(".");
+            offers = (List<HashMap>) offersResponse.get("content");
+            total = Integer.parseInt(offersResponse.get("totalElements").toString());
+
+            if (total <= 0) {
+                break;
+            }
+        }
+        assertTrue(total == 0);
     }
 
     @And("^I add services$")
@@ -66,13 +85,19 @@ public class SearchStepDefs {
             JsonObject newService = new JsonObject();
             newService.addProperty("id", "aaa2e1cd-6319-4fa3-b05f-d47f4aec7dac");
             newService.addProperty("title", str);
-            newService.addProperty("baseDescription", "Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
+            newService.addProperty("baseDescription", "test");
+            newService.addProperty("extendedDescription", "test");
+            newService.addProperty("extraDescription", "test");
+
             newService.addProperty("basePrice", "10");
+            newService.addProperty("extendedPrice", "20");
+            newService.addProperty("extraPrice", "30");
             JsonObject userJson = new JsonObject();
             userJson.addProperty("id", "aaa2e1cd-6319-4fa3-b05f-d47f4aec7dac");
-            userJson.addProperty("name", "Jan Kowalski");
-            userJson.addProperty("email", "example@mail.com");
-            userJson.addProperty("phoneNumber", "012345678");
+            userJson.addProperty("name", "test");
+            userJson.addProperty("email", "test@domain.com");
+            userJson.addProperty("phoneNumber", "888555222");
+            userJson.addProperty("additionalInfo", "test");
             newService.add("user", userJson);
             JsonObject categoryJson = new JsonObject();
             categoryJson.addProperty("id", category.get("id").toString());
@@ -124,13 +149,16 @@ public class SearchStepDefs {
         }
     }
 
-    @And("^all results are sorted in ascending way$")
-    public void allResultsAreSortedInAscendingWay() {
+    @And("^all results are sorted in descending way$")
+    public void allResultsAreSortedInDescendingWay() {
         List<String> dates = searchResultsPage.getElementsDates();
         for (int i = 0; i < dates.size() - 1; i++) {
-            Long nextDataL = Long.valueOf(dates.get(i + 1));
-            Long actualDateL = Long.valueOf(dates.get(i));
-            assertTrue(actualDateL <= nextDataL);
+            String nextDataL = String.valueOf(dates.get(i + 1));
+            String actualDateL = String.valueOf(dates.get(i));
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+            LocalDate dateNext = LocalDate.parse(nextDataL, formatter);
+            LocalDate dateActual = LocalDate.parse(actualDateL, formatter);
+            assertTrue(dateNext.compareTo(dateActual) >= 0);
         }
     }
 

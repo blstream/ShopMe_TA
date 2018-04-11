@@ -15,7 +15,7 @@ Feature: PRODPFIP-21 Searching for a service in the ShopMe website
     Then search results are visible
     And I see that title of the service contains "<searching_phrase>"
     And I see basic price and added data of each record
-    And all results are sorted in ascending way
+    And all results are sorted in descending way
 
     Examples:
       | searching_phrase             |
@@ -28,7 +28,6 @@ Feature: PRODPFIP-21 Searching for a service in the ShopMe website
   Scenario Outline: Negative flow of searching - search phrase is not correct
     Given I navigate to the main page
     When I enter a searching phrase "<searching_phrase>" into the search field
-    And I click the search button
     Then I can see error message "<error_message>"
 
     Examples:
@@ -50,7 +49,7 @@ Feature: PRODPFIP-21 Searching for a service in the ShopMe website
     Then search results are visible
     And I see that title of the service contains "<searching_phrase>"
     And I see basic price and added data of each record
-    And all results are sorted in ascending way
+    And all results are sorted in descending way
 
     Examples:
       | searching_phrase             |
@@ -60,13 +59,4 @@ Feature: PRODPFIP-21 Searching for a service in the ShopMe website
       | profesjonalne mycie okien    |
       | naprawa pralka Amica AWB10i2 |
 
-  Scenario Outline: Negative flow of searching - search phrase is not correct with submit by enter key
-    Given I navigate to the main page
-    When I enter a searching phrase "<searching_phrase>" into the search field
-    And I press Enter key
-    Then I can see error message "<error_message>"
 
-    Examples:
-      | searching_phrase | error_message                                      |
-      | c                | Podaj frazę składającą się z większej liczby liter |
-      | 1234567890       | Podaj frazę nieskładającą się z samych liczb       |
