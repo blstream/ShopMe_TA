@@ -54,6 +54,7 @@ Feature: PRODPFIP-21 Searching for a service in the ShopMe website
     Examples:
       | searching_phrase             |
       | odśnieżanie                  |
+      | programowanie Python         |
       | programowanie Java           |
       | profesjonalne mycie okien    |
       | naprawa pralka Amica AWB10i2 |
