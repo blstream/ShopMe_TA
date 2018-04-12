@@ -22,7 +22,7 @@ public class SearchServicePage {
     @FindBy(how = How.CLASS_NAME, using = "form__button--submit")
     public WebElement searchSubmit;
 
-    @FindBy(how = How.CLASS_NAME, using = "add-offer__link")
+    @FindBy(how = How.XPATH, using = "//a[@href='/add/form']")
     public WebElement newServiceButton;
 
     public SearchServicePage() {
