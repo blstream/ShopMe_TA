@@ -92,7 +92,6 @@ public class AddServiceStepDefs {
         addServicePage.setRA_extendedDescription(expandedDescription);
     }
 
-
     @And("^I fill in basicDescription with (\\d+) characters$")
     public void iFillInBasicDescriptionWithCharacters(int phraseLength) {
         addServicePage.sendBasicDescription(phraseLength);
@@ -123,7 +122,9 @@ public class AddServiceStepDefs {
     }
 
     @Then("^New basic service with (\\d+) character description is added$")
-    public void newBasicServiceWithCharacterDescriptionIsAdded(int phraseLength) { addServicePage.RA_checkBasicDescription(); }
+    public void newBasicServiceWithCharacterDescriptionIsAdded(int phraseLength) {
+        addServicePage.RA_checkBasicDescription();
+    }
 
     @Then("^New service with (\\d+) character expanded and extra descriptions is added$")
     public void newServiceWithCharacterExpandedAndExtraDescriptionsIsAdded(int phraseLength) {
