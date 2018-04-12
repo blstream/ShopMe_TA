@@ -33,15 +33,15 @@ Feature: PRODPFIP-45 Pagination of search results
         Then I navigate to the second page
         And I can see that number 2 is bold
         And Previous-button is visible
-        And I can return to the first one
+        And I can return to the first page
 
     Scenario: Correct navigation on the last page
         Given I navigate to the main page
         When I enter a searching phrase "test" into the search field
         And I click the search button
         And search results are visible
-        And I click the last one
-        Then I navigate to the last one
+        And I click the last page
+        Then I navigate to the last page
         And I can see the numbers of last three pages
         And I can see the number of the first page
         And next-button is invisible
