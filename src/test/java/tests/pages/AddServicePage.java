@@ -323,7 +323,7 @@ public class AddServicePage {
     public void verifyIfBasicPriceInputLimited(int expectedLength) {
         String price = basicPrice.getAttribute("value");
         int placeOfComma = price.indexOf(',');
-        int actualLength = price.length() - placeOfComma - 4;
+        int actualLength = price.length() - placeOfComma - 1;
         Assert.assertEquals(expectedLength,actualLength);
     }
 
