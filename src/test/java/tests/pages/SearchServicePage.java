@@ -35,7 +35,6 @@ public class SearchServicePage {
         }
 
         public void getSearchResult (String searchPhrase){
-            wait.until(ExpectedConditions.visibilityOf(searchField));
             searchField.clear();
             searchField.sendKeys(searchPhrase);
         }
