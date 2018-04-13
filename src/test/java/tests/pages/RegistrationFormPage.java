@@ -1,14 +1,12 @@
 package tests.pages;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-
-import java.util.concurrent.TimeUnit;
 
 import static tests.Hooks.driver;
 import static tests.Hooks.wait;
@@ -24,7 +22,7 @@ public class RegistrationFormPage {
     @FindBy(how = How.NAME, using = "users__email")
     public WebElement userEmail;
 
-    @FindBy(how = How.ID, using = "users__register_submit")
+    @FindBy(how = How.CLASS_NAME, using = "form__button")
     public WebElement registerButton;
 
     @FindBy(how = How.NAME, using = "users__password")
@@ -57,22 +55,22 @@ public class RegistrationFormPage {
     @FindBy(how = How.NAME, using = "users__personal-data-processing")
     public WebElement usersPersonalDataCheckbox;
 
-    @FindBy(how = How.NAME, using = "users__invoiceCompanyName")
+    @FindBy(how = How.NAME, using = "users_invoiceCompanyName")
     public WebElement invoiceCompanyName;
 
-    @FindBy(how = How.NAME, using = "users__invoiceNip")
+    @FindBy(how = How.NAME, using = "users_invoiceNip")
     public WebElement invoiceNip;
 
-    @FindBy(how = How.NAME, using = "users__invoiceAddressStreet")
+    @FindBy(how = How.NAME, using = "users_invoiceAddressStreet")
     public WebElement invoiceAddressStreet;
 
-    @FindBy(how = How.NAME, using = "users__invoiceAddressNumber")
+    @FindBy(how = How.NAME, using = "users_invoiceAddressNumber")
     public WebElement invoiceAddressNumber;
 
-    @FindBy(how = How.NAME, using = "users__invoiceAddressZipCode")
+    @FindBy(how = How.NAME, using = "users_invoiceAddressZipCode")
     public WebElement invoiceAddressZipCode;
 
-    @FindBy(how = How.NAME, using = "users__invoiceAddressCity")
+    @FindBy(how = How.NAME, using = "users_invoiceAddressCity")
     public WebElement invoiceAddressCity;
 
     @FindBy(how = How.XPATH, using = "//*[@id=\"root\"]/div/main/section/div/h1")
@@ -81,100 +79,106 @@ public class RegistrationFormPage {
     @FindBy(how = How.XPATH, using = "//a[@href='/login']")
     public WebElement loginButton;
 
-    public RegistrationFormPage(){
+    public RegistrationFormPage() {
         PageFactory.initElements(driver, this);
     }
 
-    public void checkIfNameIsFilled(String name){
-        Assert.assertTrue(userName.getText().contains(name));
-    }
-    public void checkIfSurnameIsFilled(String surname){
-        Assert.assertTrue(userSurname.getText().contains(surname));
-    }
-    public void checkIfEmailIsFilled(String email){
-        Assert.assertTrue(userEmail.getText().contains(email));
+    public void checkIfNameIsFilled(String name) {
+        String user_name = userName.getAttribute("value");
+        Assert.assertEquals(user_name, name);
     }
 
-    public void sendPassword(String pass){
+    public void checkIfSurnameIsFilled(String surname) {
+        String user_surname = userSurname.getAttribute("value");
+        Assert.assertEquals(user_surname, surname);
+    }
+
+    public void checkIfEmailIsFilled(String email) {
+        String user_email = userEmail.getAttribute("value");
+        Assert.assertEquals(user_email, email);
+    }
+
+    public void sendPassword(String pass) {
         password.sendKeys(pass);
     }
-    public void sendConfirmPassword(String pass){
+
+    public void sendConfirmPassword(String pass) {
         confirmPassword.sendKeys(pass);
     }
-    public void sendPhone(String phoneNumber){
-      userPhoneNumber.sendKeys(phoneNumber);
+
+    public void sendPhone(String phoneNumber) {
+        userPhoneNumber.sendKeys(phoneNumber);
     }
-    public void sendBankAccountNumber(String bankAccountNumber){
+
+    public void sendBankAccountNumber(String bankAccountNumber) {
         userBankAccountNumber.sendKeys(bankAccountNumber);
     }
-    public void sendStreet(String street){
+
+    public void sendStreet(String street) {
         addressStreet.sendKeys(street);
     }
 
-    public void sendNumber(String number){
+    public void sendNumber(String number) {
         addressNumber.sendKeys(number);
     }
-    public void sendCity(String city){
+
+    public void sendCity(String city) {
         addressCity.sendKeys(city);
     }
-    public void sendZipCode(String zipCode){
+
+    public void sendZipCode(String zipCode) {
         addressZipCode.sendKeys(zipCode);
     }
-    public void sendCompanyName(String name){
+
+    public void sendCompanyName(String name) {
         invoiceCompanyName.sendKeys(name);
     }
-    public void sendNip(String nip){
+
+    public void sendNip(String nip) {
         invoiceNip.sendKeys(nip);
     }
-    public void sendCompanyStreet(String street){
+
+    public void sendCompanyStreet(String street) {
         invoiceAddressStreet.sendKeys(street);
     }
-    public void sendCompanyNumber(String number){
+
+    public void sendCompanyNumber(String number) {
         invoiceAddressNumber.sendKeys(number);
     }
-    public void sendCompanyZipCode(String zipCode){
+
+    public void sendCompanyZipCode(String zipCode) {
         invoiceAddressZipCode.sendKeys(zipCode);
     }
 
-    public void sendCompanyCity(String city){
+    public void sendCompanyCity(String city) {
         invoiceAddressCity.sendKeys(city);
     }
 
-    public void checkInvoice(){
+    public void checkInvoice() {
         invoiceCheckbox.click();
-        wait.until(ExpectedConditions.visibilityOf(invoiceCompanyName));
-        Assert.assertTrue(invoiceCheckbox.isSelected());
     }
-    public void acceptTermsOfPersonalDataProcessing(){
+
+    public void acceptTermsOfPersonalDataProcessing() {
         usersPersonalDataCheckbox.click();
         Assert.assertTrue(usersPersonalDataCheckbox.isSelected());
     }
 
-    public void pushRegisterButton(){
+    public void pushRegisterButton() {
         registerButton.click();
-        wait.until(ExpectedConditions.invisibilityOf(registerButton));
     }
 
-    public void verifyIfConfirmationMessageisVisible(String message){
+    public void verifyIfConfirmationMessageIsVisible(String message) {
         wait.until(ExpectedConditions.visibilityOf(confirmationMessage));
         Assert.assertTrue(confirmationMessage.isDisplayed());
         Assert.assertTrue(confirmationMessage.getText().contains(message));
     }
 
-    public void verifyIfLLoginButtonIsVisible(){
+    public void verifyIfLLoginButtonIsVisible() {
         wait.until(ExpectedConditions.elementToBeClickable(loginButton));
         Assert.assertTrue(loginButton.isDisplayed());
     }
 
-    public void verifyIfExpandedRegisterFormIsVisible(){
-        wait.until(ExpectedConditions.elementToBeClickable(registerButton));
-        Assert.assertTrue(registerButton.isEnabled());
-    }
-    public void waitForResult() {
-        try {
-            TimeUnit.SECONDS.sleep(5);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+    public void verifyIfExpandedRegisterFormIsVisible() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#root > div > main > h1")));
     }
 }

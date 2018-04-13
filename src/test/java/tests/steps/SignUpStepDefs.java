@@ -1,6 +1,5 @@
 package tests.steps;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -87,7 +86,7 @@ public class SignUpStepDefs {
         registrationFormPage.sendNip(nip);
         registrationFormPage.sendCompanyStreet(street);
         registrationFormPage.sendCompanyNumber(number);
-        registrationFormPage.sendCompanyCity(zipCode);
+        registrationFormPage.sendCompanyZipCode(zipCode);
         registrationFormPage.sendCompanyCity(city);
     }
 
@@ -98,21 +97,21 @@ public class SignUpStepDefs {
 
     @Then("^I should see register confirmation message \"([^\"]*)\"$")
     public void iShouldSeeRegisterConfirmationMessage(String message) {
-        registrationFormPage.verifyIfConfirmationMessageisVisible(message);
+        registrationFormPage.verifyIfConfirmationMessageIsVisible(message);
     }
 
     @And("^I should see Login button$")
     public void iShouldSeeLoginButton() {
-      registrationFormPage.verifyIfLLoginButtonIsVisible();
+        registrationFormPage.verifyIfLLoginButtonIsVisible();
     }
 
     @And("^I should be registered user in database with \"([^\"]*)\"$")
-    public void iShouldBeRegisteredUserInDatabaseWith(String email)  {
+    public void iShouldBeRegisteredUserInDatabaseWith(String email) {
 
     }
 
     @And("^I click Register button$")
     public void iClickRegisterButton() {
-      registrationFormPage.pushRegisterButton();
+        registrationFormPage.pushRegisterButton();
     }
 }
