@@ -14,7 +14,7 @@ Feature: PRODPFIP-45 Pagination of search results
         And I can see 10 records
         And I can see pagination buttons
         And I can see that number 1 is bold
-        And I can see how many search pages there are
+        And I can see how many search result pages there are
 
         Examples:
             | searching_phrase |
@@ -77,3 +77,4 @@ Feature: PRODPFIP-45 Pagination of search results
         And I return to the first page
         Then newly added service should be displayed in the first place
         And The last result of each page before adding service is the first result of the next page after adding service
+        
