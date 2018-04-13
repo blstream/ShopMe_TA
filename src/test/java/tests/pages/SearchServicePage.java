@@ -22,8 +22,11 @@ public class SearchServicePage {
     @FindBy(how = How.CLASS_NAME, using = "form__button--submit")
     public WebElement searchSubmit;
 
-    @FindBy(how = How.CLASS_NAME, using = "add-offer__link")
+    @FindBy(how = How.XPATH, using = "//a[@href='/add/form']")
     public WebElement newServiceButton;
+
+    @FindBy(how = How.XPATH, using = "//a[@href='/login']")
+    public WebElement loginButton;
 
     public SearchServicePage() {
             PageFactory.initElements(driver, this);
@@ -65,6 +68,10 @@ public class SearchServicePage {
 
         public void pushNewServiceButton () {
             wait.until(ExpectedConditions.elementToBeClickable(newServiceButton)).click();
+        }
+
+        public void pushLoginButton(){
+            wait.until(ExpectedConditions.elementToBeClickable(loginButton)).click();
         }
     }
 

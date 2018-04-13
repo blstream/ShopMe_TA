@@ -1,3 +1,4 @@
+@Test
 Feature: PRODPFIP-104 User registration
   As a user I want to be able to sign up so that I can be a registered user of ShopMe website
 
@@ -19,7 +20,7 @@ Feature: PRODPFIP-104 User registration
     And I select dataForInvoice checkbox
     And I fill in all necessary invoice data with "<c_name>", "<nip>", "<c_street>", "<c_number>", "<c_post_code>", "<c_city>"
     And I accept terms of personal data processing
-    And I push Register button
+    And I click Register button
     Then I should see register confirmation message "Rejestracja zakończona pomyślnie"
     And I should see Login button
     And I should be registered user in database with "<email>"
