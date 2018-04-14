@@ -37,7 +37,7 @@ Feature: PRODPFIP-198 Adding new service - extension of the add service form
 
   Scenario: Adding new basic service without selected province
     When I press Add service button
-    Then I should see an error message "Pole wymagane" next to the required field
+    Then I should see an error message "Pole wymagane" next to the province and city field
 
   Scenario Outline: Adding new service with invalid data in city field
     When I fill in province with "mazowieckie"
