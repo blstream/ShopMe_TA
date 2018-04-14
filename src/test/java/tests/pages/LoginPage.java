@@ -40,10 +40,11 @@ public class LoginPage {
         userEmail.sendKeys(email);
     }
 
-    public void verifyIfRegisterFormIsVisible(){
-       wait.until(ExpectedConditions.elementToBeClickable(registerButton));
-       Assert.assertTrue(registerButton.isDisplayed());
+    public void verifyIfRegisterFormIsVisible() {
+        wait.until(ExpectedConditions.elementToBeClickable(registerButton));
+        Assert.assertTrue(registerButton.isDisplayed());
     }
+
     public void pushRegisterButton() {
         wait.until(ExpectedConditions.elementToBeClickable(registerButton)).click();
     }

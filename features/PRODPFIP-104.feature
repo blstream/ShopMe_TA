@@ -5,6 +5,7 @@ Feature: PRODPFIP-104 User registration
     Given I go to ShopMe main page
     And I push Login button
     And I can see registration form
+    And There is no user registered with email "test@test.com" in database;
 
   Scenario Outline: Signing up for ShopMe website - positive flow
     When I fill in all necessary registration data with "<name>", "<surname>", "<email>"
@@ -25,5 +26,5 @@ Feature: PRODPFIP-104 User registration
     And I should be registered user in database with "<email>"
 
     Examples:
-    |name|surname |email        |password    |phone_number|bank_account              |street  |number|city    |post_code|c_name      |nip        |c_street   |c_number|c_post_code|c_city   |
-    |Jan |Kowalski|test@test.com|testpassword|012345678   |55299610810888313485136811|Kwiatowa|2     |Szczecin|70-000   |Test Company|0123456789 |Truskawkowa| 2      |70-111     |Szczecin |
+      | name | surname  | email         | password     | phone_number | bank_account               | street   | number | city     | post_code | c_name       | nip        | c_street    | c_number | c_post_code | c_city   |
+      | Jan  | Kowalski | test@test.com | testpassword | 012345678    | 55299610810888313485136811 | Kwiatowa | 2      | Szczecin | 70-000    | Test Company | 0123456789 | Truskawkowa | 2        | 70-111      | Szczecin |

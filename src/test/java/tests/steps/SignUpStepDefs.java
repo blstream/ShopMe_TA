@@ -23,6 +23,11 @@ public class SignUpStepDefs {
         loginPage.verifyIfRegisterFormIsVisible();
     }
 
+    @And("^There is no user registered with email \"([^\"]*)\" in database;$")
+    public void thereIsNoUserRegisteredWithEmailInDatabase(String email) {
+
+    }
+
     @When("^I fill in all necessary registration data with \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\"$")
     public void iFillInAllNecessaryRegistrationDataWith(String name, String surname, String email) {
         loginPage.sendName(name);
@@ -95,6 +100,11 @@ public class SignUpStepDefs {
         registrationFormPage.acceptTermsOfPersonalDataProcessing();
     }
 
+    @And("^I click Register button$")
+    public void iClickRegisterButton() {
+        registrationFormPage.pushRegisterButton();
+    }
+
     @Then("^I should see register confirmation message \"([^\"]*)\"$")
     public void iShouldSeeRegisterConfirmationMessage(String message) {
         registrationFormPage.verifyIfConfirmationMessageIsVisible(message);
@@ -108,10 +118,5 @@ public class SignUpStepDefs {
     @And("^I should be registered user in database with \"([^\"]*)\"$")
     public void iShouldBeRegisteredUserInDatabaseWith(String email) {
 
-    }
-
-    @And("^I click Register button$")
-    public void iClickRegisterButton() {
-        registrationFormPage.pushRegisterButton();
     }
 }
