@@ -1,25 +1,16 @@
 package tests.steps;
 
-import com.google.gson.JsonObject;
-import cucumber.api.DataTable;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import gherkin.formatter.model.DataTableRow;
-import io.restassured.RestAssured;
-import io.restassured.path.json.JsonPath;
-import io.restassured.response.Response;
-import io.restassured.response.ResponseBody;
-import io.restassured.specification.RequestSpecification;
+import tests.helpers.RestAssuredMethods;
 import tests.pages.SearchResultsPage;
 import tests.pages.SearchServicePage;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
 import java.util.List;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 
@@ -27,80 +18,24 @@ public class SearchStepDefs {
 
     SearchServicePage searchServicePage = new SearchServicePage();
     SearchResultsPage searchResultsPage = new SearchResultsPage();
-
+    RestAssuredMethods restAssuredMethods = new RestAssuredMethods("https://patronage2018.intive-projects.com/api");
 
     @Given("^that there are no services added$")
     public void thatThereAreNoServicesAdded() {
-        RestAssured.baseURI = "https://patronage2018.intive-projects.com/api";
-        RequestSpecification httpRequest = RestAssured.given();
-        Response response = httpRequest.get("/offers");
-        ResponseBody body = response.getBody();
-        HashMap offersResponse = new JsonPath(body.asString()).get(".");
-        List<HashMap> offers = (List<HashMap>) offersResponse.get("content");
-        Integer total = Integer.parseInt(offersResponse.get("totalElements").toString());
-
-        if (total <= 0) {
-            return;
-        }
-
-        for (; ; ) {
-
-            for (int i = 0; i < offers.size(); i++) {
-                String offer = offers.get(i).get("id").toString();
-                RestAssured.given().when().delete("/offers/" + offer);
-            }
-            response = httpRequest.get("/offers");
-            body = response.getBody();
-            offersResponse = new JsonPath(body.asString()).get(".");
-            offers = (List<HashMap>) offersResponse.get("content");
-            total = Integer.parseInt(offersResponse.get("totalElements").toString());
-
-            if (total <= 0) {
-                break;
-            }
-        }
-        assertTrue(total == 0);
+        restAssuredMethods.deleteAll();
     }
 
-    @And("^I add services$")
-    public void iAddServices(DataTable services) {
-
-        DataTable dt = services;
-        RestAssured.baseURI = "https://patronage2018.intive-projects.com/api/";
-        RequestSpecification httpRequest = RestAssured.given();
-        Response response = httpRequest.get("/categories");
-        ResponseBody body = response.getBody();
-        List<HashMap> categories = new JsonPath(body.asString()).get(".");
-        HashMap category = categories.get(0);
-
-        for (int i = 0; i < dt.getGherkinRows().size(); i++) {
-
-            DataTableRow someRow = dt.getGherkinRows().get(i);
-            String str = someRow.getCells().get(0);
-
-            JsonObject newService = new JsonObject();
-            newService.addProperty("id", "aaa2e1cd-6319-4fa3-b05f-d47f4aec7dac");
-            newService.addProperty("title", str);
-            newService.addProperty("baseDescription", "test");
-            newService.addProperty("extendedDescription", "test");
-            newService.addProperty("extraDescription", "test");
-
-            newService.addProperty("basePrice", "10");
-            newService.addProperty("extendedPrice", "20");
-            newService.addProperty("extraPrice", "30");
-            JsonObject userJson = new JsonObject();
-            userJson.addProperty("id", "aaa2e1cd-6319-4fa3-b05f-d47f4aec7dac");
-            userJson.addProperty("name", "test");
-            userJson.addProperty("email", "test@domain.com");
-            userJson.addProperty("phoneNumber", "888555222");
-            userJson.addProperty("additionalInfo", "test");
-            newService.add("user", userJson);
-            JsonObject categoryJson = new JsonObject();
-            categoryJson.addProperty("id", category.get("id").toString());
-            categoryJson.addProperty("name", category.get("name").toString());
-            newService.add("category", categoryJson);
-            RestAssured.given().contentType("application/json").body(newService.toString()).when().post("/offers").then().assertThat().statusCode(200);
-        }
+    @And("^I add services \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\"$")
+    public void iAddServices(String title, String category, String userName,
+                             String email, String phone, String additionalInfo,
+                             String basicDescription, Float basicPrice,
+                             String extendedDescription, Float extendedPrice,
+                             String extraDescription, Float extraPrice) {
+        restAssuredMethods.addService(title, category, userName,
+                email, phone, additionalInfo,
+                basicDescription, basicPrice,
+                extendedDescription, extendedPrice,
+                extraDescription, extraPrice);
     }
 
     @When("^I navigate to the main page$")
@@ -120,7 +55,7 @@ public class SearchStepDefs {
 
     @Then("^search results are visible$")
     public void searchResultAreVisible() {
-        assertTrue(searchResultsPage.isResultsPresent());
+        searchResultsPage.waitForResultsAreVisible();
     }
 
     @And("^I see that title of the service contains \"([^\"]*)\"$")

@@ -32,9 +32,8 @@ public class SearchResultsPage {
         PageFactory.initElements(driver, this);
     }
 
-    public boolean isResultsPresent() {
+    public void waitForResultsAreVisible() {
         wait.until(ExpectedConditions.visibilityOf(resultsList));
-        return resultsList.isDisplayed();
     }
 
     public void areNewResultsPresent(String expectedService) {
@@ -84,10 +83,5 @@ public class SearchResultsPage {
     public void chooseFirstSearchResult() {
         List<WebElement> list = driver.findElements(By.className("services-item__title"));
         list.get(0).click();
-        try {
-            Thread.sleep(2000L);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 }
