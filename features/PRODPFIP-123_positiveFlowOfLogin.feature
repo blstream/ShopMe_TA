@@ -17,5 +17,5 @@ Feature: PRODPFIP-123 Authenticate to the ShopMe website
     And I can see the logout button
 
     Examples: 
-        | email          | password |first_name|last_name|
-        | login1@test.pl | Abcd     |Imie      |Nazwisko |
+        | email          | password     |first_name|last_name|
+        | login1@test.pl | Abcdefg1     |Imie      |Nazwisko |
