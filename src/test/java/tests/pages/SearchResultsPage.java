@@ -6,7 +6,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,7 +39,7 @@ public class SearchResultsPage {
         wait.until(ExpectedConditions.textToBePresentInElement(firstService, expectedService));
     }
 
-    public List<String> getElementsTitles() {
+    public List<String> getServicesTitles() {
         List<WebElement> titlesWebElements = resultsList.findElements(By.className("services-item__title"));
         ArrayList<String> titles = new ArrayList<String>();
         for (int i = 0; i < titlesWebElements.size(); i++) {
@@ -49,7 +48,7 @@ public class SearchResultsPage {
         return titles;
     }
 
-    public List<String> getElementsPrices() {
+    public List<String> getServicesPrices() {
         List<WebElement> pricesWebElements = resultsList.findElements(By.className("services-item__price"));
         ArrayList<String> prices = new ArrayList<String>();
         for (int i = 0; i < pricesWebElements.size(); i++) {
@@ -58,7 +57,7 @@ public class SearchResultsPage {
         return prices;
     }
 
-    public List<String> getElementsDates() {
+    public List<String> getServicesDates() {
         List<WebElement> datesWebElements = resultsList.findElements(By.className("services-item__date"));
         ArrayList<String> dates = new ArrayList<String>();
         for (int i = 0; i < datesWebElements.size(); i++) {

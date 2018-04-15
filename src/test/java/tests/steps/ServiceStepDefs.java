@@ -3,12 +3,10 @@ package tests.steps;
 import cucumber.api.java.en.And;
 import tests.pages.SearchResultsPage;
 import tests.pages.ServiceProfilePage;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class ServiceStepDefs {
-
 
     SearchResultsPage searchResultsPage = new SearchResultsPage();
     ServiceProfilePage serviceProfilePage = new ServiceProfilePage();

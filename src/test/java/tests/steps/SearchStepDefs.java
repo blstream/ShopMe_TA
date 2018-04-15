@@ -60,7 +60,7 @@ public class SearchStepDefs {
 
     @And("^I see that title of the service contains \"([^\"]*)\"$")
     public void iSeeThatTitleOfTheServiceContains(String searchPhrase) {
-        List<String> titles = searchResultsPage.getElementsTitles();
+        List<String> titles = searchResultsPage.getServicesTitles();
         for (int i = 0; i < titles.size(); i++) {
             String title = titles.get(i).toLowerCase();
             assertTrue(title.contains(searchPhrase.toLowerCase()));
@@ -69,8 +69,8 @@ public class SearchStepDefs {
 
     @And("^I see basic price and added data of each record$")
     public void iSeeBasicPriceAndAddedDataOfEachRecord() {
-        List<String> prices = searchResultsPage.getElementsPrices();
-        List<String> dates = searchResultsPage.getElementsDates();
+        List<String> prices = searchResultsPage.getServicesPrices();
+        List<String> dates = searchResultsPage.getServicesDates();
 
         assertTrue(prices.size() == dates.size());
         for (int i = 0; i < prices.size(); i++) {
@@ -80,9 +80,9 @@ public class SearchStepDefs {
         }
     }
 
-    @And("^all results are sorted in descending way$")
-    public void allResultsAreSortedInDescendingWay() {
-        List<String> dates = searchResultsPage.getElementsDates();
+    @And("^all results are sorted by date descending$")
+    public void allResultsAreSortedByDateDescending() {
+        List<String> dates = searchResultsPage.getServicesDates();
         for (int i = 0; i < dates.size() - 1; i++) {
             String nextDataL = String.valueOf(dates.get(i + 1));
             String actualDateL = String.valueOf(dates.get(i));
