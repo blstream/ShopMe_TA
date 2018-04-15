@@ -2,6 +2,7 @@ Feature: PRODPFIP-23 Possibility to see the profile page of the service
   As a user I want to be able to click on the search result so that I can see details of the service
 
   Scenario Outline: Profile page of the service is displayed after clicking on the search result
+#    Given that there are no services added
     And I add services "<title>", "<category>", "<user_name>", "<email>", "<phone>", "<user_info>", "<basic_info>", "<basic_price>", "<extended_info>", "<extended_price>", "<extra_info>", "<extra_price>"
     When I navigate to the main page
     And I enter a searching phrase "<searching_phrase>" into the search field

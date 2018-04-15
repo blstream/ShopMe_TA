@@ -16,7 +16,7 @@ public class ServiceStepDefs {
 
     @And("^I can click on the first search result to see the details$")
     public void iCanClickOnTheFirstSearchResultToSeeTheDetails() {
-        searchResultsPage.chooseFirstSearchResult();
+        searchResultsPage.openServiceFromResults(0);
         serviceProfilePage.waitForServiceDetails();
     }
 

@@ -112,7 +112,7 @@ public class SearchStepDefs {
 
     @And("^I see service \"([^\"]*)\" at the first place$")
     public void iSeeServiceAtTheFirstPlace(String newService) {
-        String firstService = searchResultsPage.getFirstService();
+        String firstService = searchResultsPage.getTitle(0);
         assertTrue(firstService.contains(newService));
     }
 

@@ -76,12 +76,13 @@ public class SearchResultsPage {
         return noResultsField.getText();
     }
 
-    public String getFirstService() {
-        return firstService.getText();
+    public String getTitle(int line) {
+        List<WebElement> titlesWebElements = resultsList.findElements(By.className("services-item__title"));
+        return titlesWebElements.get(line).getText();
     }
 
-    public void chooseFirstSearchResult() {
-        List<WebElement> list = driver.findElements(By.className("services-item__title"));
-        list.get(0).click();
+    public void openServiceFromResults(int resultNumber) {
+        List<WebElement> resultList = driver.findElements(By.className("services-item__title"));
+        resultList.get(resultNumber).click();
     }
 }
