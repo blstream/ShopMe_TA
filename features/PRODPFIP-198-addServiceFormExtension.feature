@@ -1,4 +1,4 @@
-Feature: PRODPFIP-198 Adding new service - extension of the add service form
+Feature: PRODPFIP-198 Adding new service - extension with province and city of the add service form
   As a user I want to be able to add new service so that can be found by potential clients
 
   Background:
@@ -7,9 +7,9 @@ Feature: PRODPFIP-198 Adding new service - extension of the add service form
     And I can see adding form
     And I fill in all necessary data
       | Oferta testowa | inne | Opis testowy | 100 | Jan | test@email.com | 100200300 |
-    And  I can see city field disabled
 
   Scenario Outline: Adding new basic service with new required fields - positive flow
+    Given I can see city field disabled
     When I fill in province with "<province>"
     And I fill in city with "<city>"
     And I press Add service button
