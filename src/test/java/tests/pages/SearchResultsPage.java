@@ -86,8 +86,7 @@ public class SearchResultsPage {
          return getServiceRowElement(line).getText();
     }
 
-    public void openServiceFromResults(int resultNumber) {
-        List<WebElement> resultList = driver.findElements(By.className("services-item__title"));
-        resultList.get(resultNumber).click();
+    public void openServiceFromResults(int line) {
+        getServiceRowElement(line).click();
     }
 }
