@@ -55,7 +55,7 @@ public class SearchStepDefs {
 
     @Then("^search results are visible$")
     public void searchResultAreVisible() {
-        searchResultsPage.waitForResultsAreVisible();
+        searchResultsPage.waitForNewResults();
     }
 
     @And("^I see that title of the service contains \"([^\"]*)\"$")

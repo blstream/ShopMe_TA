@@ -38,7 +38,7 @@ public class SearchResultsPage {
         PageFactory.initElements(driver, this);
     }
 
-    public void waitForResultsAreVisible() {
+    public void waitForNewResults() {
         wait.until(ExpectedConditions.visibilityOf(resultsList));
     }
 
