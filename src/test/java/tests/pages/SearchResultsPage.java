@@ -26,6 +26,13 @@ public class SearchResultsPage {
     @FindBy(how = How.CLASS_NAME, using = "services-item")
     public WebElement firstService;
 
+    @FindBy(how = How.CLASS_NAME, using = "services-item")
+    public List<WebElement> ServiceList;
+
+    private WebElement getServiceRowElement(int line){
+        return ServiceList.get(line);
+    }
+
 
     public SearchResultsPage() {
         PageFactory.initElements(driver, this);
