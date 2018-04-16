@@ -83,8 +83,7 @@ public class SearchResultsPage {
     }
 
     public String getTitle(int line) {
-        List<WebElement> titlesWebElements = resultsList.findElements(By.className("services-item__title"));
-        return titlesWebElements.get(line).getText();
+         return getServiceRowElement(line).getText();
     }
 
     public void openServiceFromResults(int resultNumber) {
