@@ -1,3 +1,4 @@
+@inProgress
 Feature: PRODPFIP-123 Authenticate to the ShopMe website
   As a registered user I want to be able to successful log in to the ShopMe
 
