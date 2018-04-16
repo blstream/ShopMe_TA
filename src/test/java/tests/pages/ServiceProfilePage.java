@@ -32,7 +32,7 @@ public class ServiceProfilePage {
     @FindBy(how = How.CLASS_NAME, using = "offer-details__contact--container--phone")
     public WebElement userPhone;
 
-    @FindBy(how = How.XPATH, using = "//*[@id=\"root\"]/div/main/div/div[1]/div[2]/p")
+    @FindBy(how = How.CLASS_NAME, using = "/offer-details__contact--additional-info")
     public WebElement userInfo;
 
     @FindBy(how = How.CLASS_NAME, using = "offer-details__offers--base--description")
