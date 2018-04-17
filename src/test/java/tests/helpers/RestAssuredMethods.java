@@ -106,4 +106,30 @@ public class RestAssuredMethods {
         }
         assertTrue(total == 0);
     }
+
+    public Service getService(String id){
+        Service service =new Service();
+        Response response = RestAssured.given().get(baseURI + "/offers");
+        ResponseBody body = response.getBody();
+        Gson gson = new Gson();
+        Services servicesFromBE = gson.fromJson(body.asString(), Services.class);
+        for(int i=0; i<servicesFromBE.content.size();i++)
+        {
+           if(servicesFromBE.content.get(i).id.equals(id)){
+           service.setId(servicesFromBE.content.get(i).id);
+           service.setTitle(servicesFromBE.content.get(i).title);
+           service.setDate(getServiceFromBE().content.get(i).date);
+           service.setBaseDescription(servicesFromBE.content.get(i).baseDescription);
+           service.setBasePrice(servicesFromBE.content.get(i).basePrice);
+           service.setExtendedDescription(servicesFromBE.content.get(i).extendedDescription);
+           service.setExtendedPrice(servicesFromBE.content.get(i).extendedPrice);
+           service.setExtraDescription(servicesFromBE.content.get(i).extraDescription);
+           service.setExtraPrice(servicesFromBE.content.get(i).extraPrice);
+           service.setUser(servicesFromBE.content.get(i).user);
+           }
+
+        }
+        System.out.println(service.baseDescription);
+        return service;
+    }
 }

@@ -18,7 +18,9 @@ public class Service {
     public Service() {
     }
 
-    public Service(String title, Category category, String baseDescription, Float basePrice, String extendedDescription, Float extendedPrice, String extraDescription, Float extraPrice, User user) {
+    public Service(String id, Long date, String title, Category category, String baseDescription, Float basePrice, String extendedDescription, Float extendedPrice, String extraDescription, Float extraPrice, User user) {
+        this.id=id;
+        this.date=date;
         this.title = title;
         this.category = category;
         this.baseDescription = baseDescription;
@@ -152,5 +154,9 @@ public class Service {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

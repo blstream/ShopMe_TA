@@ -13,9 +13,7 @@ public class AddServiceStepDefs {
     SearchServicePage searchServicePage = new SearchServicePage();
 
     @Given("^I go to ShopMe main page$")
-    public void iGoToShopMeMainPage() {
-        searchServicePage.goToMainPage();
-    }
+    public void iGoToShopMeMainPage() { searchServicePage.goToMainPage(); }
 
     @And("^I push add service button$")
     public void iPushAddServiceButton() {
