@@ -1,6 +1,8 @@
 package tests.helpers;
 
 import com.google.gson.Gson;
+import cucumber.api.DataTable;
+import gherkin.formatter.model.DataTableRow;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.response.ResponseBody;
@@ -66,12 +68,24 @@ public class RestAssuredMethods {
         RestAssured.given().contentType("application/json").body(result).when().post("/offers").then().assertThat().statusCode(200);
     }
 
-    public void addServices(Integer numberOfServicesToAdd, String title, String category, String userName,
-                            String email, String phone, String additionalInfo,
-                            String basicDescription, Float basicPrice,
-                            String extendedDescription, Float extendedPrice,
-                            String extraDescription, Float extraPrice) {
-        for (int i = 0; i < numberOfServicesToAdd; i++) {
+    public void addServices(DataTable services) {
+        DataTable dt = services;
+        for (int i = 0; i < dt.getGherkinRows().size(); i++) {
+            DataTableRow someRow = dt.getGherkinRows().get(i);
+
+            String title = someRow.getCells().get(0);
+            String category = someRow.getCells().get(1);
+            String userName = someRow.getCells().get(2);
+            String email = someRow.getCells().get(3);
+            String phone = someRow.getCells().get(4);
+            String additionalInfo = someRow.getCells().get(5);
+            String basicDescription = someRow.getCells().get(6);
+            Float basicPrice = Float.valueOf(someRow.getCells().get(7));
+            String extendedDescription = someRow.getCells().get(8);
+            Float extendedPrice = Float.valueOf(someRow.getCells().get(9));
+            String extraDescription = someRow.getCells().get(10);
+            Float extraPrice = Float.valueOf(someRow.getCells().get(11));
+
             addService(title, category, userName,
                     email, phone, additionalInfo,
                     basicDescription, basicPrice,
