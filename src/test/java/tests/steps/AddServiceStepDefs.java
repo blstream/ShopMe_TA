@@ -4,6 +4,7 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import tests.helpers.RestAssuredMethods;
 import tests.pages.AddServicePage;
 import tests.pages.SearchServicePage;
 
@@ -13,7 +14,9 @@ public class AddServiceStepDefs {
     SearchServicePage searchServicePage = new SearchServicePage();
 
     @Given("^I go to ShopMe main page$")
-    public void iGoToShopMeMainPage() { searchServicePage.goToMainPage(); }
+    public void iGoToShopMeMainPage() {
+        searchServicePage.goToMainPage();
+    }
 
     @And("^I push add service button$")
     public void iPushAddServiceButton() {

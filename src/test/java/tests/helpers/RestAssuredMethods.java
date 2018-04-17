@@ -108,11 +108,8 @@ public class RestAssuredMethods {
     }
 
     public Service getService(String id){
-        Service service =new Service();
-        Response response = RestAssured.given().get(baseURI + "/offers");
-        ResponseBody body = response.getBody();
-        Gson gson = new Gson();
-        Services servicesFromBE = gson.fromJson(body.asString(), Services.class);
+        Service service =new Service();;
+        Services servicesFromBE = getServiceFromBE();
         for(int i=0; i<servicesFromBE.content.size();i++)
         {
            if(servicesFromBE.content.get(i).id.equals(id)){
@@ -129,7 +126,6 @@ public class RestAssuredMethods {
            }
 
         }
-        System.out.println(service.baseDescription);
         return service;
     }
 }
