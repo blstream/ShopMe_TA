@@ -7,6 +7,9 @@ import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+
 import static tests.Hooks.driver;
 import static tests.Hooks.wait;
 
@@ -47,5 +50,10 @@ public class LoginPage {
 
     public void pushRegisterButton() {
         wait.until(ExpectedConditions.elementToBeClickable(registerButton)).click();
+    }
+
+    public String generateTimeStamp() {
+        String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Timestamp(System.currentTimeMillis()));
+        return timeStamp;
     }
 }

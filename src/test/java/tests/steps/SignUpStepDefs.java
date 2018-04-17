@@ -3,6 +3,10 @@ package tests.steps;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
+import io.restassured.response.ResponseBody;
+import org.junit.Assert;
 import tests.pages.LoginPage;
 import tests.pages.RegistrationFormPage;
 import tests.pages.SearchServicePage;
@@ -12,6 +16,11 @@ public class SignUpStepDefs {
     SearchServicePage searchServicePage = new SearchServicePage();
     LoginPage loginPage = new LoginPage();
     RegistrationFormPage registrationFormPage = new RegistrationFormPage();
+    private String email;
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     @And("^I push Login button$")
     public void iPushLoginButton() {
@@ -23,16 +32,14 @@ public class SignUpStepDefs {
         loginPage.verifyIfRegisterFormIsVisible();
     }
 
-    @And("^There is no user registered with email \"([^\"]*)\" in database;$")
-    public void thereIsNoUserRegisteredWithEmailInDatabase(String email) {
-
-    }
-
-    @When("^I fill in all necessary registration data with \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\"$")
-    public void iFillInAllNecessaryRegistrationDataWith(String name, String surname, String email) {
+    @When("^I fill in all necessary registration data with testEmail, \"([^\"]*)\", \"([^\"]*)\",$")
+    public void iFillInAllNecessaryRegistrationDataWithTestEmail(String name, String surname) {
+        String newEmail = "test+" + loginPage.generateTimeStamp() + "@gmail.com";
+        setEmail(newEmail);
         loginPage.sendName(name);
         loginPage.sendSurname(surname);
         loginPage.sendEmail(email);
+        System.out.println(email);
     }
 
     @And("^I push Register button$")
@@ -55,8 +62,9 @@ public class SignUpStepDefs {
         registrationFormPage.checkIfSurnameIsFilled(surname);
     }
 
-    @And("^I can see email filled with \"([^\"]*)\"$")
-    public void iCanSeeEmailFilledWith(String email) {
+
+    @And("^I can see email filled with testEmail$")
+    public void iCanSeeEmailFilledWithTestEmail() {
         registrationFormPage.checkIfEmailIsFilled(email);
     }
 
@@ -115,8 +123,12 @@ public class SignUpStepDefs {
         registrationFormPage.verifyIfLLoginButtonIsVisible();
     }
 
-    @And("^I should be registered user in database with \"([^\"]*)\"$")
-    public void iShouldBeRegisteredUserInDatabaseWith(String email) {
-
+    @And("^I should be registered user in database$")
+    public void iShouldBeRegisteredUserInDatabase() {
+        String URI = "https://patronage2018.intive-projects.com/api/users/email=" + email;
+        Response response = RestAssured.given().get(URI);
+        ResponseBody body = response.getBody();
+        String checkBody = body.asString();
+        Assert.assertEquals(checkBody, "true");
     }
 }
