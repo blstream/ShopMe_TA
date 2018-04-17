@@ -3,7 +3,12 @@ Feature: PRODPFIP-21 Searching for a service in the ShopMe website
 
   Scenario Outline: Positive flow of searching with submit by the search button - search results contain correct title, price and are correctly sorted by date
     Given that there are no services added
-    And I add services "<title>", "<category>", "<user_name>", "<email>", "<phone>", "<user_info>", "<basic_info>", "<basic_price>", "<extended_info>", "<extended_price>", "<extra_info>", "<extra_price>"
+    And I add services
+      | test                         | budowa   | test      | test@domain.com | 888555222 | test      | test       | 10          | test          | 20             | test       | 30          |
+      | programowanie Java           | budowa   | test      | test@domain.com | 888555222 | test      | test       | 10          | test          | 20             | test       | 30          |
+      | programowanie Python         | budowa   | test      | test@domain.com | 888555222 | test      | test       | 10          | test          | 20             | test       | 30          |
+      | profesjonalne mycie okien    | budowa   | test      | test@domain.com | 888555222 | test      | test       | 10          | test          | 20             | test       | 30          |
+      | naprawa pralka Amica AWB10i2 | budowa   | test      | test@domain.com | 888555222 | test      | test       | 10          | test          | 20             | test       | 30          |
     When I navigate to the main page
     And I enter a searching phrase "<searching_phrase>" into the search field
     And I click the search button
@@ -13,13 +18,12 @@ Feature: PRODPFIP-21 Searching for a service in the ShopMe website
     And all results are sorted by date descending
 
     Examples:
-      | searching_phrase             | title | category | user_name | email           | phone     | user_info | basic_info | basic_price | extended_info | extended_price | extra_info | extra_price |
-      | test                         | test  | budowa   | test      | test@domain.com | 888555222 | test      | test       | 10          | test          | 20             | test       | 30          |
-      | programowanie Java           | test  | budowa   | test      | test@domain.com | 888555222 | test      | test       | 10          | test          | 20             | test       | 30          |
-      | programowanie Python         | test  | budowa   | test      | test@domain.com | 888555222 | test      | test       | 10          | test          | 20             | test       | 30          |
-      | profesjonalne mycie okien    | test  | budowa   | test      | test@domain.com | 888555222 | test      | test       | 10          | test          | 20             | test       | 30          |
-      | naprawa pralka Amica AWB10i2 | test  | budowa   | test      | test@domain.com | 888555222 | test      | test       | 10          | test          | 20             | test       | 30          |
-
+      | searching_phrase             |
+      | test                         |
+      | programowanie Java           |
+      | programowanie Python         |
+      | profesjonalne mycie okien    |
+      | naprawa pralka Amica AWB10i2 |
 
   Scenario Outline: Negative flow of searching - search phrase is not correct
     Given I navigate to the main page
@@ -33,7 +37,12 @@ Feature: PRODPFIP-21 Searching for a service in the ShopMe website
 
   Scenario Outline: Positive flow of searching with submit by enter key - search results contain correct title, price and are correctly sorted by date
     Given that there are no services added
-    And I add services "<title>", "<category>", "<user_name>", "<email>", "<phone>", "<user_info>", "<basic_info>", "<basic_price>", "<extended_info>", "<extended_price>", "<extra_info>", "<extra_price>"
+    And I add services
+      | test                         | budowa   | test      | test@domain.com | 888555222 | test      | test       | 10          | test          | 20             | test       | 30          |
+      | programowanie Java           | budowa   | test      | test@domain.com | 888555222 | test      | test       | 10          | test          | 20             | test       | 30          |
+      | programowanie Python         | budowa   | test      | test@domain.com | 888555222 | test      | test       | 10          | test          | 20             | test       | 30          |
+      | profesjonalne mycie okien    | budowa   | test      | test@domain.com | 888555222 | test      | test       | 10          | test          | 20             | test       | 30          |
+      | naprawa pralka Amica AWB10i2 | budowa   | test      | test@domain.com | 888555222 | test      | test       | 10          | test          | 20             | test       | 30          |
     When I navigate to the main page
     And I enter a searching phrase "<searching_phrase>" into the search field
     And I press Enter key
@@ -43,10 +52,9 @@ Feature: PRODPFIP-21 Searching for a service in the ShopMe website
     And all results are sorted by date descending
 
     Examples:
-      | searching_phrase             | title | category | user_name | email           | phone     | user_info | basic_info | basic_price | extended_info | extended_price | extra_info | extra_price |
-      | odśnieżanie                  | test  | budowa   | test      | test@domain.com | 888555222 | test      | test       | 10          | test          | 20             | test       | 30          |
-      | programowanie Java           | test  | budowa   | test      | test@domain.com | 888555222 | test      | test       | 10          | test          | 20             | test       | 30          |
-      | programowanie Python         | test  | budowa   | test      | test@domain.com | 888555222 | test      | test       | 10          | test          | 20             | test       | 30          |
-      | profesjonalne mycie okien    | test  | budowa   | test      | test@domain.com | 888555222 | test      | test       | 10          | test          | 20             | test       | 30          |
-      | naprawa pralka Amica AWB10i2 | test  | budowa   | test      | test@domain.com | 888555222 | test      | test       | 10          | test          | 20             | test       | 30          |
-
+      | searching_phrase             |
+      | test                         |
+      | programowanie Java           |
+      | programowanie Python         |
+      | profesjonalne mycie okien    |
+      | naprawa pralka Amica AWB10i2 |

@@ -1,5 +1,6 @@
 package tests.steps;
 
+import cucumber.api.DataTable;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -25,17 +26,9 @@ public class SearchStepDefs {
         restAssuredMethods.deleteAll();
     }
 
-    @And("^I add services \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\"$")
-    public void iAddServices(String title, String category, String userName,
-                             String email, String phone, String additionalInfo,
-                             String basicDescription, Float basicPrice,
-                             String extendedDescription, Float extendedPrice,
-                             String extraDescription, Float extraPrice) {
-        restAssuredMethods.addService(title, category, userName,
-                email, phone, additionalInfo,
-                basicDescription, basicPrice,
-                extendedDescription, extendedPrice,
-                extraDescription, extraPrice);
+    @And("^I add services$")
+    public void iAddServices(DataTable services) {
+        restAssuredMethods.addServices(services);
     }
 
     @When("^I navigate to the main page$")

@@ -1,11 +1,13 @@
 package tests.helpers;
 
 import com.google.gson.Gson;
+import cucumber.api.DataTable;
+import gherkin.formatter.model.DataTableRow;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.response.ResponseBody;
 import tests.objects.Category;
-import tests.objects.Service;
+import tests.objects.MyService;
 import tests.objects.Services;
 import tests.objects.User;
 
@@ -50,7 +52,7 @@ public class RestAssuredMethods {
                            String basicDescription, Float basicPrice,
                            String extendedDescription, Float extendedPrice,
                            String extraDescription, Float extraPrice) {
-        Service content = new Service();
+        MyService content = new MyService();
         content.title = title;
         content.category = getCategoryByName(category);
         content.baseDescription = basicDescription;
@@ -66,12 +68,24 @@ public class RestAssuredMethods {
         RestAssured.given().contentType("application/json").body(result).when().post("/offers").then().assertThat().statusCode(200);
     }
 
-    public void addServices(Integer numberOfServicesToAdd, String title, String category, String userName,
-                            String email, String phone, String additionalInfo,
-                            String basicDescription, Float basicPrice,
-                            String extendedDescription, Float extendedPrice,
-                            String extraDescription, Float extraPrice) {
-        for (int i = 0; i < numberOfServicesToAdd; i++) {
+    public void addServices(DataTable services) {
+        DataTable dt = services;
+        for (int i = 0; i < dt.getGherkinRows().size(); i++) {
+            DataTableRow someRow = dt.getGherkinRows().get(i);
+
+            String title = someRow.getCells().get(0);
+            String category = someRow.getCells().get(1);
+            String userName = someRow.getCells().get(2);
+            String email = someRow.getCells().get(3);
+            String phone = someRow.getCells().get(4);
+            String additionalInfo = someRow.getCells().get(5);
+            String basicDescription = someRow.getCells().get(6);
+            Float basicPrice = Float.valueOf(someRow.getCells().get(7));
+            String extendedDescription = someRow.getCells().get(8);
+            Float extendedPrice = Float.valueOf(someRow.getCells().get(9));
+            String extraDescription = someRow.getCells().get(10);
+            Float extraPrice = Float.valueOf(someRow.getCells().get(11));
+
             addService(title, category, userName,
                     email, phone, additionalInfo,
                     basicDescription, basicPrice,
@@ -83,7 +97,7 @@ public class RestAssuredMethods {
     public void deleteAll() {
         RestAssured.baseURI = this.baseURI;
         Services services = getServiceFromBE();
-        List<Service> offers = services.content;
+        List<MyService> offers = services.content;
         Integer total = services.totalElements;
 
         if (total <= 0) {
@@ -107,8 +121,8 @@ public class RestAssuredMethods {
         assertTrue(total == 0);
     }
 
-    public Service getService(String id){
-        Service service =new Service();;
+    public MyService getService(String id){
+        MyService service =new MyService();;
         Services servicesFromBE = getServiceFromBE();
         for(int i=0; i<servicesFromBE.content.size();i++)
         {
