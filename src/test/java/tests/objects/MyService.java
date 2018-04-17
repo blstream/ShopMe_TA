@@ -1,7 +1,7 @@
 package tests.objects;
 
 
-public class Service {
+public class MyService {
 
     public String id;
     public Long date;
@@ -15,10 +15,10 @@ public class Service {
     public Float extraPrice;
     public User user;
 
-    public Service() {
+    public MyService() {
     }
 
-    public Service(String title, Category category, String baseDescription, Float basePrice, String extendedDescription, Float extendedPrice, String extraDescription, Float extraPrice, User user) {
+    public MyService(String title, Category category, String baseDescription, Float basePrice, String extendedDescription, Float extendedPrice, String extraDescription, Float extraPrice, User user) {
         this.title = title;
         this.category = category;
         this.baseDescription = baseDescription;
@@ -32,8 +32,8 @@ public class Service {
 
     public boolean equalsOnList(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Service)) return false;
-        Service service = (Service) o;
+        if (!(o instanceof MyService)) return false;
+        MyService service = (MyService) o;
 
         if (date != null ? !date.equals(service.date) : service.date != null) return false;
         if (title != null ? !title.equals(service.title) : service.title != null) return false;

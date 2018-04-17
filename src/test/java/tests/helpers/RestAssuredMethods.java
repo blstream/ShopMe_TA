@@ -7,7 +7,7 @@ import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.response.ResponseBody;
 import tests.objects.Category;
-import tests.objects.Service;
+import tests.objects.MyService;
 import tests.objects.Services;
 import tests.objects.User;
 
@@ -52,7 +52,7 @@ public class RestAssuredMethods {
                            String basicDescription, Float basicPrice,
                            String extendedDescription, Float extendedPrice,
                            String extraDescription, Float extraPrice) {
-        Service content = new Service();
+        MyService content = new MyService();
         content.title = title;
         content.category = getCategoryByName(category);
         content.baseDescription = basicDescription;
@@ -97,7 +97,7 @@ public class RestAssuredMethods {
     public void deleteAll() {
         RestAssured.baseURI = this.baseURI;
         Services services = getServiceFromBE();
-        List<Service> offers = services.content;
+        List<MyService> offers = services.content;
         Integer total = services.totalElements;
 
         if (total <= 0) {
