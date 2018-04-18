@@ -146,7 +146,7 @@ public class RestAssuredMethods {
         Services servicesFromBE = getServiceFromBE();
         List<MyService> servicesOnPage = new ArrayList<MyService>();
         Integer beginPage = pageNumber*pageSize+1;
-        Integer endPage = (pageNumber+1)*pageSize+1;
+        Integer endPage = (pageNumber+1)*pageSize;
         for(int i = beginPage; i<endPage; i++)
         {
             service.setId(servicesFromBE.content.get(i).id);
