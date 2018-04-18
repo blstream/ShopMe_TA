@@ -6,11 +6,9 @@ import gherkin.formatter.model.DataTableRow;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.response.ResponseBody;
-import tests.objects.Category;
-import tests.objects.MyService;
-import tests.objects.Services;
-import tests.objects.User;
+import tests.objects.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -141,5 +139,29 @@ public class RestAssuredMethods {
 
         }
         return service;
+    }
+
+    public List<MyService> getServices(int pageNumber, int pageSize){
+        MyService service = new MyService();
+        Services servicesFromBE = getServiceFromBE();
+        List<MyService> servicesOnPage = new ArrayList<MyService>();
+        Integer beginPage = pageNumber*pageSize+1;
+        Integer endPage = (pageNumber+1)*pageSize+1;
+        for(int i = beginPage; i<endPage; i++)
+        {
+            service.setId(servicesFromBE.content.get(i).id);
+            service.setTitle(servicesFromBE.content.get(i).title);
+            service.setDate(getServiceFromBE().content.get(i).date);
+            service.setBaseDescription(servicesFromBE.content.get(i).baseDescription);
+            service.setBasePrice(servicesFromBE.content.get(i).basePrice);
+            service.setExtendedDescription(servicesFromBE.content.get(i).extendedDescription);
+            service.setExtendedPrice(servicesFromBE.content.get(i).extendedPrice);
+            service.setExtraDescription(servicesFromBE.content.get(i).extraDescription);
+            service.setExtraPrice(servicesFromBE.content.get(i).extraPrice);
+            service.setUser(servicesFromBE.content.get(i).user);
+            servicesOnPage.add(i-beginPage, service);
+        }
+        return servicesOnPage;
+
     }
 }
