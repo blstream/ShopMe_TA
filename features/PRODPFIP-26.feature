@@ -1,12 +1,14 @@
 Feature: PRODPFIP-26 Re-search phrases
   As a user I want to be able to search the service again
 
-  Scenario Outline: Searching for phrases again
+  Background:
     Given that there are no services added
     And I add services
-      | zmywanie |
-      | pranie   |
-      | mycie    |
+      | zmywanie | budowa   | test      | test@domain.com | 888555222 | test      | test       | 10          | test          | 20             | test       | 30          |
+      | pranie   | budowa   | test      | test@domain.com | 888555222 | test      | test       | 10          | test          | 20             | test       | 30          |
+      | mycie    | budowa   | test      | test@domain.com | 888555222 | test      | test       | 10          | test          | 20             | test       | 30          |
+
+  Scenario Outline: Searching for phrases again
     And I navigate to the main page
     And I enter a searching phrase "<phrase1>" into the search field
     And I click the search button
@@ -37,7 +39,7 @@ Feature: PRODPFIP-26 Re-search phrases
     And I enter a searching phrase "mycie" into the search field
     And I click the search button
     When I add services
-    |mycie samochodów|
+    |mycie samochodów| budowa   | test      | test@domain.com | 888555222 | test      | test       | 10          | test          | 20             | test       | 30          |
     And I enter a searching phrase "mycie" into the search field
     And I click the search button
     Then search results are visible

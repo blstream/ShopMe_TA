@@ -4,9 +4,9 @@ import cucumber.api.java.en.And;
 import tests.pages.SearchResultsPage;
 import tests.pages.ServiceProfilePage;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class ServiceStepDefs {
-
 
     SearchResultsPage searchResultsPage = new SearchResultsPage();
     ServiceProfilePage serviceProfilePage = new ServiceProfilePage();
@@ -14,7 +14,8 @@ public class ServiceStepDefs {
 
     @And("^I can click on the first search result to see the details$")
     public void iCanClickOnTheFirstSearchResultToSeeTheDetails() {
-        searchResultsPage.chooseFirstSearchResult();
+        searchResultsPage.openServiceFromResults(0);
+        serviceProfilePage.waitForServiceDetails();
     }
 
     @And("^I can see the title \"([^\"]*)\"$")
@@ -60,27 +61,27 @@ public class ServiceStepDefs {
         assertEquals(userInfo, expectedUserInfo);
     }
 
-    @And("^I can see basic service \"([^\"]*)\" and price \"([^\"]*)\"$")
+    @And("^I can see basic service \"([^\"]*)\" with price \"([^\"]*)\"$")
     public void iCanSeeBasicServiceAndPrice(String basicInfo, String basicPrice) {
         String expectedBasicInfo = serviceProfilePage.getBasicInfoFieldText();
         String expectedBasicPrice = serviceProfilePage.getBasicPriceFieldText();
         assertEquals(basicInfo, expectedBasicInfo);
-        assertEquals(basicPrice, expectedBasicPrice);
+        assertTrue(expectedBasicPrice.contains(basicPrice));
     }
 
-    @And("^I can see extended service \"([^\"]*)\" and price \"([^\"]*)\"$")
+    @And("^I can see extended service \"([^\"]*)\" with price \"([^\"]*)\"$")
     public void iCanSeeExtendedServiceAndPrice(String extendedInfo, String extendedPrice) {
         String expectedExtendedInfo = serviceProfilePage.getExtendedInfoFieldText();
         String expectedExtendedPrice = serviceProfilePage.getExtendedPriceFieldText();
         assertEquals(extendedInfo, expectedExtendedInfo);
-        assertEquals(extendedPrice, expectedExtendedPrice);
+        assertTrue(expectedExtendedPrice.contains(extendedPrice));
     }
 
-    @And("^I can see extra service \"([^\"]*)\" and price \"([^\"]*)\"$")
+    @And("^I can see extra service \"([^\"]*)\" with price \"([^\"]*)\"$")
     public void iCanSeeExtraServiceAndPrice(String extraInfo, String extraPrice) {
         String expectedExtraInfo = serviceProfilePage.getExtraInfoFieldText();
         String expectedExtraPrice = serviceProfilePage.getExtraPriceFieldText();
         assertEquals(extraInfo, expectedExtraInfo);
-        assertEquals(extraPrice, expectedExtraPrice);
+        assertTrue(expectedExtraPrice.contains(extraPrice));
     }
 }

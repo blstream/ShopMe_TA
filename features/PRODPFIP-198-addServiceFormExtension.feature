@@ -1,3 +1,4 @@
+@inProgress
 Feature: PRODPFIP-198 Adding new service - extension with province and city of the add service form
   As a user I want to be able to add new service so that can be found by potential clients
 

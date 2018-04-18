@@ -4,10 +4,15 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import static tests.Hooks.driver;
+import static tests.Hooks.wait;
 
 public class ServiceProfilePage {
+
+    @FindBy(how = How.CLASS_NAME, using = "offer-details")
+    public WebElement serviceDetails;
 
     @FindBy(how = How.CLASS_NAME, using = "offer-details__header")
     public WebElement serviceTitle;
@@ -27,7 +32,7 @@ public class ServiceProfilePage {
     @FindBy(how = How.CLASS_NAME, using = "offer-details__contact--container--phone")
     public WebElement userPhone;
 
-    @FindBy(how = How.XPATH, using = "//*[@id=\"root\"]/div/main/div/div[1]/div[2]/p")
+    @FindBy(how = How.CLASS_NAME, using = "/offer-details__contact--additional-info")
     public WebElement userInfo;
 
     @FindBy(how = How.CLASS_NAME, using = "offer-details__offers--base--description")
@@ -51,6 +56,10 @@ public class ServiceProfilePage {
 
     public ServiceProfilePage() {
         PageFactory.initElements(driver, this);
+    }
+
+    public void waitForServiceDetails() {
+        wait.until(ExpectedConditions.visibilityOf(serviceDetails));
     }
 
     public String getTitleFieldText(){

@@ -1,3 +1,4 @@
+@inProgress
 Feature: PRODPFIP-45 Pagination of search results
     As a user I want to navigate between search result pages so that I can see all the search results
 
@@ -73,7 +74,7 @@ Feature: PRODPFIP-45 Pagination of search results
         And search results are visible
         And I navigate to the second page
         When I add services
-            |test 1|
+            |test 1| budowa   | test      | test@domain.com | 888555222 | test      | test       | 10          | test          | 20             | test       | 30          |
         And I return to the first page
         Then newly added service should be displayed in the first place
         And The last result of each page before adding service is the first result of the next page after adding service
