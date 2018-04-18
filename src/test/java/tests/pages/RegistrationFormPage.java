@@ -1,7 +1,6 @@
 package tests.pages;
 
 import org.junit.Assert;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
@@ -11,16 +10,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import static tests.Hooks.driver;
 import static tests.Hooks.wait;
 
-public class RegistrationFormPage {
-
-    @FindBy(how = How.NAME, using = "users__name")
-    public WebElement userName;
-
-    @FindBy(how = How.NAME, using = "users__surname")
-    public WebElement userSurname;
-
-    @FindBy(how = How.NAME, using = "users__email")
-    public WebElement userEmail;
+public class RegistrationFormPage extends LoginPage {
 
     @FindBy(how = How.CLASS_NAME, using = "form__button")
     public WebElement registerButton;
@@ -73,7 +63,7 @@ public class RegistrationFormPage {
     @FindBy(how = How.NAME, using = "users_invoiceAddressCity")
     public WebElement invoiceAddressCity;
 
-    @FindBy(how = How.XPATH, using = "//*[@id=\"root\"]/div/main/section/div/h1")
+    @FindBy(how = How.CLASS_NAME, using = "success-register-message__text-wrapper")
     public WebElement confirmationMessage;
 
     @FindBy(how = How.XPATH, using = "//a[@href='/login']")
@@ -179,6 +169,6 @@ public class RegistrationFormPage {
     }
 
     public void verifyIfExpandedRegisterFormIsVisible() {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#root > div > main > h1")));
+        wait.until(ExpectedConditions.elementToBeClickable(registerButton));
     }
 }

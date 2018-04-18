@@ -39,7 +39,6 @@ public class SignUpStepDefs {
         loginPage.sendName(name);
         loginPage.sendSurname(surname);
         loginPage.sendEmail(email);
-        System.out.println(email);
     }
 
     @And("^I push Register button$")
