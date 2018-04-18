@@ -11,7 +11,6 @@ import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -363,12 +362,5 @@ public class AddServicePage {
         saveAllValues(valuesBefore);
         submitButton.click();
         saveAllValues(valuesAfter);
-    }
-
-    public void mainPageIsVisible() {
-        WebDriverWait wait = new WebDriverWait(driver,3);
-        wait.until(ExpectedConditions.urlToBe("https://patronage2018.intive-projects.com"));
-        String url = driver.getCurrentUrl();
-        Assert.assertEquals("https://patronage2018.intive-projects.com", url);
     }
 }
