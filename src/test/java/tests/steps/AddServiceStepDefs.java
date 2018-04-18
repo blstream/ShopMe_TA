@@ -218,5 +218,9 @@ public class AddServiceStepDefs {
     public void iPressAddServiceButtonWithFail() {
         addServicePage.pushSubmitButtonWithFail();
     }
-}
 
+    @And("^I am redirected to the main page$")
+    public void iAmRedirectedToTheMainPage() {
+        addServicePage.mainPageIsVisible();
+    }
+}
