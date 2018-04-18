@@ -45,21 +45,20 @@ public class RestAssuredMethods {
         return servicesFromBE;
     }
 
-    public void addService(String title, String category, String userName,
-                           String email, String phone, String additionalInfo,
-                           String basicDescription, Float basicPrice,
-                           String extendedDescription, Float extendedPrice,
-                           String extraDescription, Float extraPrice) {
+    public void addService(MyService service) {
         MyService content = new MyService();
-        content.title = title;
-        content.category = getCategoryByName(category);
-        content.baseDescription = basicDescription;
-        content.basePrice = basicPrice;
-        content.user = new User(userName, email, phone, additionalInfo);
-        content.extendedDescription = extendedDescription;
-        content.extendedPrice = extendedPrice;
-        content.extraDescription = extraDescription;
-        content.extraPrice = extraPrice;
+        content.title = service.getTitle();
+        content.category.name = service.category.getName();
+        content.baseDescription = service.getBaseDesription();
+        content.basePrice = service.getBasePrice();
+        content.user.name = service.user.getName();
+        content.user.email = service.user.getEmail();
+        content.user.phoneNumber = service.user.getPhoneNumber();
+        content.user.additionalInfo = service.user.getAdditionalInfo();
+        content.extendedDescription = service.getExtendedDesription();
+        content.extendedPrice = service.getExtendedPrice();
+        content.extraDescription = service.getExtraDesription();
+        content.extraPrice = service.getExtraPrice();
         Gson gson = new Gson();
         String result = gson.toJson(content);
         RestAssured.baseURI = this.baseURI;
@@ -68,27 +67,24 @@ public class RestAssuredMethods {
 
     public void addServices(DataTable services) {
         DataTable dt = services;
+        MyService service = new MyService();
         for (int i = 0; i < dt.getGherkinRows().size(); i++) {
             DataTableRow someRow = dt.getGherkinRows().get(i);
 
-            String title = someRow.getCells().get(0);
-            String category = someRow.getCells().get(1);
-            String userName = someRow.getCells().get(2);
-            String email = someRow.getCells().get(3);
-            String phone = someRow.getCells().get(4);
-            String additionalInfo = someRow.getCells().get(5);
-            String basicDescription = someRow.getCells().get(6);
-            Float basicPrice = Float.valueOf(someRow.getCells().get(7));
-            String extendedDescription = someRow.getCells().get(8);
-            Float extendedPrice = Float.valueOf(someRow.getCells().get(9));
-            String extraDescription = someRow.getCells().get(10);
-            Float extraPrice = Float.valueOf(someRow.getCells().get(11));
+            service.title = someRow.getCells().get(0);
+            service.category.name = someRow.getCells().get(1);
+            service.user.name = someRow.getCells().get(2);
+            service.user.email = someRow.getCells().get(3);
+            service.user.phoneNumber = someRow.getCells().get(4);
+            service.user.additionalInfo = someRow.getCells().get(5);
+            service.baseDescription = someRow.getCells().get(6);
+            service.basePrice = Float.valueOf(someRow.getCells().get(7));
+            service.extendedDescription = someRow.getCells().get(8);
+            service.extendedPrice = Float.valueOf(someRow.getCells().get(9));
+            service.extraDescription = someRow.getCells().get(10);
+            service.extraPrice = Float.valueOf(someRow.getCells().get(11));
 
-            addService(title, category, userName,
-                    email, phone, additionalInfo,
-                    basicDescription, basicPrice,
-                    extendedDescription, extendedPrice,
-                    extraDescription, extraPrice);
+            addService(service);
         }
     }
 
@@ -119,49 +115,38 @@ public class RestAssuredMethods {
         assertTrue(total == 0);
     }
 
-    public MyService getService(String id){
-        MyService service =new MyService();;
+    public MyService getService(String id) {
+        MyService service = new MyService();
+
         Services servicesFromBE = getServiceFromBE();
-        for(int i=0; i<servicesFromBE.content.size();i++)
-        {
-           if(servicesFromBE.content.get(i).id.equals(id)){
-           service.setId(servicesFromBE.content.get(i).id);
-           service.setTitle(servicesFromBE.content.get(i).title);
-           service.setDate(getServiceFromBE().content.get(i).date);
-           service.setBaseDescription(servicesFromBE.content.get(i).baseDescription);
-           service.setBasePrice(servicesFromBE.content.get(i).basePrice);
-           service.setExtendedDescription(servicesFromBE.content.get(i).extendedDescription);
-           service.setExtendedPrice(servicesFromBE.content.get(i).extendedPrice);
-           service.setExtraDescription(servicesFromBE.content.get(i).extraDescription);
-           service.setExtraPrice(servicesFromBE.content.get(i).extraPrice);
-           service.setUser(servicesFromBE.content.get(i).user);
-           }
+        for (int i = 0; i < servicesFromBE.content.size(); i++) {
+            if (servicesFromBE.content.get(i).id.equals(id)) {
+                service.setId(servicesFromBE.content.get(i).id);
+                service.setTitle(servicesFromBE.content.get(i).title);
+                service.setDate(getServiceFromBE().content.get(i).date);
+                service.setBaseDescription(servicesFromBE.content.get(i).baseDescription);
+                service.setBasePrice(servicesFromBE.content.get(i).basePrice);
+                service.setExtendedDescription(servicesFromBE.content.get(i).extendedDescription);
+                service.setExtendedPrice(servicesFromBE.content.get(i).extendedPrice);
+                service.setExtraDescription(servicesFromBE.content.get(i).extraDescription);
+                service.setExtraPrice(servicesFromBE.content.get(i).extraPrice);
+                service.setUser(servicesFromBE.content.get(i).user);
+            }
 
         }
         return service;
     }
 
-    public List<MyService> getServices(int pageNumber, int pageSize){
-        MyService service = new MyService();
-        Services servicesFromBE = getServiceFromBE();
-        List<MyService> servicesOnPage = new ArrayList<MyService>();
-        Integer beginPage = pageNumber*pageSize+1;
-        Integer endPage = (pageNumber+1)*pageSize;
-        for(int i = beginPage; i<endPage; i++)
-        {
-            service.setId(servicesFromBE.content.get(i).id);
-            service.setTitle(servicesFromBE.content.get(i).title);
-            service.setDate(getServiceFromBE().content.get(i).date);
-            service.setBaseDescription(servicesFromBE.content.get(i).baseDescription);
-            service.setBasePrice(servicesFromBE.content.get(i).basePrice);
-            service.setExtendedDescription(servicesFromBE.content.get(i).extendedDescription);
-            service.setExtendedPrice(servicesFromBE.content.get(i).extendedPrice);
-            service.setExtraDescription(servicesFromBE.content.get(i).extraDescription);
-            service.setExtraPrice(servicesFromBE.content.get(i).extraPrice);
-            service.setUser(servicesFromBE.content.get(i).user);
-            servicesOnPage.add(i-beginPage, service);
-        }
-        return servicesOnPage;
+    public Services getServices(int pageNumber, int pageSize) {
 
+        Response response = RestAssured.given()
+                .queryParam("pageNumber", pageNumber)
+                .queryParam("pageSize", pageSize)
+                .get(baseURI + "/offers");
+        ResponseBody body = response.getBody();
+        Gson gson = new Gson();
+        Services service = gson.fromJson(body.asString(), Services.class);
+        return service;
     }
+
 }

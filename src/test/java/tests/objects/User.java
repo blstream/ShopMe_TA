@@ -27,6 +27,8 @@ public class User {
         return phoneNumber;
     }
 
+    public String getAdditionalInfo() { return additionalInfo; }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -38,6 +40,8 @@ public class User {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
+
+    public void setAdditionalInfo(String additionalInfo) { this.additionalInfo = additionalInfo; }
 
     public boolean equalsOnList(Object o) {
         if (this == o) return true;
