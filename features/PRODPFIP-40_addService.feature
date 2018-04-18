@@ -95,4 +95,3 @@ Feature:  PRODPFIP-40 Adding new service - basic flow
     And I press Add service button
     Then New service with 800 character aboutMe is added
     And I should see confirmation message "Pomyślnie dodano ofertę"
-    And I am redirected to the main page
