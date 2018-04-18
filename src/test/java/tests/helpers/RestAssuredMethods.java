@@ -37,7 +37,7 @@ public class RestAssuredMethods {
         return category;
     }
 
-    public Services getServiceFromBE() {
+    public Services getServicesFromBE() {
         Response response = RestAssured.given().get(baseURI + "/offers");
         ResponseBody body = response.getBody();
         Gson gson = new Gson();
@@ -90,7 +90,7 @@ public class RestAssuredMethods {
 
     public void deleteAll() {
         RestAssured.baseURI = this.baseURI;
-        Services services = getServiceFromBE();
+        Services services = getServicesFromBE();
         List<MyService> offers = services.content;
         Integer total = services.totalElements;
 
@@ -104,7 +104,7 @@ public class RestAssuredMethods {
                 String offer = offers.get(i).id;
                 RestAssured.given().when().delete("/offers/" + offer);
             }
-            services = getServiceFromBE();
+            services = getServicesFromBE();
             offers = services.content;
             total = services.totalElements;
 
@@ -116,29 +116,15 @@ public class RestAssuredMethods {
     }
 
     public MyService getService(String id) {
-        MyService service = new MyService();
-
-        Services servicesFromBE = getServiceFromBE();
-        for (int i = 0; i < servicesFromBE.content.size(); i++) {
-            if (servicesFromBE.content.get(i).id.equals(id)) {
-                service.setId(servicesFromBE.content.get(i).id);
-                service.setTitle(servicesFromBE.content.get(i).title);
-                service.setDate(getServiceFromBE().content.get(i).date);
-                service.setBaseDescription(servicesFromBE.content.get(i).baseDescription);
-                service.setBasePrice(servicesFromBE.content.get(i).basePrice);
-                service.setExtendedDescription(servicesFromBE.content.get(i).extendedDescription);
-                service.setExtendedPrice(servicesFromBE.content.get(i).extendedPrice);
-                service.setExtraDescription(servicesFromBE.content.get(i).extraDescription);
-                service.setExtraPrice(servicesFromBE.content.get(i).extraPrice);
-                service.setUser(servicesFromBE.content.get(i).user);
-            }
-
-        }
+        Response response = RestAssured.given().get(baseURI + "/offers/" + id);
+        ResponseBody body = response.getBody();
+        Gson gson = new Gson();
+        MyService service = gson.fromJson(body.asString(), MyService.class);
+        System.out.println(service.baseDescription);
         return service;
     }
 
     public Services getServices(int pageNumber, int pageSize) {
-
         Response response = RestAssured.given()
                 .queryParam("pageNumber", pageNumber)
                 .queryParam("pageSize", pageSize)
@@ -149,4 +135,10 @@ public class RestAssuredMethods {
         return service;
     }
 
+    public Services getAllServices(int pageNumber, int pageSize) {
+        Services services = new Services();
+        List<MyService> serviceList = getServices(pageNumber, pageSize);
+        services.content = serviceList;
+        return services;
+    }
 }
