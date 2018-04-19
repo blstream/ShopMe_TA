@@ -1,0 +1,10 @@
+#+Title: Test reports
+#+OPTIONS: toc:nil num:nil
+
+* Test reports
+  - [[file:Test Results - Adding new service (positive flow).html][Adding new service (positive flow)]]
+  - [[file:Test Results - Displaying no offer message.html][Displaying no offer message]]
+  - [[file:Test Results - Possibility to see the profile page of the service.html][Possibility to see the profile page of the service]]
+  - [[file:Test Results - Re-searching.html][Re-searching]]
+  - [[file:Test Results - Searching for a service (positive flow).html][Searching for a service (positive flow)]]
+  - [[file:Test Results - Searching functionality - specify requirements.html][Searching functionality - specify requirements]]
