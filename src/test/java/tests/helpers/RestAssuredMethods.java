@@ -131,8 +131,8 @@ public class RestAssuredMethods {
                 .get(baseURI + "/offers");
         ResponseBody body = response.getBody();
         Gson gson = new Gson();
-        Services service = gson.fromJson(body.asString(), Services.class);
-        return service;
+        Services servicesOnPage = gson.fromJson(body.asString(), Services.class);
+        return servicesOnPage;
     }
 
     public Services getAllServices(int pageNumber, int pageSize) {
