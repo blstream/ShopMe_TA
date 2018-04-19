@@ -116,11 +116,10 @@ public class RestAssuredMethods {
     }
 
     public MyService getService(String id) {
-        Response response = RestAssured.given().get(baseURI + "/offers/" + id);
+        Response response = RestAssured.given().pathParam("id",id).get(baseURI + "/offers/{id}");
         ResponseBody body = response.getBody();
         Gson gson = new Gson();
         MyService service = gson.fromJson(body.asString(), MyService.class);
-        System.out.println(service.baseDescription);
         return service;
     }
 
@@ -135,10 +134,10 @@ public class RestAssuredMethods {
         return servicesOnPage;
     }
 
-    public Services getAllServices(int pageNumber, int pageSize) {
-        Services services = new Services();
-        List<MyService> serviceList = getServices(pageNumber, pageSize);
-        services.content = serviceList;
-        return services;
+    public List<MyService> getAllServices(int pageNumber, int pageSize) {
+        Services services  = getServices(pageNumber, pageSize);
+        List <MyService> serviceList;
+        serviceList=services.content;
+        return serviceList;
     }
 }
