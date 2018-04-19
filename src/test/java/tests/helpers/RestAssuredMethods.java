@@ -62,7 +62,7 @@ public class RestAssuredMethods {
         Gson gson = new Gson();
         String result = gson.toJson(content);
         RestAssured.baseURI = this.baseURI;
-        RestAssured.given().contentType("application/json").body(result).when().post("/offers").then().assertThat().statusCode(200);
+        RestAssured.given().contentType("application/json").body(result).when().post("/offers").then().assertThat().statusCode(201);
     }
 
     public void addServices(DataTable services) {
@@ -85,6 +85,15 @@ public class RestAssuredMethods {
             service.extraPrice = Float.valueOf(someRow.getCells().get(11));
 
             addService(service);
+        }
+    }
+
+    public void deleteService(String id){
+        MyService serviceToDelete = getService(id);
+
+        if (serviceToDelete != null){
+            RestAssured.baseURI = this.baseURI;
+            RestAssured.given().contentType("application/json").when().delete("/offers/" +id).then().assertThat().statusCode(200);
         }
     }
 
