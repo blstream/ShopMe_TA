@@ -2,10 +2,12 @@ package tests.helpers;
 
 import com.google.gson.Gson;
 import cucumber.api.DataTable;
+import cucumber.deps.com.thoughtworks.xstream.mapper.Mapper;
 import gherkin.formatter.model.DataTableRow;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.response.ResponseBody;
+import org.apache.commons.lang3.ObjectUtils;
 import tests.objects.*;
 
 import java.util.ArrayList;
@@ -116,7 +118,7 @@ public class RestAssuredMethods {
     }
 
     public MyService getService(String id) {
-        Response response = RestAssured.given().pathParam("id",id).get(baseURI + "/offers/{id}");
+        Response response = RestAssured.given().pathParam("id", id).get(baseURI + "/offers/{id}");
         ResponseBody body = response.getBody();
         Gson gson = new Gson();
         MyService service = gson.fromJson(body.asString(), MyService.class);
@@ -134,10 +136,25 @@ public class RestAssuredMethods {
         return servicesOnPage;
     }
 
-    public List<MyService> getAllServices(int pageNumber, int pageSize) {
-        Services services  = getServices(pageNumber, pageSize);
-        List <MyService> serviceList;
-        serviceList=services.content;
+    public List<MyService> getAllServices(int pageSize) {
+        List<MyService> serviceList = new ArrayList<>();
+        Services services = getServices(1, 100);
+        int totalElements = services.totalElements;
+        int counter = 1;
+        while (pageSize > 100) {
+            counter = counter + 1;
+            pageSize = pageSize - 100;
+        }
+        System.out.println(totalElements);
+        for (int i = 1; i <= counter; i++) {
+            services = getServices(i, 100);
+            if (totalElements <= 0) break;
+            for (int j = 0; j < services.content.size(); j++) {
+                MyService myService = services.content.get(j);
+                serviceList.add(myService);
+            }
+            totalElements = totalElements - 100;
+        }
         return serviceList;
     }
 }
