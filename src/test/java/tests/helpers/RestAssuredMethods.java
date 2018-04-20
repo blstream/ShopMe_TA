@@ -51,7 +51,7 @@ public class RestAssuredMethods {
         content.category = getCategoryByName(service.category.getName());
         content.baseDescription = service.getBaseDesription();
         content.basePrice = service.getBasePrice();
-        content.user = new User(service.user.getName(),service.user.getEmail(),service.user.getPhoneNumber(),service.user.getAdditionalInfo());
+        content.user = new User(service.user.getName(), service.user.getEmail(), service.user.getPhoneNumber(), service.user.getAdditionalInfo());
         content.extendedDescription = service.getExtendedDesription();
         content.extendedPrice = service.getExtendedPrice();
         content.extraDescription = service.getExtraDesription();
@@ -69,7 +69,7 @@ public class RestAssuredMethods {
             DataTableRow someRow = dt.getGherkinRows().get(i);
 
             service.title = someRow.getCells().get(0);
-            service.category = new Category(null,someRow.getCells().get(1) ,null );
+            service.category = new Category(null, someRow.getCells().get(1), null);
             service.user = new User(someRow.getCells().get(2), someRow.getCells().get(3), someRow.getCells().get(4), someRow.getCells().get(5));
             service.baseDescription = someRow.getCells().get(6);
             service.basePrice = Float.valueOf(someRow.getCells().get(7));
@@ -82,12 +82,12 @@ public class RestAssuredMethods {
         }
     }
 
-    public void deleteService(String id){
+    public void deleteService(String id) {
         MyService serviceToDelete = getService(id);
 
-        if (serviceToDelete != null){
+        if (serviceToDelete != null) {
             RestAssured.baseURI = this.baseURI;
-            RestAssured.given().contentType("application/json").when().delete("/offers/" +id).then().assertThat().statusCode(200);
+            RestAssured.given().contentType("application/json").when().delete("/offers/" + id).then().assertThat().statusCode(200);
         }
     }
 
