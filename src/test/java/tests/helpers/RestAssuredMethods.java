@@ -2,12 +2,10 @@ package tests.helpers;
 
 import com.google.gson.Gson;
 import cucumber.api.DataTable;
-import cucumber.deps.com.thoughtworks.xstream.mapper.Mapper;
 import gherkin.formatter.model.DataTableRow;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.response.ResponseBody;
-import org.apache.commons.lang3.ObjectUtils;
 import tests.objects.*;
 
 import java.util.ArrayList;
