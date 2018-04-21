@@ -158,4 +158,27 @@ public class RestAssuredMethods {
         }
         return serviceList;
     }
+
+    public List<MyService> searchForServices(String title) {
+        int totalPages = 1;
+        int pageSize = 10;
+        List<MyService> allElements = new ArrayList<>();
+        for (int i = 1; i <= totalPages; i++) {
+            Response response = RestAssured.given()
+                    .queryParam("pageSize", pageSize)
+                    .queryParam("title", title)
+                    .get(baseURI + "/offers?page=" + i);
+            ResponseBody body = response.getBody();
+            Gson gson = new Gson();
+            Services servicesByTitle = gson.fromJson(body.asString(), Services.class);
+            int numberOfElements = servicesByTitle.numberOfElements;
+            totalPages = servicesByTitle.totalPages;
+            for (int j = 0; j < numberOfElements; j++) {
+                MyService myService = servicesByTitle.content.get(j);
+                allElements.add(myService);
+            }
+        }
+        return allElements;
+
+    }
 }
