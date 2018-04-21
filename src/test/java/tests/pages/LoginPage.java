@@ -12,7 +12,7 @@ import java.text.SimpleDateFormat;
 import static tests.Hooks.driver;
 import static tests.Hooks.wait;
 
-public class LoginPage {
+public class LoginPage extends SearchServicePage {
 
     @FindBy(how = How.NAME, using = "users__name")
     public WebElement userName;

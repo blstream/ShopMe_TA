@@ -7,7 +7,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import static tests.Hooks.driver;
 
-public class ServiceProfilePage {
+public class ServiceProfilePage extends SearchServicePage {
 
     @FindBy(how = How.CLASS_NAME, using = "offer-details__header")
     public WebElement serviceTitle;
@@ -53,19 +53,19 @@ public class ServiceProfilePage {
         PageFactory.initElements(driver, this);
     }
 
-    public String getTitleFieldText(){
+    public String getTitleFieldText() {
         return serviceTitle.getText();
     }
 
-    public String getCategoryFieldText(){
+    public String getCategoryFieldText() {
         return serviceCategory.getText();
     }
 
-    public String getUserNameFieldText(){
+    public String getUserNameFieldText() {
         return userName.getText();
     }
 
-    public String getUserEmailFieldText(){
+    public String getUserEmailFieldText() {
         return userEmail.getText();
     }
 
@@ -101,11 +101,11 @@ public class ServiceProfilePage {
         return extraPrice.getText();
     }
 
-    public void showUserEmail(){
+    public void showUserEmail() {
         showButton.click();
     }
 
-    public void showUserPhone(){
+    public void showUserPhone() {
         showButton.click();
     }
 }
