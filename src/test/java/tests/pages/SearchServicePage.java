@@ -1,6 +1,7 @@
 package tests.pages;
 
 import org.apache.commons.lang3.StringUtils;
+import org.junit.Assert;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -27,6 +28,9 @@ public class SearchServicePage {
 
     @FindBy(how = How.XPATH, using = "//a[@href='/login']")
     public WebElement loginButton;
+
+    @FindBy(how = How.CSS, using = "#root > div > header > div > a")
+    public WebElement logoShopMe;
 
     public SearchServicePage() {
         PageFactory.initElements(driver, this);
@@ -72,5 +76,15 @@ public class SearchServicePage {
 
     public void pushLoginButton() {
         wait.until(ExpectedConditions.elementToBeClickable(loginButton)).click();
+    }
+
+    public void verifyIfMainPageIsVisible() {
+        wait.until(ExpectedConditions.urlToBe(mainPageUrl));
+        String url = driver.getCurrentUrl();
+        Assert.assertEquals(mainPageUrl, url);
+    }
+
+    public void pushShopMeButton() {
+        logoShopMe.click();
     }
 }

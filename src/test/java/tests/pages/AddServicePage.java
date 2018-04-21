@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
 import static tests.Hooks.driver;
 import static tests.Hooks.wait;
 
-public class AddServicePage {
+public class AddServicePage extends SearchServicePage {
     @FindBy(how = How.NAME, using = "offer__title")
     public WebElement offerTitle;
 
