@@ -137,25 +137,14 @@ public class RestAssuredMethods {
         return servicesOnPage;
     }
 
-    public List<MyService> getAllServices(int pageSize) {
-        List<MyService> serviceList = new ArrayList<>();
-        Services services = getServices(1, 100);
-        int totalElements = services.totalElements;
-        int counter = 1;
-        while (pageSize > 100) {
-            counter = counter + 1;
-            pageSize = pageSize - 100;
+    public List<MyService> getAllServices() {
+        List<MyService> offersList = new ArrayList<>();
+        for (int i = 1; ; i++) {
+            Services services = getServices(i, 100);
+            if (services.content == null)
+                break;
+            offersList.addAll(services.content);
         }
-        System.out.println(totalElements);
-        for (int i = 1; i <= counter; i++) {
-            services = getServices(i, 100);
-            if (totalElements <= 0) break;
-            for (int j = 0; j < services.content.size(); j++) {
-                MyService myService = services.content.get(j);
-                serviceList.add(myService);
-            }
-            totalElements = totalElements - 100;
-        }
-        return serviceList;
+        return offersList;
     }
 }
