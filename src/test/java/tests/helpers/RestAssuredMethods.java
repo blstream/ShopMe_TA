@@ -128,7 +128,7 @@ public class RestAssuredMethods {
 
     public Services getServices(int pageNumber, int pageSize) {
         Response response = RestAssured.given()
-                .queryParam("pageNumber", pageNumber)
+                .queryParam("page", pageNumber)
                 .queryParam("pageSize", pageSize)
                 .get(baseURI + "/offers");
         ResponseBody body = response.getBody();
@@ -146,5 +146,17 @@ public class RestAssuredMethods {
             offersList.addAll(services.content);
         }
         return offersList;
+    }
+
+    public List<MyService> searchForServices(String title) {
+        List<MyService> allElements = getAllServices();
+        List<MyService> allElementsTitle = new ArrayList<>();
+        for (int i = 0; i < allElements.size(); i++) {
+            if (allElements.get(i).title.equals(title))
+                allElementsTitle.add(allElements.get(i));
+        }
+        return allElementsTitle;
+    }
+
     }
 }
