@@ -58,7 +58,7 @@ public class ServiceStepDefs {
     @And("^I can see additional user info \"([^\"]*)\"$")
     public void iCanSeeAdditionalUserInfo(String userInfo) {
         String expectedUserInfo = serviceProfilePage.getUserInfoFieldText();
-        assertEquals(userInfo, expectedUserInfo);
+        assertTrue(expectedUserInfo.contains(userInfo));
     }
 
     @And("^I can see basic service \"([^\"]*)\" with price \"([^\"]*)\"$")

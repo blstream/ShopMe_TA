@@ -32,7 +32,7 @@ public class ServiceProfilePage {
     @FindBy(how = How.CLASS_NAME, using = "offer-details__contact--container--phone")
     public WebElement userPhone;
 
-    @FindBy(how = How.CLASS_NAME, using = "/offer-details__contact--additional-info")
+    @FindBy(how = How.CLASS_NAME, using = "offer-details__contact--additional-info")
     public WebElement userInfo;
 
     @FindBy(how = How.CLASS_NAME, using = "offer-details__offers--base--description")

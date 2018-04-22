@@ -91,33 +91,6 @@ public class RestAssuredMethods {
         }
     }
 
-    public void deleteAll() {
-        RestAssured.baseURI = this.baseURI;
-        Services services = getServicesFromBE();
-        List<MyService> offers = services.content;
-        Integer total = services.totalElements;
-
-        if (total <= 0) {
-            return;
-        }
-
-        for (; ; ) {
-
-            for (int i = 0; i < offers.size(); i++) {
-                String offer = offers.get(i).id;
-                RestAssured.given().when().delete("/offers/" + offer);
-            }
-            services = getServicesFromBE();
-            offers = services.content;
-            total = services.totalElements;
-
-            if (total <= 0) {
-                break;
-            }
-        }
-        assertTrue(total == 0);
-    }
-
     public MyService getService(String id) {
         Response response = RestAssured.given().pathParam("id", id).get(baseURI + "/offers/{id}");
         ResponseBody body = response.getBody();
@@ -158,5 +131,10 @@ public class RestAssuredMethods {
         return allElementsTitle;
     }
 
+    public void deleteAllServices() {
+        List<MyService> deleteList = getAllServices();
+        for (int i = 0; i < deleteList.size(); i++) {
+            deleteService(deleteList.get(i).id);
+        }
     }
 }
