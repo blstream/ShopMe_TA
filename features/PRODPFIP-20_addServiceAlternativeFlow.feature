@@ -14,6 +14,8 @@ Feature: PRODPFIP-20 Adding new service - alternative flow
     And I fill in name with "<name>"
     And I fill in email with "<email>"
     And I fill in phone with "<phone>"
+    And I fill in province with "zachodniopomorskie"
+    And I fill in city with "Szczecin"
     And I press Add service button with fail
     Then I should see an error message "Pole wymagane" next to the required field
     And I should see a message "Proszę wypełnić wszystkie wymagane pola"
@@ -41,6 +43,8 @@ Feature: PRODPFIP-20 Adding new service - alternative flow
     And I fill in name with "Jerry"
     And I fill in email with "test@gmail.com"
     And I fill in phone with "000000000"
+    And I fill in province with "zachodniopomorskie"
+    And I fill in city with "Szczecin"
     And I press Add service button
     Then I should see an error message "Pole wymagane" next to the required field
     And I should see a message "Proszę wypełnić wszystkie wymagane pola"
@@ -61,6 +65,8 @@ Feature: PRODPFIP-20 Adding new service - alternative flow
     And I fill in name with "<name>"
     And I fill in email with "<email>"
     And I fill in phone with "<phone>"
+    And I fill in province with "zachodniopomorskie"
+    And I fill in city with "Szczecin"
     And I press Add service button
     Then I should see inserted values in filled fields
     And I should see an error message "<error_message>" next to the field with invalid data
