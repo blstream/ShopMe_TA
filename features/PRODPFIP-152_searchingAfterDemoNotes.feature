@@ -14,9 +14,9 @@ Feature: PRODPFIP-152 Specify requirements to searching functionality
   Scenario Outline: Positive flow of searching - searching phrase must have minimum 2 and maximum 30 characters
     Given that there are no services added
     And I add services
-    # | service name                   | category | user name | user email      | user phone | user info | base description | base price | extended description | extended price | extra description | extra price |
-      | fotografia ślubna tanio okazja | budowa   | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          |
-      | QA                             | budowa   | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          |
+    # | service name                   | category | user name | user email      | user phone | user info | base description | base price | extended description | extended price | extra description | extra price | province           | city     |
+      | fotografia ślubna tanio okazja | budowa   | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          | zachodniopomorskie | Szczecin |
+      | QA                             | budowa   | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          | zachodniopomorskie | Szczecin |
 
     When I navigate to the main page
     And I enter a searching phrase "<searching_phrase>" into the search field
