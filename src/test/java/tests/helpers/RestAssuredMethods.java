@@ -37,14 +37,6 @@ public class RestAssuredMethods {
         return category;
     }
 
-    public Services getServicesFromBE() {
-        Response response = RestAssured.given().get(baseURI + "/offers");
-        ResponseBody body = response.getBody();
-        Gson gson = new Gson();
-        Services servicesFromBE = gson.fromJson(body.asString(), Services.class);
-        return servicesFromBE;
-    }
-
     public void addService(MyService service) {
         MyService content = new MyService();
         content.title = service.getTitle();
