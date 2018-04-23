@@ -23,7 +23,7 @@ public class SearchStepDefs {
 
     @Given("^that there are no services added$")
     public void thatThereAreNoServicesAdded() {
-        restAssuredMethods.deleteAll();
+        restAssuredMethods.deleteAllServices();
     }
 
     @And("^I add services$")

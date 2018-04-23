@@ -4,7 +4,8 @@ Feature: PRODPFIP-23 Possibility to see the profile page of the service
   Scenario Outline: Profile page of the service is displayed after clicking on the search result
     Given that there are no services added
     And I add services
-      | test | budowa   | test      | test@domain.com | 888555222 | test      | test       | 10          | test          | 20             | test       | 30          |
+    # | service name | category | user name | user email      | user phone | user info | base description | base price | extended description | extended price | extra description | extra price |
+      | test         | budowa   | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          |
     When I navigate to the main page
     And I enter a searching phrase "<searching_phrase>" into the search field
     And I click the search button
