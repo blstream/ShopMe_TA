@@ -7,12 +7,16 @@ public class User {
     public String email;
     public String phoneNumber;
     public String additionalInfo;
+    public String city;
+    public Voivodeship voivodeship;
 
-    public User(String name, String email, String phoneNumber, String additionalInfo) {
+    public User(String name, String email, String phoneNumber, String additionalInfo, Voivodeship voivodeship, String city) {
         this.name = name;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.additionalInfo = additionalInfo;
+        this.city = city;
+        this.voivodeship = voivodeship;
     }
 
     public String getName() {
@@ -27,7 +31,9 @@ public class User {
         return phoneNumber;
     }
 
-    public String getAdditionalInfo() { return additionalInfo; }
+    public String getAdditionalInfo() {
+        return additionalInfo;
+    }
 
     public void setName(String name) {
         this.name = name;
@@ -41,7 +47,9 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public void setAdditionalInfo(String additionalInfo) { this.additionalInfo = additionalInfo; }
+    public void setAdditionalInfo(String additionalInfo) {
+        this.additionalInfo = additionalInfo;
+    }
 
     public boolean equalsOnList(Object o) {
         if (this == o) return true;
@@ -63,5 +71,9 @@ public class User {
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 '}';
+    }
+
+    public String getCity() {
+        return city;
     }
 }

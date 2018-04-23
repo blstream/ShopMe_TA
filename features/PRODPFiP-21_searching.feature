@@ -4,12 +4,12 @@ Feature: PRODPFIP-21 Searching for a service in the ShopMe website
   Scenario Outline: Positive flow of searching with submit by the search button - search results contain correct title, price and are correctly sorted by date
     Given that there are no services added
     And I add services
-   #  | service name                 | category | user name | user email      | user phone | user info | base description | base price | extended description | extended price | extra description | extra price |
-      | test                         | budowa   | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          |
-      | programowanie Java           | budowa   | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          |
-      | programowanie Python         | budowa   | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          |
-      | profesjonalne mycie okien    | budowa   | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          |
-      | naprawa pralka Amica AWB10i2 | budowa   | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          |
+     #| service name                 | category | user name | user email      | user phone | user info | base description | base price | extended description | extended price | extra description | extra price | province           | city     |
+      | test                         | budowa   | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          | zachodniopomorskie | Szczecin |
+      | programowanie Java           | budowa   | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          | zachodniopomorskie | Szczecin |
+      | programowanie Python         | budowa   | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          | zachodniopomorskie | Szczecin |
+      | profesjonalne mycie okien    | budowa   | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          | zachodniopomorskie | Szczecin |
+      | naprawa pralka Amica AWB10i2 | budowa   | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          | zachodniopomorskie | Szczecin |
     When I navigate to the main page
     And I enter a searching phrase "<searching_phrase>" into the search field
     And I click the search button
@@ -39,12 +39,12 @@ Feature: PRODPFIP-21 Searching for a service in the ShopMe website
   Scenario Outline: Positive flow of searching with submit by enter key - search results contain correct title, price and are correctly sorted by date
     Given that there are no services added
     And I add services
-   #  | service name                 | category | user name | user email      | user phone | user info | base description | base price | extended description | extended price | extra description | extra price |
-      | test                         | budowa   | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          |
-      | programowanie Java           | budowa   | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          |
-      | programowanie Python         | budowa   | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          |
-      | profesjonalne mycie okien    | budowa   | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          |
-      | naprawa pralka Amica AWB10i2 | budowa   | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          |
+     #| service name                 | category | user name | user email      | user phone | user info | base description | base price | extended description | extended price | extra description | extra price | province          | city     |
+      | test                         | budowa   | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          | zachodniopomorskie | Szczecin |
+      | programowanie Java           | budowa   | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          | zachodniopomorskie | Szczecin |
+      | programowanie Python         | budowa   | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          | zachodniopomorskie | Szczecin |
+      | profesjonalne mycie okien    | budowa   | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          | zachodniopomorskie | Szczecin |
+      | naprawa pralka Amica AWB10i2 | budowa   | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          | zachodniopomorskie | Szczecin |
     When I navigate to the main page
     And I enter a searching phrase "<searching_phrase>" into the search field
     And I press Enter key

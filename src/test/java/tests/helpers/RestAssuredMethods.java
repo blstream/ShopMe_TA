@@ -13,7 +13,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.junit.Assert.assertTrue;
 
 public class RestAssuredMethods {
 
@@ -43,7 +42,8 @@ public class RestAssuredMethods {
         content.category = getCategoryByName(service.category.getName());
         content.baseDescription = service.getBaseDesription();
         content.basePrice = service.getBasePrice();
-        content.user = new User(service.user.getName(), service.user.getEmail(), service.user.getPhoneNumber(), service.user.getAdditionalInfo());
+        content.user.voivodeship = new Voivodeship(service.user.voivodeship.getName());
+        content.user = new User(service.user.getName(), service.user.getEmail(), service.user.getPhoneNumber(), service.user.getAdditionalInfo(), service.user.voivodeship, service.user.getCity());
         content.extendedDescription = service.getExtendedDesription();
         content.extendedPrice = service.getExtendedPrice();
         content.extraDescription = service.getExtraDesription();
@@ -62,7 +62,8 @@ public class RestAssuredMethods {
 
             service.title = someRow.getCells().get(0);
             service.category = new Category(null, someRow.getCells().get(1), null);
-            service.user = new User(someRow.getCells().get(2), someRow.getCells().get(3), someRow.getCells().get(4), someRow.getCells().get(5));
+            service.user.voivodeship = new Voivodeship(someRow.getCells().get(12));
+            service.user = new User(someRow.getCells().get(2), someRow.getCells().get(3), someRow.getCells().get(4), someRow.getCells().get(5), service.user.voivodeship, someRow.getCells().get(13));
             service.baseDescription = someRow.getCells().get(6);
             service.basePrice = Float.valueOf(someRow.getCells().get(7));
             service.extendedDescription = someRow.getCells().get(8);
