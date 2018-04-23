@@ -12,6 +12,8 @@ Feature:  PRODPFIP-40 Adding new service - basic flow
     And I fill in name with "<name>"
     And I fill in email with "<email>"
     And I fill in phone with "<phone>"
+    And I fill in province with "zachodniopomorskie"
+    And I fill in city with "Szczecin"
     And I fill in basicDescription with "<basic_description>"
     And I fill in basicPrice with "<basic_price>"
     And I fill in aboutMe with "<about_me>"
@@ -38,6 +40,8 @@ Feature:  PRODPFIP-40 Adding new service - basic flow
     And I fill in name with "testName"
     And I fill in email with "test@email.com"
     And I fill in phone with "000000000"
+    And I fill in province with "zachodniopomorskie"
+    And I fill in city with "Szczecin"
     And I fill in basicDescription with "basic_description"
     And I fill in basicPrice with "20"
     And I fill in expandedDescription with "<expanded_description>"
@@ -61,8 +65,10 @@ Feature:  PRODPFIP-40 Adding new service - basic flow
     And I fill in name with "testName"
     And I fill in email with "test@gmail.com"
     And I fill in phone with "000000000"
-    And I fill in basicPrice with "200"
+    And I fill in province with "zachodniopomorskie"
+    And I fill in city with "Szczecin"
     And I fill in basicDescription with 500 characters
+    And I fill in basicPrice with "200"
     And I press Add service button
     Then New basic service with 500 character description is added
     And I should see confirmation message "Pomyślnie dodano ofertę"
@@ -72,6 +78,8 @@ Feature:  PRODPFIP-40 Adding new service - basic flow
     And I choose category "prawo"
     And I fill in name with "testName"
     And I fill in email with "test@gmail.com"
+    And I fill in province with "zachodniopomorskie"
+    And I fill in city with "Szczecin"
     And I fill in phone with "000000000"
     And I fill in basicPrice with "200"
     And I fill in basicDescription with "description"
@@ -89,6 +97,8 @@ Feature:  PRODPFIP-40 Adding new service - basic flow
     And I fill in name with "testName"
     And I fill in email with "test@gmail.com"
     And I fill in phone with "000000000"
+    And I fill in province with "zachodniopomorskie"
+    And I fill in city with "Szczecin"
     And I fill in aboutMe with 800 characters
     And I fill in basicDescription with "description"
     And I fill in basicPrice with "200"

@@ -390,7 +390,6 @@ public class AddServicePage extends SearchServicePage {
         Assert.assertEquals("https://patronage2018.intive-projects.com", url);
     }
 
-
     public void selectVoivodeship(String province) {
         waitUntilSelectOptionsAreVisible();
         Select selectVoivodeship = new Select(userVoivodeship);

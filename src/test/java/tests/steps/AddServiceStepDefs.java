@@ -1,7 +1,6 @@
 package tests.steps;
 
 import cucumber.api.DataTable;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -9,9 +8,6 @@ import cucumber.api.java.en.When;
 import gherkin.formatter.model.DataTableRow;
 import tests.pages.AddServicePage;
 import tests.pages.SearchServicePage;
-
-import javax.xml.crypto.Data;
-import java.util.List;
 
 public class AddServiceStepDefs {
 
@@ -231,8 +227,8 @@ public class AddServiceStepDefs {
 
     @And("^I fill in all necessary data$")
     public void iFillInAllNecessaryData(DataTable dataTable) {
-        DataTable data=dataTable;
-        DataTableRow row=data.getGherkinRows().get(0);
+        DataTable data = dataTable;
+        DataTableRow row = data.getGherkinRows().get(0);
         addServicePage.sendTitle(row.getCells().get(0));
         addServicePage.selectServiceCategory(row.getCells().get(1));
         addServicePage.sendBasicDescription(row.getCells().get(2));
@@ -272,4 +268,3 @@ public class AddServiceStepDefs {
         addServicePage.verifyIfUserCityInputLimited(length);
     }
 }
-
