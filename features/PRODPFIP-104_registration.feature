@@ -25,5 +25,5 @@ Feature: PRODPFIP-104 User registration
     And I should be registered user in database
 
     Examples:
-      | name | surname  | password     | phone_number | bank_account               | street   | number | city     | post_code | c_name       | nip        | c_street    | c_number | c_post_code | c_city   |
-      | Jan  | Kowalski | testpassword | 012345678    | 55299610810888313485136811 | Kwiatowa | 2      | Szczecin | 70-000    | Test Company | 0123456789 | Truskawkowa | 2        | 70-111      | Szczecin |
+      | name | surname  | password      | phone_number | bank_account               | street   | number | city     | post_code | c_name       | nip        | c_street    | c_number | c_post_code | c_city   |
+      | Jan  | Kowalski | testPassword0 | 012345678    | 55299610810888313485136811 | Kwiatowa | 2      | Szczecin | 70-000    | Test Company | 0123456789 | Truskawkowa | 2        | 70-111      | Szczecin |

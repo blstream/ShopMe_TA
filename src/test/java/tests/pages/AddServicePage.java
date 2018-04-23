@@ -12,6 +12,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -68,6 +69,12 @@ public class AddServicePage extends SearchServicePage {
     @FindBy(how = How.CLASS_NAME, using = "add-form")
     public WebElement error;
 
+    @FindBy(how = How.NAME, using = "offer__voivodeship")
+    public WebElement userVoivodeship;
+
+    @FindBy(how = How.NAME, using = "offer__city")
+    public WebElement userCity;
+
     private List<String> valuesBefore = new ArrayList<>();
     private List<String> valuesAfter = new ArrayList<>();
     public String RA_title;
@@ -92,7 +99,9 @@ public class AddServicePage extends SearchServicePage {
         this.RA_basicDescription = RA_basicDescription;
     }
 
-    public void setRA_extendedDescription(String RA_extendedDescription) { this.RA_extendedDescription = RA_extendedDescription; }
+    public void setRA_extendedDescription(String RA_extendedDescription) {
+        this.RA_extendedDescription = RA_extendedDescription;
+    }
 
     public void setRA_extraDescription(String RA_extraDescription) {
         this.RA_extraDescription = RA_extraDescription;
@@ -126,7 +135,9 @@ public class AddServicePage extends SearchServicePage {
         basicPrice.sendKeys(price);
     }
 
-    public void sendExpandedDescription(String expanded_description) { expandedDescription.sendKeys(expanded_description); }
+    public void sendExpandedDescription(String expanded_description) {
+        expandedDescription.sendKeys(expanded_description);
+    }
 
     public void sendExpandedPrice(String expanded_price) {
         expandedPrice.sendKeys(expanded_price);
@@ -158,13 +169,21 @@ public class AddServicePage extends SearchServicePage {
         waitForResult();
     }
 
-    public void sendBasicDescription(int length) { basicDescription.sendKeys(generateString(length)); }
+    public void sendBasicDescription(int length) {
+        basicDescription.sendKeys(generateString(length));
+    }
 
-    public void sendExpandedDescription(int length) { expandedDescription.sendKeys(generateString(length)); }
+    public void sendExpandedDescription(int length) {
+        expandedDescription.sendKeys(generateString(length));
+    }
 
-    public void sendExtraDescription(int length) { extraDescription.sendKeys(generateString(length)); }
+    public void sendExtraDescription(int length) {
+        extraDescription.sendKeys(generateString(length));
+    }
 
-    public void sendAboutMeDescription(int length) { aboutMe.sendKeys(generateString(length)); }
+    public void sendAboutMeDescription(int length) {
+        aboutMe.sendKeys(generateString(length));
+    }
 
     public String generateString(int length) {
         return StringUtils.leftPad("", length, 'a');
@@ -324,7 +343,7 @@ public class AddServicePage extends SearchServicePage {
         String price = basicPrice.getAttribute("value");
         int placeOfComma = price.indexOf(',');
         int actualLength = price.length() - placeOfComma - 1;
-        Assert.assertEquals(expectedLength,actualLength);
+        Assert.assertEquals(expectedLength, actualLength);
     }
 
     public void verifyIfBasicDescriptionInputLimited(int expectedLength) {
@@ -363,10 +382,36 @@ public class AddServicePage extends SearchServicePage {
         submitButton.click();
         saveAllValues(valuesAfter);
     }
-   public void mainPageIsVisible() {
-       WebDriverWait wait = new WebDriverWait(driver,3);
-       wait.until(ExpectedConditions.urlToBe("https://patronage2018.intive-projects.com"));
-       String url = driver.getCurrentUrl();
-       Assert.assertEquals("https://patronage2018.intive-projects.com", url);
-   }
+
+    public void mainPageIsVisible() {
+        WebDriverWait wait = new WebDriverWait(driver, 3);
+        wait.until(ExpectedConditions.urlToBe("https://patronage2018.intive-projects.com"));
+        String url = driver.getCurrentUrl();
+        Assert.assertEquals("https://patronage2018.intive-projects.com", url);
+    }
+
+
+    public void selectVoivodeship(String province) {
+        waitUntilSelectOptionsAreVisible();
+        Select selectVoivodeship = new Select(userVoivodeship);
+        if (province.isEmpty()) {
+            return;
+        } else {
+            selectVoivodeship.selectByValue(province);
+        }
+
+    }
+
+    public void sendCity(String city) {
+        userCity.sendKeys(city);
+    }
+
+    public void checkIfCityIsDisabled() {
+        Assert.assertFalse(userCity.isEnabled());
+    }
+
+    public void verifyIfUserCityInputLimited(int expectedLength) {
+        int actualLength = userCity.getAttribute("value").length();
+        Assert.assertEquals(expectedLength, actualLength);
+    }
 }
