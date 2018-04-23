@@ -398,7 +398,6 @@ public class AddServicePage extends SearchServicePage {
         } else {
             selectVoivodeship.selectByValue(province);
         }
-
     }
 
     public void sendCity(String city) {
