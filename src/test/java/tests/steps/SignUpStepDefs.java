@@ -1,5 +1,6 @@
 package tests.steps;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -129,5 +130,27 @@ public class SignUpStepDefs {
         ResponseBody body = response.getBody();
         String checkBody = body.asString();
         Assert.assertEquals(checkBody, "true");
+    }
+
+    @And("^Email \"([^\"]*)\" used in registration is already in database$")
+    public void emailUsedInRegistrationIsAlreadyInDatabase(String email) {
+        registrationFormPage.checkIfEmailAlreadyInUse(email);
+    }
+
+    @When("^I fill in all necessary registration data with \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\"$")
+    public void iFillInAllNecessaryRegistrationDataWith(String arg0, String arg1, String arg2)  {
+
+    }
+
+    @Then("^I can see inserted values in filled fields$")
+    public void iCanSeeInsertedValuesInFilledFields() throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        throw new PendingException();
+    }
+
+    @And("^I can see an error message \"([^\"]*)\"$")
+    public void iCanSeeAnErrorMessage(String arg0) throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        throw new PendingException();
     }
 }
