@@ -18,6 +18,7 @@ Feature: PRODPFIP-104 User registration
     And I fill in all necessary address data with "<street>", "<number>", "<city>", "<post_code>"
     And I select dataForInvoice checkbox
     And I fill in all necessary invoice data with "<c_name>", "<nip>", "<c_street>", "<c_number>", "<c_post_code>", "<c_city>"
+    And I accept statute
     And I accept terms of personal data processing
     And I click Register button
     Then I should see register confirmation message "Rejestracja zakończona pomyślnie"

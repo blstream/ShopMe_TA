@@ -130,4 +130,9 @@ public class SignUpStepDefs {
         String checkBody = body.asString();
         Assert.assertEquals(checkBody, "true");
     }
+
+    @And("^I accept statute$")
+    public void iAcceptStatute() {
+        registrationFormPage.acceptStatute();
+    }
 }

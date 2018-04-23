@@ -69,6 +69,9 @@ public class RegistrationFormPage extends LoginPage {
     @FindBy(how = How.XPATH, using = "//a[@href='/login']")
     public WebElement loginButton;
 
+    @FindBy(how = How.NAME, using = "users__terms-and-conditions-checkbox")
+    public WebElement statuteCheckbox;
+
     public RegistrationFormPage() {
         PageFactory.initElements(driver, this);
     }
@@ -170,5 +173,10 @@ public class RegistrationFormPage extends LoginPage {
 
     public void verifyIfExpandedRegisterFormIsVisible() {
         wait.until(ExpectedConditions.elementToBeClickable(registerButton));
+    }
+
+    public void acceptStatute() {
+        statuteCheckbox.click();
+        Assert.assertTrue(statuteCheckbox.isSelected());
     }
 }
