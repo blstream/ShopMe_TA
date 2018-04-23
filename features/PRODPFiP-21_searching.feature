@@ -4,7 +4,7 @@ Feature: PRODPFIP-21 Searching for a service in the ShopMe website
   Scenario Outline: Positive flow of searching with submit by the search button - search results contain correct title, price and are correctly sorted by date
     Given that there are no services added
     And I add services
-     #| service name                 | category | user name | user email      | user phone | user info | base description | base price | extended description | extended price | extra description | extra price | province           | city     |
+    # | service name                 | category | user name | user email      | user phone | user info | base description | base price | extended description | extended price | extra description | extra price | province           | city     |
       | test                         | budowa   | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          | zachodniopomorskie | Szczecin |
       | programowanie Java           | budowa   | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          | zachodniopomorskie | Szczecin |
       | programowanie Python         | budowa   | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          | zachodniopomorskie | Szczecin |
@@ -39,7 +39,7 @@ Feature: PRODPFIP-21 Searching for a service in the ShopMe website
   Scenario Outline: Positive flow of searching with submit by enter key - search results contain correct title, price and are correctly sorted by date
     Given that there are no services added
     And I add services
-     #| service name                 | category | user name | user email      | user phone | user info | base description | base price | extended description | extended price | extra description | extra price | province          | city     |
+    # | service name                 | category | user name | user email      | user phone | user info | base description | base price | extended description | extended price | extra description | extra price | province           | city     |
       | test                         | budowa   | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          | zachodniopomorskie | Szczecin |
       | programowanie Java           | budowa   | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          | zachodniopomorskie | Szczecin |
       | programowanie Python         | budowa   | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          | zachodniopomorskie | Szczecin |
