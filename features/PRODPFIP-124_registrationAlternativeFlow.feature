@@ -14,25 +14,25 @@ Feature: PRODPFIP-124 User registration - alternative flow
     And I can see an error message "<error_message>"
 
     Examples:
-      | name | surname | email          | error_message            |
-      | John | Doe     | @test.com      | Podaj poprawny adres e-mail |
-      | John | Doe     | testemail      | Podaj poprawny adres e-mail|
-      | John | Doe     | test@com       | Podaj poprawny adres e-mail |
-      | Joh! | Doe     | test@email.com | Niedozwolone znaki       |
-      | Joh@ | Doe     | test@email.com | Niedozwolone znaki       |
-      | Joh% | Doe     | test@email.com | Niedozwolone znaki       |
-      | Joh* | Doe     | test@email.com | Niedozwolone znaki       |
-      | Joh- | Doe     | test@email.com | Niedozwolone znaki       |
-      | Joh_ | Doe     | test@email.com | Niedozwolone znaki       |
-      | John | Do&     | test@email.com | Niedozwolone znaki       |
-      | John | Do^     | test@email.com | Niedozwolone znaki       |
-      | John | Do$     | test@email.com | Niedozwolone znaki       |
-      | John | Do<     | test@email.com | Niedozwolone znaki       |
-      | John | Do?     | test@email.com | Niedozwolone znaki       |
-      | John | Do/     | test@email.com | Niedozwolone znaki       |
-      | John | Do\     | test@email.com | Niedozwolone znaki       |
-      | Jo   | Doe     | test@email.com | Zbyt mała liczba znaków  |
-      | John | D       | test@email.com | Zbyt mała liczba znaków  |
+      | name | surname | email                 | error_message               |
+      | John | Doe     | @test.com             | Podaj poprawny adres e-mail |
+      | John | Doe     | registrationtest      | Podaj poprawny adres e-mail |
+      | John | Doe     | registration@com      | Podaj poprawny adres e-mail |
+      | Joh! | Doe     | registration@test.com | Niedozwolone znaki          |
+      | Joh@ | Doe     | registration@test.com | Niedozwolone znaki          |
+      | Joh% | Doe     | registration@test.com | Niedozwolone znaki          |
+      | Joh* | Doe     | registration@test.com | Niedozwolone znaki          |
+      | Joh- | Doe     | registration@test.com | Niedozwolone znaki          |
+      | Joh_ | Doe     | registration@test.com | Niedozwolone znaki          |
+      | John | Do&     | registration@test.com | Niedozwolone znaki          |
+      | John | Do^     | registration@test.com | Niedozwolone znaki          |
+      | John | Do$     | registration@test.com | Niedozwolone znaki          |
+      | John | Do<     | registration@test.com | Niedozwolone znaki          |
+      | John | Do?     | registration@test.com | Niedozwolone znaki          |
+      | John | Do/     | registration@test.com | Niedozwolone znaki          |
+      | John | Do\     | registration@test.com | Niedozwolone znaki          |
+      | Jo   | Doe     | registration@test.com | Zbyt mała liczba znaków     |
+      | John | D       | registration@test.com | Zbyt mała liczba znaków     |
 
 
   Scenario Outline: Signing up ShopMe website with empty fields
@@ -42,16 +42,15 @@ Feature: PRODPFIP-124 User registration - alternative flow
     And I can see an error message "<error_message>"
 
     Examples:
-      | name | surname | email          | error_message                  |
-      | John | Doe     |                | Pole wymagane |
-      | John |         | test@email.com | Pole wymagane |
-      |      | Doe     | test@email.com | Pole wymagane |
-      |      |         |                | Pole wymagane |
+      | name | surname | email                 | error_message |
+      | John | Doe     |                       | Pole wymagane |
+      | John |         | registration@test.com | Pole wymagane |
+      |      | Doe     | registration@test.com | Pole wymagane |
 
   Scenario: Inserting more than maximum number of characters in registration form
     When I fill in name "Loremipsumdolorsitame"
     And I fill in name "Loremipsumdolorsitametconsecteturadipiscingelitsedd"
-    And I fill in name "test@email.com"
+    And I fill in name "registration@test.com"
     And I push Register button
     Then I should see in name maximum 20 characters
     And I should see in surname maximum 50 characters
