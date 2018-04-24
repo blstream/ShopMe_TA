@@ -87,8 +87,9 @@ public class LoginPage {
     }
 
     public void verifyIfErrorMessageVisible(String expectedMessage) {
-        String actualMessage = emailErrorMessage.getAttribute("value");
-        Assert.assertEquals(expectedMessage, actualMessage);
+        wait.until(ExpectedConditions.visibilityOf(emailErrorMessage));
+        boolean messageIsVisible = emailErrorMessage.getText().contains(expectedMessage);
+        Assert.assertTrue(messageIsVisible);
     }
 
     public boolean checkIfEmailAlreadyInUse(String email) {
@@ -108,29 +109,27 @@ public class LoginPage {
         RestAssured.baseURI = "https://patronage2018.intive-projects.com/api/";
 
         JsonObject address = new JsonObject();
-        address.addProperty("id", "5939701c-473c-4882-b666-b43694752728");
+        address.addProperty("id", "5d214c01-95c3-4ec4-8f68-51dfb80b191c");
         address.addProperty("street", "Wyzwolenia");
         address.addProperty("number", "10");
         address.addProperty("city", "Szczecin");
         address.addProperty("zipCode", "70-100");
 
         JsonObject voivodeship = new JsonObject();
-        voivodeship.addProperty("id", "e37cc0e2-e30c-437c-bced-74c7028b9896");
+        voivodeship.addProperty("id", "1511273a-bb97-4e8a-924b-e6ff7583f135");
         voivodeship.addProperty("name", "WesternPomeranian");
 
         JsonObject invoiceAddress = new JsonObject();
-        invoiceAddress.addProperty("id", "b815d831-9310-4a4b-a2e6-c71f33ce4507");
+        invoiceAddress.addProperty("id", "5d214c01-95c3-4ec4-8f68-51dfb80b191c");
         invoiceAddress.addProperty("street", "Wyzwolenia");
         invoiceAddress.addProperty("number", "10");
         invoiceAddress.addProperty("city", "Szczecin");
         invoiceAddress.addProperty("zipCode", "70-100");
 
         JsonObject invoice = new JsonObject();
-        invoice.addProperty("id", "aaa2e1cd-6319-4fa3-b05f-d47f4aec7dac");
-        invoice.addProperty("name", "John");
-        invoice.addProperty("email", "test@domain.com");
-        invoice.addProperty("phoneNumber", "888555222");
-        invoice.addProperty("additionalInfo", "test");
+        invoice.addProperty("id", "5d214c01-95c3-4ec4-8f68-51dfb80b191c");
+        invoice.addProperty("companyName", "Januszex Sp.z.o.");
+        invoice.addProperty("nip", "123-456-78-90");
         invoice.add("invoiceAddress", invoiceAddress);
 
         JsonObject newUser = new JsonObject();
@@ -142,8 +141,10 @@ public class LoginPage {
         newUser.addProperty("bankAccount", "01234567890123456789012345");
         newUser.add("address", address);
         newUser.add("voivodeship", voivodeship);
-        newUser.addProperty("invoiceReques", "true");
+        newUser.addProperty("invoiceRequest", true);
         newUser.add("invoice", invoice);
+        System.out.println(newUser.toString());
+
 
         RestAssured.given().contentType("application/json").body(newUser.toString()).when().post("/users").then().assertThat().statusCode(200);
     }
