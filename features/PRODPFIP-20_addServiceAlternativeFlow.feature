@@ -70,23 +70,23 @@ Feature: PRODPFIP-20 Adding new service - alternative flow
       | t         | testName | example@gmail.com | 000000000 | Zbyt mała liczba znaków             |
       | Ogród     | t        | example@gmail.com | 000000000 | Zbyt mała liczba znaków             |
       | Ogród     | tt       | example@gmail.com | 000000000 | Zbyt mała liczba znaków             |
-      | Transpor! | testName | example@gmail.com | 000000000 | Niedozwolone znaki         |
-      | Transpor@ | testName | example@gmail.com | 000000000 | Niedozwolone znaki         |
-      | Transpor# | testName | example@gmail.com | 000000000 | Niedozwolone znaki         |
-      | Transpor$ | testName | example@gmail.com | 000000000 | Niedozwolone znaki         |
-      | Transpor% | testName | example@gmail.com | 000000000 | Niedozwolone znaki         |
-      | Transpor^ | testName | example@gmail.com | 000000000 | Niedozwolone znaki         |
-      | Transpor& | testName | example@gmail.com | 000000000 | Niedozwolone znaki         |
-      | Transpor* | testName | example@gmail.com | 000000000 | Niedozwolone znaki         |
-      | Transpor( | testName | example@gmail.com | 000000000 | Niedozwolone znaki         |
-      | Transpor) | testName | example@gmail.com | 000000000 | Niedozwolone znaki         |
-      | Transpor_ | testName | example@gmail.com | 000000000 | Niedozwolone znaki         |
-      | Transpor+ | testName | example@gmail.com | 000000000 | Niedozwolone znaki         |
-      | Transpor= | testName | example@gmail.com | 000000000 | Niedozwolone znaki         |
-      | Transpor~ | testName | example@gmail.com | 000000000 | Niedozwolone znaki         |
-      | Transpor` | testName | example@gmail.com | 000000000 | Niedozwolone znaki         |
-      | Transpor! | testName | example@gmail.com | 000000000 | Niedozwolone znaki         |
-      | Transpor! | testName | example@gmail.com | 000000000 | Niedozwolone znaki         |
+      | Transpor! | testName | example@gmail.com | 000000000 | Niedozwolone znaki                  |
+      | Transpor@ | testName | example@gmail.com | 000000000 | Niedozwolone znaki                  |
+      | Transpor# | testName | example@gmail.com | 000000000 | Niedozwolone znaki                  |
+      | Transpor$ | testName | example@gmail.com | 000000000 | Niedozwolone znaki                  |
+      | Transpor% | testName | example@gmail.com | 000000000 | Niedozwolone znaki                  |
+      | Transpor^ | testName | example@gmail.com | 000000000 | Niedozwolone znaki                  |
+      | Transpor& | testName | example@gmail.com | 000000000 | Niedozwolone znaki                  |
+      | Transpor* | testName | example@gmail.com | 000000000 | Niedozwolone znaki                  |
+      | Transpor( | testName | example@gmail.com | 000000000 | Niedozwolone znaki                  |
+      | Transpor) | testName | example@gmail.com | 000000000 | Niedozwolone znaki                  |
+      | Transpor_ | testName | example@gmail.com | 000000000 | Niedozwolone znaki                  |
+      | Transpor+ | testName | example@gmail.com | 000000000 | Niedozwolone znaki                  |
+      | Transpor= | testName | example@gmail.com | 000000000 | Niedozwolone znaki                  |
+      | Transpor~ | testName | example@gmail.com | 000000000 | Niedozwolone znaki                  |
+      | Transpor` | testName | example@gmail.com | 000000000 | Niedozwolone znaki                  |
+      | Transpor! | testName | example@gmail.com | 000000000 | Niedozwolone znaki                  |
+      | Transpor! | testName | example@gmail.com | 000000000 | Niedozwolone znaki                  |
       | Transport | testNa11 | example@gmail.com | 000000000 | Pole może zawierać tylko litery     |
       | Transport | testNam! | example@gmail.com | 000000000 | Pole może zawierać tylko litery     |
       | Transport | testNam@ | example@gmail.com | 000000000 | Pole może zawierać tylko litery     |
