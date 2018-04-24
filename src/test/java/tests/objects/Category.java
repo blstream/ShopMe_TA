@@ -3,12 +3,10 @@ package tests.objects;
 public class Category {
     public String id;
     public String name;
-    public String translateKey;
 
-    public Category(String id, String name, String translateKey) {
+    public Category(String id, String name) {
         this.id = id;
         this.name = name;
-        this.translateKey = translateKey;
     }
 
     public boolean equalsOnList(Object o) {
@@ -18,7 +16,6 @@ public class Category {
 
         if (id != null ? !id.equals(category.id) : category.id != null) return false;
         if (name != null ? !name.equals(category.name) : category.name != null) return false;
-        if (translateKey != null ? !translateKey.equals(category.translateKey) : category.translateKey != null) return false;
 
         return true;
     }
@@ -47,11 +44,4 @@ public class Category {
         this.name = name;
     }
 
-    public String getTranslateKey(){
-        return translateKey;
-    }
-
-    public void setTranslateKey(String translateKey){
-        this.translateKey = translateKey;
-    }
 }

@@ -4,9 +4,11 @@ public class Voivodeship {
     String id;
     String name;
 
-    public Voivodeship(String name) {
+    public Voivodeship(String id, String name) {
+        this.id = id;
         this.name = name;
     }
+
 
     public String getName() {
         return name;
@@ -18,6 +20,7 @@ public class Voivodeship {
         Voivodeship voivodeship = (Voivodeship) o;
 
         if (name != null ? !name.equals(voivodeship.name) : voivodeship.name != null) return false;
+        if (id != null ? !name.equals(voivodeship.id) : voivodeship.name != null) return false;
 
         return true;
     }

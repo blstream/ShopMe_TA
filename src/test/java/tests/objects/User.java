@@ -10,6 +10,10 @@ public class User {
     public String city;
     public Voivodeship voivodeship;
 
+    public User(){
+
+    }
+
     public User(String name, String email, String phoneNumber, String additionalInfo, Voivodeship voivodeship, String city) {
         this.name = name;
         this.email = email;
@@ -75,5 +79,9 @@ public class User {
 
     public String getCity() {
         return city;
+    }
+
+    public Voivodeship getVoivodeship() {
+        return voivodeship;
     }
 }
