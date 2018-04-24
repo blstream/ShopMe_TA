@@ -1,5 +1,6 @@
 package tests.steps;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -217,4 +218,11 @@ public class AddServiceStepDefs {
     public void iPressAddServiceButtonWithFail() {
         addServicePage.pushSubmitButtonWithFail();
     }
+
+    @And("^I am redirected to the main page$")
+    public void iAmRedirectedToTheMainPage() {
+        addServicePage.mainPageIsVisible();
+    }
+
 }
+

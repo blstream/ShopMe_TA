@@ -17,6 +17,7 @@ Feature:  PRODPFIP-40 Adding new service - basic flow
     And I fill in aboutMe with "<about_me>"
     And I press Add service button
     Then I should see confirmation message "Pomyślnie dodano ofertę"
+    And I am redirected to the main page
 
     Examples:
       | title                          | category            | name                 | email          | phone      | basic_price | basic_description | about_me |
@@ -47,6 +48,7 @@ Feature:  PRODPFIP-40 Adding new service - basic flow
     And I fill in aboutMe with "aboutMe"
     And I press Add service button
     Then I should see confirmation message "Pomyślnie dodano ofertę"
+    And I am redirected to the main page
 
     Examples:
       | title            | category         | expanded_price | expanded_description | extra_description | extra_price |
@@ -66,6 +68,7 @@ Feature:  PRODPFIP-40 Adding new service - basic flow
     And I press Add service button
     Then New basic service with 500 character description is added
     And I should see confirmation message "Pomyślnie dodano ofertę"
+    And I am redirected to the main page
 
   Scenario: Adding new service with extensions with 500 character description
     When I fill in title with "Usługi prawnicze"
@@ -82,6 +85,7 @@ Feature:  PRODPFIP-40 Adding new service - basic flow
     And I press Add service button
     Then New service with 500 character expanded and extra descriptions is added
     And I should see confirmation message "Pomyślnie dodano ofertę"
+    And I am redirected to the main page
 
   Scenario: Adding new basic service with 800 character aboutMe description
     When I fill in title with "Usługi prawnicze"
@@ -95,3 +99,4 @@ Feature:  PRODPFIP-40 Adding new service - basic flow
     And I press Add service button
     Then New service with 800 character aboutMe is added
     And I should see confirmation message "Pomyślnie dodano ofertę"
+    And I am redirected to the main page
