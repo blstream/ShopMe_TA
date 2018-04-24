@@ -11,6 +11,7 @@ import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -92,7 +93,9 @@ public class AddServicePage {
         this.RA_basicDescription = RA_basicDescription;
     }
 
-    public void setRA_extendedDescription(String RA_extendedDescription) { this.RA_extendedDescription = RA_extendedDescription; }
+    public void setRA_extendedDescription(String RA_extendedDescription) {
+        this.RA_extendedDescription = RA_extendedDescription;
+    }
 
     public void setRA_extraDescription(String RA_extraDescription) {
         this.RA_extraDescription = RA_extraDescription;
@@ -126,7 +129,9 @@ public class AddServicePage {
         basicPrice.sendKeys(price);
     }
 
-    public void sendExpandedDescription(String expanded_description) { expandedDescription.sendKeys(expanded_description); }
+    public void sendExpandedDescription(String expanded_description) {
+        expandedDescription.sendKeys(expanded_description);
+    }
 
     public void sendExpandedPrice(String expanded_price) {
         expandedPrice.sendKeys(expanded_price);
@@ -158,13 +163,21 @@ public class AddServicePage {
         waitForResult();
     }
 
-    public void sendBasicDescription(int length) { basicDescription.sendKeys(generateString(length)); }
+    public void sendBasicDescription(int length) {
+        basicDescription.sendKeys(generateString(length));
+    }
 
-    public void sendExpandedDescription(int length) { expandedDescription.sendKeys(generateString(length)); }
+    public void sendExpandedDescription(int length) {
+        expandedDescription.sendKeys(generateString(length));
+    }
 
-    public void sendExtraDescription(int length) { extraDescription.sendKeys(generateString(length)); }
+    public void sendExtraDescription(int length) {
+        extraDescription.sendKeys(generateString(length));
+    }
 
-    public void sendAboutMeDescription(int length) { aboutMe.sendKeys(generateString(length)); }
+    public void sendAboutMeDescription(int length) {
+        aboutMe.sendKeys(generateString(length));
+    }
 
     public String generateString(int length) {
         return StringUtils.leftPad("", length, 'a');
@@ -324,7 +337,7 @@ public class AddServicePage {
         String price = basicPrice.getAttribute("value");
         int placeOfComma = price.indexOf(',');
         int actualLength = price.length() - placeOfComma - 1;
-        Assert.assertEquals(expectedLength,actualLength);
+        Assert.assertEquals(expectedLength, actualLength);
     }
 
     public void verifyIfBasicDescriptionInputLimited(int expectedLength) {
@@ -362,5 +375,12 @@ public class AddServicePage {
         saveAllValues(valuesBefore);
         submitButton.click();
         saveAllValues(valuesAfter);
+    }
+
+    public void mainPageIsVisible() {
+        WebDriverWait wait = new WebDriverWait(driver, 3);
+        wait.until(ExpectedConditions.urlToBe("https://patronage2018.intive-projects.com"));
+        String url = driver.getCurrentUrl();
+        Assert.assertEquals("https://patronage2018.intive-projects.com", url);
     }
 }
