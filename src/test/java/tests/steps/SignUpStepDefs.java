@@ -1,5 +1,6 @@
 package tests.steps;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -79,14 +80,6 @@ public class SignUpStepDefs {
         registrationFormPage.sendBankAccountNumber(bankAccountNumber);
     }
 
-    @And("^I fill in all necessary address data with \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\"$")
-    public void iFillInAllNecessaryAddressDataWith(String street, String number, String city, String zipCode) {
-        registrationFormPage.sendStreet(street);
-        registrationFormPage.sendNumber(number);
-        registrationFormPage.sendCity(city);
-        registrationFormPage.sendZipCode(zipCode);
-    }
-
     @And("^I select dataForInvoice checkbox$")
     public void iSelectDataForInvoiceCheckbox() {
         registrationFormPage.checkInvoice();
@@ -134,5 +127,14 @@ public class SignUpStepDefs {
     @And("^I accept statute$")
     public void iAcceptStatute() {
         registrationFormPage.acceptStatute();
+    }
+
+    @And("^I fill in all necessary address data with \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\",\"([^\"]*)\"$")
+    public void iFillInAllNecessaryAddressDataWith(String street, String number, String city, String zipCode, String voivodeship) {
+        registrationFormPage.sendStreet(street);
+        registrationFormPage.sendNumber(number);
+        registrationFormPage.sendCity(city);
+        registrationFormPage.sendZipCode(zipCode);
+        registrationFormPage.selectVoivodeship(voivodeship);
     }
 }

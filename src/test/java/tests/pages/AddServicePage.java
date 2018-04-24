@@ -48,10 +48,10 @@ public class AddServicePage extends SearchServicePage {
     @FindBy(how = How.NAME, using = "offer__user-name")
     public WebElement userName;
 
-    @FindBy(how = How.NAME, using = "offer__user-email")
+    @FindBy(how = How.NAME, using = "offer__email")
     public WebElement userEmail;
 
-    @FindBy(how = How.NAME, using = "offer__user-phone-number")
+    @FindBy(how = How.NAME, using = "offer__phone")
     public WebElement userPhone;
 
     @FindBy(how = How.NAME, using = "offer__user-additional-info")
@@ -60,7 +60,7 @@ public class AddServicePage extends SearchServicePage {
     @FindBy(how = How.CLASS_NAME, using = "form__button")
     public WebElement submitButton;
 
-    @FindBy(how = How.CSS, using = "#root > div > main > section > div > h1")
+    @FindBy(how = How.CLASS_NAME, using = "success-message__text-wrapper")
     public WebElement confirmationMessage;
 
     @FindBy(how = How.CLASS_NAME, using = "input-select__item-option")
@@ -210,7 +210,7 @@ public class AddServicePage extends SearchServicePage {
         if (category.isEmpty()) {
             return;
         } else {
-            selectCategory.selectByValue(category);
+            selectCategory.selectByVisibleText(category);
         }
 
     }
@@ -396,7 +396,7 @@ public class AddServicePage extends SearchServicePage {
         if (province.isEmpty()) {
             return;
         } else {
-            selectVoivodeship.selectByValue(province);
+            selectVoivodeship.selectByVisibleText(province);
         }
     }
 

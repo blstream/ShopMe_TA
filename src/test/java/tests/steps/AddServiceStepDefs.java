@@ -1,6 +1,7 @@
 package tests.steps;
 
 import cucumber.api.DataTable;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -266,5 +267,10 @@ public class AddServiceStepDefs {
     @Then("^I should see in city maximum (\\d+) characters$")
     public void iShouldSeeInCityMaximumCharacters(int length) {
         addServicePage.verifyIfUserCityInputLimited(length);
+    }
+
+    @Then("^I should be redirected to the main page$")
+    public void iShouldBeRedirectedToTheMainPage()  {
+        addServicePage.verifyIfMainPageIsVisible();
     }
 }
