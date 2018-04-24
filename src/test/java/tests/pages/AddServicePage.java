@@ -206,7 +206,6 @@ public class AddServicePage extends SearchServicePage {
     public void selectServiceCategory(String category) {
         waitUntilSelectOptionsAreVisible();
         Select selectCategory = new Select(serviceCategory);
-
         if (category.isEmpty()) {
             return;
         } else {
@@ -385,9 +384,9 @@ public class AddServicePage extends SearchServicePage {
 
     public void mainPageIsVisible() {
         WebDriverWait wait = new WebDriverWait(driver, 3);
-        wait.until(ExpectedConditions.urlToBe("https://patronage2018.intive-projects.com"));
+        wait.until(ExpectedConditions.urlToBe("https://patronage2018.intive-projects.com/"));
         String url = driver.getCurrentUrl();
-        Assert.assertEquals("https://patronage2018.intive-projects.com", url);
+        Assert.assertEquals("https://patronage2018.intive-projects.com/", url);
     }
 
     public void selectVoivodeship(String province) {

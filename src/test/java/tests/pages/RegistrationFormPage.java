@@ -200,7 +200,6 @@ public class RegistrationFormPage extends LoginPage {
         } else {
             selectVoivodeship.selectByVisibleText(voivodeship);
         }
-
     }
 
 }

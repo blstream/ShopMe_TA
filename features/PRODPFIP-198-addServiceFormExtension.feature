@@ -13,7 +13,9 @@ Feature: PRODPFIP-198 Adding new service - extension with province and city of t
     When I fill in province with "<province>"
     And I fill in city with "<city>"
     And I press Add service button
-    Then I should be redirected to the main page
+    Then I should see confirmation message "Pomyślnie dodano ofertę"
+    And I am redirected to the main page
+
     Examples:
       | province            | city                           |
       | Dolnośląskie        | Wrocław                        |
@@ -61,6 +63,7 @@ Feature: PRODPFIP-198 Adding new service - extension with province and city of t
       | Test=   | Niedozwolone znaki |
       | Test_   | Niedozwolone znaki |
       | Test`   | Niedozwolone znaki |
+      | Test-   | Niedozwolone znaki |
       |         | Pole wymagane      |
 
   Scenario: Inserting more than maximum number of characters in city field
