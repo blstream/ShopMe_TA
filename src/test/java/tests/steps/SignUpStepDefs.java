@@ -134,7 +134,9 @@ public class SignUpStepDefs {
 
     @And("^Email \"([^\"]*)\" used in registration is already in database$")
     public void emailUsedInRegistrationIsAlreadyInDatabase(String email) {
-        registrationFormPage.checkIfEmailAlreadyInUse(email);
+        if(!registrationFormPage.checkIfEmailAlreadyInUse(email)){
+            registrationFormPage.addUserWithEmail(email);
+        }
     }
 
     @When("^I fill in all necessary registration data with \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\"$")

@@ -199,7 +199,7 @@ public class RegistrationFormPage extends LoginPage {
 
     }
 
-    private void addUserWithEmail(String email) {
+    public void addUserWithEmail(String email) {
         RestAssured.baseURI = "https://patronage2018.intive-projects.com/api/";
 
         JsonObject address = new JsonObject();
@@ -243,4 +243,5 @@ public class RegistrationFormPage extends LoginPage {
         RestAssured.given().contentType("application/json").body(newUser.toString()).when().post("/users").then().assertThat().statusCode(200);
 
     }
+
 }
