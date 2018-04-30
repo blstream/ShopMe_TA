@@ -38,13 +38,13 @@ public class SearchResultsPage {
     public WebElement firstService;
 
     @FindBy(how = How.CLASS_NAME, using = "services-item")
-    public List<WebElement> ServiceList;
+    public List<WebElement> serviceList;
 
     @FindBy(how = How.CLASS_NAME, using = "pagination__button--last")
-    public WebElement LastPageButton;
+    public WebElement lastPageButton;
 
     @FindBy(how = How.CLASS_NAME, using = "pagination__button--next")
-    public WebElement NextButton;
+    public WebElement nextButton;
 
     @FindBy(how = How.CLASS_NAME, using = "pagination__button-previous")
     public WebElement previousButton;
@@ -53,14 +53,14 @@ public class SearchResultsPage {
     public WebElement pageButtons;
 
     @FindBy(how = How.CLASS_NAME, using = "pagination__button")
-    public List<WebElement> PaginationList;
+    public List<WebElement> paginationList;
 
     @FindBy(how = How.CLASS_NAME, using = "pagination__button--active")
     public WebElement activePageButton;
 
 
     private WebElement getNumberOfPage(int pageNumber) {
-        return PaginationList.get(pageNumber);
+        return paginationList.get(pageNumber);
     }
 
     public void pushPageNumberButton(int number, int page) {//tu podajemy indeks, króry chcemy klinąć, page to numer strony do porównania
@@ -78,21 +78,37 @@ public class SearchResultsPage {
     }
 
     public void pushNextButton() {
-        NextButton.click();
+        nextButton.click();
+    }
+
+    public void returnToFirstPage() {
+        int lastPage = Integer.valueOf(activePageButton.getText());
+        int actualPage = lastPage;
+        for (int i = 1; i < lastPage; i++) ;
+        {
+            wait.until(ExpectedConditions.textToBePresentInElement(activePageButton, String.valueOf(actualPage)));
+            previousButton.click();
+            --actualPage;
+        }
+        Assert.assertTrue(activePageButton.getText() == "1");
+    }
+    public void areLastServicesVisible(){
+        int lastPage= Integer.valueOf(activePageButton.getText());
+        Assert.assertTrue(getServicesTitles().get(0).substring(0, 2).equals(String.valueOf(lastPage*10+1)));
     }
 
     public String getLastPage() {
-        wait.until(ExpectedConditions.visibilityOf(LastPageButton));
-        return LastPageButton.getText();
+        wait.until(ExpectedConditions.visibilityOf(lastPageButton));
+        return lastPageButton.getText();
     }
 
     public Integer getNumberOfPagesFromFE() {
-        Integer pageNumberInFE = (PaginationList.size() <= 3) ? PaginationList.size() : Integer.valueOf(getLastPage());
+        Integer pageNumberInFE = (paginationList.size() <= 3) ? paginationList.size() : Integer.valueOf(getLastPage());
         return pageNumberInFE;
     }
 
     public void isCorrectNumberOfResultsOnEachPage(int numberOfResults) {
-        wait.until(ExpectedConditions.visibilityOf(NextButton));
+        wait.until(ExpectedConditions.visibilityOf(nextButton));
         System.out.println("getNumberfrom FE" + getNumberOfPagesFromFE());
         for (int i = 0; i < getNumberOfPagesFromFE() - 1; i++) {
             waitForNewResults();
@@ -143,16 +159,16 @@ public class SearchResultsPage {
 
 
     public void isNumberOfAllPagesVisible() {
-        if (PaginationList.size() == 0)
+        if (paginationList.size() == 0)
             Assert.assertTrue(getNumberOfPage(0).isDisplayed());
-        else if (PaginationList.size() == 1)
+        else if (paginationList.size() == 1)
             Assert.assertTrue(getNumberOfPage(1).isDisplayed());
-        else if (PaginationList.size() == 2)
+        else if (paginationList.size() == 2)
             Assert.assertTrue(getNumberOfPage(2).isDisplayed());
-        else if (PaginationList.size() == 3)
+        else if (paginationList.size() == 3)
             Assert.assertTrue(getNumberOfPage(3).isDisplayed());
         else
-            Assert.assertTrue(LastPageButton.isDisplayed());
+            Assert.assertTrue(lastPageButton.isDisplayed());
     }
 
     public void deleteServicesFromPage(int numberOfElements, int pageNumber) {
@@ -163,15 +179,15 @@ public class SearchResultsPage {
     }
 
     public void pushLastPageButton() {//jeśli zaczynamy z pozycji strony 1(prev-butt jest niewidoczny)
-        if (PaginationList.size() <= 3)
-            pushPageNumberButton(PaginationList.size() - 1, PaginationList.size());
+        if (paginationList.size() <= 3)
+            pushPageNumberButton(paginationList.size() - 1, paginationList.size());
         else
-            LastPageButton.click();
+            lastPageButton.click();
     }
 
 
     private WebElement getServiceRowElement(int line) {
-        return ServiceList.get(line);
+        return serviceList.get(line);
     }
 
 
@@ -196,13 +212,13 @@ public class SearchResultsPage {
     }
 
     public void previousButtonIsVisible() {
-        Assert.assertTrue(PaginationList.get(0).getText().equals("<"));
+        Assert.assertTrue(paginationList.get(0).getText().equals("<"));
     }
 
     public void firstPageButtonIsVisible() {//bierzemy pierwszy wyraz po "<". Oczywiście jesteśmy na ostatniej stronie, więc istnieje, chyba, że 1, stąd if
         String firstPage = "1";
         if (!activePageButton.getText().equals("1")) {
-            firstPage = PaginationList.get(1).getText();
+            firstPage = paginationList.get(1).getText();
         }
         Assert.assertTrue(firstPage.equals("1"));
     }
@@ -217,7 +233,7 @@ public class SearchResultsPage {
 
     public boolean isNextButtonInvisible() {
         try {
-            NextButton.isDisplayed();
+            nextButton.isDisplayed();
             return false;
         } catch (org.openqa.selenium.NoSuchElementException e) {
             return true;

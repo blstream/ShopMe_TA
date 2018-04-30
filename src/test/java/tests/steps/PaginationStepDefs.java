@@ -53,7 +53,6 @@ public class PaginationStepDefs {
     @And("^The last page contains less than (\\d+) results$")
     public void theLastPageContainsLessThanResults(int limit) {
         searchResultsPage.isNumberOfLastServicesUnderLimit(limit);
-
     }
 
     @And("^I click the second page button$")
@@ -93,6 +92,11 @@ public class PaginationStepDefs {
         searchResultsPage.areLastPageBold();
     }
 
+    @And("^I can see list of last records$")
+    public void iCanSeeListOfLastRecords() {
+        searchResultsPage.areLastServicesVisible();
+    }
+
     @And("^I can see first page button$")
     public void iCanSeeFirstPageButton() {
         searchResultsPage.firstPageButtonIsVisible();
@@ -101,6 +105,11 @@ public class PaginationStepDefs {
     @And("^next-button is invisible$")
     public void nextButtonIsInvisible() {
         Assert.assertTrue(searchResultsPage.isNextButtonInvisible());
+    }
+
+    @And("^I can return to the first page by clicking previous-button$")
+    public void iCanReturnToTheFirstPageByClickingPreviousButton() {
+        searchResultsPage.returnToFirstPage();
     }
 
     @And("^I click third page button$")
@@ -117,4 +126,6 @@ public class PaginationStepDefs {
     public void iDeleteServicesFromTheSecondPage(int servicesNumber, int pageNumber) {
         searchResultsPage.deleteServicesFromPage(servicesNumber, pageNumber);
     }
+
+
 }
