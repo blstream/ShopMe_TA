@@ -1,5 +1,6 @@
 package tests.pages;
 
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -8,11 +9,14 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import tests.helpers.RestAssuredMethods;
 import tests.objects.MyService;
-import tests.objects.Services;
 
 import static org.junit.Assert.assertTrue;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static tests.Hooks.driver;
 import static tests.Hooks.wait;
@@ -35,45 +39,138 @@ public class SearchResultsPage {
 
     @FindBy(how = How.CLASS_NAME, using = "services-item")
     public List<WebElement> ServiceList;
-    @FindBy(how=How.CLASS_NAME,using = "pagination__button--last")
+
+    @FindBy(how = How.CLASS_NAME, using = "pagination__button--last")
     public WebElement LastPageButton;
-    @FindBy(how=How.CLASS_NAME, using = "pagination__list")
-    public WebElement PageButtons;
+
+    @FindBy(how = How.CLASS_NAME, using = "pagination__button--next")
+    public WebElement NextButton;
+
+    @FindBy(how = How.CLASS_NAME, using = "pagination__button-previous")
+    public WebElement previousButton;
+
+    @FindBy(how = How.CLASS_NAME, using = "pagination__list")
+    public WebElement pageButtons;
+
     @FindBy(how = How.CLASS_NAME, using = "pagination__button")
     public List<WebElement> PaginationList;
 
-    private WebElement getNumberOfPage(int pageNumber){
+    @FindBy(how = How.CLASS_NAME, using = "pagination__button--active")
+    public WebElement activePageButton;
+
+
+    private WebElement getNumberOfPage(int pageNumber) {
         return PaginationList.get(pageNumber);
     }
-    public void pushPageNumberButton(int number) {
+
+    public void pushPageNumberButton(int number, int page) {//tu podajemy indeks, króry chcemy klinąć, page to numer strony do porównania
         getNumberOfPage(number).click();
+        wait.until(ExpectedConditions.textToBePresentInElement(activePageButton, String.valueOf(page)));
     }
 
-    public String getLastPage(){
+    public void pushNextPageNumberButton(int number) {//do iteracji, number to numer indexu, od 0
+        if (number == 0)
+            getNumberOfPage(number).click();
+        else if (getNumberOfPage(number + 1).getText().equals(String.valueOf(number + 2)))
+            getNumberOfPage(number + 1).click();
+        else
+            getNumberOfPage(5).click();
+    }
+
+    public void pushNextButton() {
+        NextButton.click();
+    }
+
+    public String getLastPage() {
         wait.until(ExpectedConditions.visibilityOf(LastPageButton));
         return LastPageButton.getText();
     }
 
-    public void areAllDatabaseServicesPresent(String titlePhrase){
-Integer pageNumberInFE = Integer.valueOf(getLastPage());
-        System.out.println(pageNumberInFE);
-        assertTrue(pageNumberInFE==Integer.valueOf(getLastPage()));
-        for (int i = 1; i<= pageNumberInFE; i++){
-            int a=0;
-            MyService service = restAssuredMethods.searchForServices(titlePhrase).get(a+i);
-        //    assertTrue(service.title==);
-            System.out.println(String.valueOf(service.basePrice)+"zł");
-            System.out.println(String.valueOf(getServicesPrices().get(i)));
-            assertTrue((String.valueOf(service.basePrice)+" zł").contains(String.valueOf(getServicesPrices().get(i))));
-        //    assertTrue(service.date==);
-            a=a+10;
-            pushPageNumberButton(i);
+    public Integer getNumberOfPagesFromFE() {
+        Integer pageNumberInFE = (PaginationList.size() <= 3) ? PaginationList.size() : Integer.valueOf(getLastPage());
+        return pageNumberInFE;
+    }
+
+    public void isCorrectNumberOfResultsOnEachPage(int numberOfResults) {
+        wait.until(ExpectedConditions.visibilityOf(NextButton));
+        System.out.println("getNumberfrom FE" + getNumberOfPagesFromFE());
+        for (int i = 0; i < getNumberOfPagesFromFE() - 1; i++) {
+            waitForNewResults();
+            isNumberOfServicesCorrect(numberOfResults);
+            pushNextPageNumberButton(i);
+        }
+    }
+
+    public void areAllDatabaseServicesPresent(String titlePhrase) {
+        Integer pageNumberInFE = getNumberOfPagesFromFE() + 1;
+        wait.until(ExpectedConditions.visibilityOf(resultsList));
+        List<WebElement> elementsPerPage = resultsList.findElements(By.className("services-item__title"));
+        int last = elementsPerPage.size();
+        for (int j = 0; j <= pageNumberInFE; j++) {
+            for (int i = 0; i < last; i++) {
+                MyService service = restAssuredMethods.searchForServices(titlePhrase).get(10 * j + i);
+                //TITLE:
+                assertTrue(String.valueOf((10 * j + i + 1) + ". " + service.title).equals(getServicesTitles().get(i)));
+                //PRICE:
+                int a = String.valueOf(getServicesPrices().get(i)).length();
+                assertTrue((Float.valueOf(service.basePrice)).equals(Float.valueOf(getServicesPrices().get(i).substring(0, a - 2))));
+                //DATE:
+                Date date = new Date(service.date);
+                SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy");
+                String dateText = df.format(date);
+                assertTrue(dateText.equals(getServicesDates().get(i)));
+            }
+            if (j + 1 <= pageNumberInFE) {
+                pushNextPageNumberButton(j);
+                wait.until(ExpectedConditions.textToBePresentInElement(activePageButton, String.valueOf(j + 2)));
+                elementsPerPage = resultsList.findElements(By.className("services-item__title"));
+                last = elementsPerPage.size();
+            }
         }
 
     }
 
+    public void isNumberOfServicesCorrect(int numberPerPage) {
+        List<WebElement> titlesPerPage = resultsList.findElements(By.className("services-item__title"));
+        Assert.assertEquals(numberPerPage, titlesPerPage.size());
+    }
 
-    private WebElement getServiceRowElement(int line){
+    public void isNumberOfLastServicesUnderLimit(int limit) {
+        waitForNewResults();
+        List<WebElement> titlesPerPage = resultsList.findElements(By.className("services-item__title"));
+        Assert.assertTrue(titlesPerPage.size() < limit);
+    }
+
+
+    public void isNumberOfAllPagesVisible() {
+        if (PaginationList.size() == 0)
+            Assert.assertTrue(getNumberOfPage(0).isDisplayed());
+        else if (PaginationList.size() == 1)
+            Assert.assertTrue(getNumberOfPage(1).isDisplayed());
+        else if (PaginationList.size() == 2)
+            Assert.assertTrue(getNumberOfPage(2).isDisplayed());
+        else if (PaginationList.size() == 3)
+            Assert.assertTrue(getNumberOfPage(3).isDisplayed());
+        else
+            Assert.assertTrue(LastPageButton.isDisplayed());
+    }
+
+    public void deleteServicesFromPage(int numberOfElements, int pageNumber) {
+        for (int i = 0; i < numberOfElements; ++i) {
+            List<MyService> deleteList = restAssuredMethods.getServices(pageNumber, 10).content;
+            restAssuredMethods.deleteService(deleteList.get(i).id);
+        }
+    }
+
+    public void pushLastPageButton() {//jeśli zaczynamy z pozycji strony 1(prev-butt jest niewidoczny)
+        if (PaginationList.size() <= 3)
+            pushPageNumberButton(PaginationList.size() - 1, PaginationList.size());
+        else
+            LastPageButton.click();
+    }
+
+
+    private WebElement getServiceRowElement(int line) {
         return ServiceList.get(line);
     }
 
@@ -90,9 +187,55 @@ Integer pageNumberInFE = Integer.valueOf(getLastPage());
         wait.until(ExpectedConditions.textToBePresentInElement(firstService, expectedService));
     }
 
+    public void paginationButtonsAreVisible() {
+        wait.until(ExpectedConditions.visibilityOf(pageButtons));
+    }
+
+    public void isActualPageBold(int numberOfPage) {
+        Assert.assertEquals(activePageButton.getText(), String.valueOf(numberOfPage));
+    }
+
+    public void previousButtonIsVisible() {
+        Assert.assertTrue(PaginationList.get(0).getText().equals("<"));
+    }
+
+    public void firstPageButtonIsVisible() {//bierzemy pierwszy wyraz po "<". Oczywiście jesteśmy na ostatniej stronie, więc istnieje, chyba, że 1, stąd if
+        String firstPage = "1";
+        if (!activePageButton.getText().equals("1")) {
+            firstPage = PaginationList.get(1).getText();
+        }
+        Assert.assertTrue(firstPage.equals("1"));
+    }
+
+    public void areLastPageBold() {
+        List<String> pageOneValues = new ArrayList<>();
+        pageOneValues.add(String.valueOf(getNumberOfPagesFromFE()));
+        wait.until(ExpectedConditions.textToBePresentInElement(activePageButton, "6"));
+        System.out.println("button " + activePageButton.getText());
+        Assert.assertEquals(activePageButton.getText(), pageOneValues.get(0));
+    }
+
+    public boolean isNextButtonInvisible() {
+        try {
+            NextButton.isDisplayed();
+            return false;
+        } catch (org.openqa.selenium.NoSuchElementException e) {
+            return true;
+        }
+    }
+
+    public boolean isFirstPageButtonClickable() {
+        try {
+            wait.until(ExpectedConditions.elementToBeClickable(getNumberOfPage(1)));
+            return true;
+        } catch (NoSuchElementException e) {
+            return false;
+        }
+    }
+
     public List<String> getServicesTitles() {
         List<WebElement> titlesWebElements = resultsList.findElements(By.className("services-item__title"));
-        ArrayList<String> titles = new ArrayList<String>();
+        ArrayList<String> titles = new ArrayList<>();
         for (int i = 0; i < titlesWebElements.size(); i++) {
             titles.add(titlesWebElements.get(i).getText());
         }
@@ -101,7 +244,7 @@ Integer pageNumberInFE = Integer.valueOf(getLastPage());
 
     public List<String> getServicesPrices() {
         List<WebElement> pricesWebElements = resultsList.findElements(By.className("services-item__price"));
-        ArrayList<String> prices = new ArrayList<String>();
+        ArrayList<String> prices = new ArrayList<>();
         for (int i = 0; i < pricesWebElements.size(); i++) {
             prices.add(pricesWebElements.get(i).getText());
         }
@@ -110,7 +253,7 @@ Integer pageNumberInFE = Integer.valueOf(getLastPage());
 
     public List<String> getServicesDates() {
         List<WebElement> datesWebElements = resultsList.findElements(By.className("services-item__date"));
-        ArrayList<String> dates = new ArrayList<String>();
+        ArrayList<String> dates = new ArrayList<>();
         for (int i = 0; i < datesWebElements.size(); i++) {
             dates.add(datesWebElements.get(i).getText());
         }
@@ -127,7 +270,7 @@ Integer pageNumberInFE = Integer.valueOf(getLastPage());
     }
 
     public String getTitle(int line) {
-         return getServiceRowElement(line).getText();
+        return getServiceRowElement(line).getText();
     }
 
     public void openServiceFromResults(int line) {

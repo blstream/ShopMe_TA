@@ -45,8 +45,8 @@ public class RestAssuredMethods {
         content.baseDescription = service.getBaseDesription();
         content.basePrice = service.getBasePrice();
         String nameV = service.user.voivodeship.getName();
-        user2.voivodeship = new Voivodeship(null,nameV);
-        content.user = new User(service.user.getName(), service.user.getEmail(), user2.getPhoneNumber(), service.user.getAdditionalInfo(), service.user.voivodeship, service.user.getCity());
+        user2.voivodeship = new Voivodeship(null, nameV);
+        content.user = new User(service.user.getName(), service.user.getEmail(), service.user.getPhoneNumber(), service.user.getAdditionalInfo(), service.user.voivodeship, service.user.getCity());
         content.extendedDescription = service.getExtendedDesription();
         content.extendedPrice = service.getExtendedPrice();
         content.extraDescription = service.getExtraDesription();
@@ -134,26 +134,27 @@ public class RestAssuredMethods {
             deleteService(deleteList.get(i).id);
         }
     }
-        public void addALotOfServicesServices(DataTable services, int NumberOfServices){
-            DataTable dt = services;
-            MyService service = new MyService();
-            User user1 = new User();
-            for (int i = 0; i < NumberOfServices; i++) {
-                DataTableRow someRow = dt.getGherkinRows().get(0);
 
-                service.title = someRow.getCells().get(0) + String.valueOf(i);
-                service.category = new Category(null, someRow.getCells().get(1));
-                user1.voivodeship = new Voivodeship("1511273a-bb97-4e8a-924b-e6ff7583f135", someRow.getCells().get(12));
-                service.user = new User(someRow.getCells().get(2), someRow.getCells().get(3), someRow.getCells().get(4), someRow.getCells().get(5), user1.voivodeship, someRow.getCells().get(13));
-                service.baseDescription = someRow.getCells().get(6);
-                service.basePrice = Float.valueOf(someRow.getCells().get(7)) + i;
-                service.extendedDescription = someRow.getCells().get(8);
-                service.extendedPrice = Float.valueOf(someRow.getCells().get(9));
-                service.extraDescription = someRow.getCells().get(10);
-                service.extraPrice = Float.valueOf(someRow.getCells().get(11));
+    public void addALotOfServicesServices(DataTable services, int NumberOfServices) {
+        DataTable dt = services;
+        MyService service = new MyService();
+        User user1 = new User();
+        for (int i = 0; i < NumberOfServices; i++) {
+            DataTableRow someRow = dt.getGherkinRows().get(0);
 
-                addService(service);
-            }
+            service.title = someRow.getCells().get(0) + String.valueOf(i);
+            service.category = new Category(null, someRow.getCells().get(1));
+            user1.voivodeship = new Voivodeship("1511273a-bb97-4e8a-924b-e6ff7583f135", someRow.getCells().get(12));
+            service.user = new User(someRow.getCells().get(2), someRow.getCells().get(3), someRow.getCells().get(4), someRow.getCells().get(5), user1.voivodeship, someRow.getCells().get(13));
+            service.baseDescription = someRow.getCells().get(6);
+            service.basePrice = Float.valueOf(someRow.getCells().get(7)) + i;
+            service.extendedDescription = someRow.getCells().get(8);
+            service.extendedPrice = Float.valueOf(someRow.getCells().get(9));
+            service.extraDescription = someRow.getCells().get(10);
+            service.extraPrice = Float.valueOf(someRow.getCells().get(11));
+
+            addService(service);
+        }
 
     }
 }
