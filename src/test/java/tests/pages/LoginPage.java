@@ -25,6 +25,17 @@ public class LoginPage extends SearchServicePage {
 
     @FindBy(how = How.CSS, using = "#signup-form__submit")
     public WebElement registerButton;
+//    searching with ID is the fastest strategy for locating elements, so
+//    I suggest to use how = How.ID, using = "signup-form__submit"
+
+    @FindBy(how = How.NAME, using = "login__user-email")
+    public WebElement logInUserEmail;
+
+    @FindBy(how = How.NAME, using = "login__user-password")
+    public WebElement logInUserPassword;
+
+    @FindBy(how = How.ID, using = "login-form__submit-form")
+    public WebElement signInButton;
 
     public LoginPage() {
         PageFactory.initElements(driver, this);
@@ -55,4 +66,16 @@ public class LoginPage extends SearchServicePage {
         String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Timestamp(System.currentTimeMillis()));
         return timeStamp;
     }
+
+    public void enterEmail(String email) {
+        logInUserEmail.sendKeys(email);
+    }
+
+    public void enterPassword(String password) {
+        logInUserPassword.sendKeys(password);
+    }
+    public void clickTheSignInBtn(){
+        signInButton.click();
+    }
 }
+

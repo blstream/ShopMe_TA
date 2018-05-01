@@ -10,6 +10,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static tests.Hooks.driver;
 import static tests.Hooks.wait;
 
@@ -86,5 +87,9 @@ public class SearchServicePage {
 
     public void pushShopMeButton() {
         logoShopMe.click();
+    }
+
+    public void loginButtonIsDisplayed(){
+        assertTrue(loginButton.isDisplayed());
     }
 }
