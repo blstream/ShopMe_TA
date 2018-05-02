@@ -267,4 +267,10 @@ public class AddServiceStepDefs {
     public void iShouldSeeInCityMaximumCharacters(int length) {
         addServicePage.verifyIfUserCityInputLimited(length);
     }
+
+    @Then("^I should be redirected to the main page$")
+    public void iShouldBeRedirectedToTheMainPage() {
+        addServicePage.verifyIfMainPageIsVisible();
+    }
+
 }

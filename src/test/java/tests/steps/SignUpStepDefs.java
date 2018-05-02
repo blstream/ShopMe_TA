@@ -70,21 +70,12 @@ public class SignUpStepDefs {
     @And("^I fill in password and repeatPassword with \"([^\"]*)\"$")
     public void iFillInPasswordAndRepeatPasswordWith(String password) {
         registrationFormPage.sendPassword(password);
-        registrationFormPage.sendConfirmPassword(password);
     }
 
     @And("^I fill in all necessary personal data with \"([^\"]*)\", \"([^\"]*)\"$")
     public void iFillInAllNecessaryPersonalDataWith(String phoneNumber, String bankAccountNumber) {
         registrationFormPage.sendPhone(phoneNumber);
         registrationFormPage.sendBankAccountNumber(bankAccountNumber);
-    }
-
-    @And("^I fill in all necessary address data with \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\"$")
-    public void iFillInAllNecessaryAddressDataWith(String street, String number, String city, String zipCode) {
-        registrationFormPage.sendStreet(street);
-        registrationFormPage.sendNumber(number);
-        registrationFormPage.sendCity(city);
-        registrationFormPage.sendZipCode(zipCode);
     }
 
     @And("^I select dataForInvoice checkbox$")
@@ -134,5 +125,14 @@ public class SignUpStepDefs {
     @And("^I accept statute$")
     public void iAcceptStatute() {
         registrationFormPage.acceptStatute();
+    }
+
+    @And("^I fill in all necessary address data with \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\",\"([^\"]*)\"$")
+    public void iFillInAllNecessaryAddressDataWith(String street, String number, String city, String zipCode, String voivodeship) {
+        registrationFormPage.sendStreet(street);
+        registrationFormPage.sendNumber(number);
+        registrationFormPage.sendCity(city);
+        registrationFormPage.sendZipCode(zipCode);
+        registrationFormPage.selectVoivodeship(voivodeship);
     }
 }

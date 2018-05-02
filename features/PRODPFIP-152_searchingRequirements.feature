@@ -2,12 +2,12 @@ Feature: PRODPFIP-152 Specify requirements to searching functionality
   As a user I want to be able to search the service so that I can see search results
 
   Scenario: Attempt to search for a phrase longer than 30 characters
-    Given I navigate to the main page
+    Given I go to ShopMe main page
     When I try to fill in search field with 31 characters
     Then I should see in search field exactly 30 characters
 
   Scenario: Attempt to search for a phrase shorter than 2 characters
-    Given I navigate to the main page
+    Given I go to ShopMe main page
     And I enter a searching phrase "X" into the search field
     Then the search button is not clickable
 
@@ -16,7 +16,7 @@ Feature: PRODPFIP-152 Specify requirements to searching functionality
     And I add services
       | QA                             |
       | fotografia ślubna tanio okazja |
-    When I navigate to the main page
+    When I go to ShopMe main page
     And I enter a searching phrase "<searching_phrase>" into the search field
     And I click the search button
     Then search results are visible

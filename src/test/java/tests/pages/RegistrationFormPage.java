@@ -6,6 +6,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 
 import static tests.Hooks.driver;
 import static tests.Hooks.wait;
@@ -17,9 +18,6 @@ public class RegistrationFormPage extends LoginPage {
 
     @FindBy(how = How.NAME, using = "users__password")
     public WebElement password;
-
-    @FindBy(how = How.NAME, using = "users__confirm-password")
-    public WebElement confirmPassword;
 
     @FindBy(how = How.NAME, using = "users__phone-number")
     public WebElement userPhoneNumber;
@@ -72,6 +70,12 @@ public class RegistrationFormPage extends LoginPage {
     @FindBy(how = How.NAME, using = "users__terms-and-conditions-checkbox")
     public WebElement statuteCheckbox;
 
+    @FindBy(how = How.NAME, using = "offer__voivodeship")
+    public WebElement voivodeshipSelect;
+
+    @FindBy(how = How.CLASS_NAME, using = "input-select__item-option--yellow")
+    public WebElement selectOption;
+
     public RegistrationFormPage() {
         PageFactory.initElements(driver, this);
     }
@@ -93,10 +97,6 @@ public class RegistrationFormPage extends LoginPage {
 
     public void sendPassword(String pass) {
         password.sendKeys(pass);
-    }
-
-    public void sendConfirmPassword(String pass) {
-        confirmPassword.sendKeys(pass);
     }
 
     public void sendPhone(String phoneNumber) {
@@ -172,11 +172,27 @@ public class RegistrationFormPage extends LoginPage {
     }
 
     public void verifyIfExpandedRegisterFormIsVisible() {
-        wait.until(ExpectedConditions.elementToBeClickable(registerButton));
+        wait.until((ExpectedConditions.visibilityOf(usersPersonalDataCheckbox)));
     }
 
     public void acceptStatute() {
         statuteCheckbox.click();
         Assert.assertTrue(statuteCheckbox.isSelected());
     }
+
+    public void waitUntilSelectOptionsAreVisible() {
+        wait.until(ExpectedConditions.visibilityOf(selectOption));
+    }
+
+    public void selectVoivodeship(String voivodeship) {
+        waitUntilSelectOptionsAreVisible();
+        Select selectVoivodeship = new Select(voivodeshipSelect);
+
+        if (voivodeship.isEmpty()) {
+            return;
+        } else {
+            selectVoivodeship.selectByVisibleText(voivodeship);
+        }
+    }
+
 }

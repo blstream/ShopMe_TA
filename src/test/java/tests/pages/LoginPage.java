@@ -6,6 +6,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 
@@ -23,7 +24,7 @@ public class LoginPage extends SearchServicePage {
     @FindBy(how = How.NAME, using = "users__email")
     public WebElement userEmail;
 
-    @FindBy(how = How.CSS, using = "#signup-form__submit")
+    @FindBy(how = How.ID, using = "signup-form__submit")
     public WebElement registerButton;
 //    searching with ID is the fastest strategy for locating elements, so
 //    I suggest to use how = How.ID, using = "signup-form__submit"
