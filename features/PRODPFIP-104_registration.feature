@@ -13,7 +13,7 @@ Feature: PRODPFIP-104 User registration
     And I can see name filled with "<name>"
     And I can see surname filled with "<surname>"
     And I can see email filled with testEmail
-    And I fill in password and repeatPassword with "<password>"
+    And I fill in password with "<password>"
     And I fill in all necessary personal data with "<phone_number>", "<bank_account>"
     And I fill in all necessary address data with "<street>", "<number>", "<city>", "<post_code>","<voivodeship>"
     And I select dataForInvoice checkbox
