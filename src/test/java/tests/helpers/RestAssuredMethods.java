@@ -1,8 +1,6 @@
 package tests.helpers;
 
 import com.google.gson.Gson;
-import cucumber.api.DataTable;
-import gherkin.formatter.model.DataTableRow;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.response.ResponseBody;
@@ -54,29 +52,14 @@ public class RestAssuredMethods {
         RestAssured.given().contentType("application/json").body(result).when().post("/offers").then().assertThat().statusCode(201);
     }
 
-    public void addServices(DataTable services) {
-        DataTable dt = services;
-        MyService service = new MyService();
-        for (int i = 0; i < dt.getGherkinRows().size(); i++) {
-            DataTableRow someRow = dt.getGherkinRows().get(i);
-
-            service.title = someRow.getCells().get(0);
-            service.category = new Category(null, someRow.getCells().get(1), null);
-            service.user.voivodeship = new Voivodeship(someRow.getCells().get(12));
-            service.user = new User(someRow.getCells().get(2), someRow.getCells().get(3), someRow.getCells().get(4), someRow.getCells().get(5), service.user.voivodeship, someRow.getCells().get(13));
-            service.baseDescription = someRow.getCells().get(6);
-            service.basePrice = Float.valueOf(someRow.getCells().get(7));
-            service.extendedDescription = someRow.getCells().get(8);
-            service.extendedPrice = Float.valueOf(someRow.getCells().get(9));
-            service.extraDescription = someRow.getCells().get(10);
-            service.extraPrice = Float.valueOf(someRow.getCells().get(11));
-
-            addService(service);
+    public void addServices(List<MyService> myServiceList) {
+        for (int i = 0; i < myServiceList.size(); i++) {
+            addService(myServiceList.get(i));
         }
     }
 
-    public void deleteService(String id) {
-        MyService serviceToDelete = getService(id);
+    public void deleteServiceById(String id) {
+        MyService serviceToDelete = getServiceById(id);
 
         if (serviceToDelete != null) {
             RestAssured.baseURI = this.baseURI;
@@ -84,7 +67,7 @@ public class RestAssuredMethods {
         }
     }
 
-    public MyService getService(String id) {
+    public MyService getServiceById(String id) {
         Response response = RestAssured.given().pathParam("id", id).get(baseURI + "/offers/{id}");
         ResponseBody body = response.getBody();
         Gson gson = new Gson();
@@ -127,7 +110,11 @@ public class RestAssuredMethods {
     public void deleteAllServices() {
         List<MyService> deleteList = getAllServices();
         for (int i = 0; i < deleteList.size(); i++) {
-            deleteService(deleteList.get(i).id);
+            deleteServiceById(deleteList.get(i).id);
         }
+    }
+
+    public void deleteService(MyService myService) {
+        deleteServiceById(myService.id);
     }
 }

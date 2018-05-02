@@ -5,12 +5,20 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import gherkin.formatter.model.DataTableRow;
 import tests.helpers.RestAssuredMethods;
+import tests.objects.Category;
+import tests.objects.MyService;
+import tests.objects.User;
+import tests.objects.Voivodeship;
 import tests.pages.SearchResultsPage;
 import tests.pages.SearchServicePage;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -28,7 +36,24 @@ public class SearchStepDefs {
 
     @And("^I add services$")
     public void iAddServices(DataTable services) {
-        restAssuredMethods.addServices(services);
+        DataTable dt = services;
+        List<MyService> serviceList = new ArrayList<>();
+        for (int i = 0; i < dt.getGherkinRows().size(); i++) {
+            DataTableRow someRow = dt.getGherkinRows().get(i);
+            MyService service = new MyService();
+            service.title = someRow.getCells().get(0);
+            service.category = new Category(null, someRow.getCells().get(1), null);
+            service.user.voivodeship = new Voivodeship(someRow.getCells().get(12));
+            service.user = new User(someRow.getCells().get(2), someRow.getCells().get(3), someRow.getCells().get(4), someRow.getCells().get(5), service.user.voivodeship, someRow.getCells().get(13));
+            service.baseDescription = someRow.getCells().get(6);
+            service.basePrice = Float.valueOf(someRow.getCells().get(7));
+            service.extendedDescription = someRow.getCells().get(8);
+            service.extendedPrice = Float.valueOf(someRow.getCells().get(9));
+            service.extraDescription = someRow.getCells().get(10);
+            service.extraPrice = Float.valueOf(someRow.getCells().get(11));
+            serviceList.add(service);
+        }
+        restAssuredMethods.addServices(serviceList);
     }
 
     @When("^I navigate to the main page$")
