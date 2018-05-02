@@ -21,40 +21,40 @@ import static tests.Hooks.driver;
 import static tests.Hooks.wait;
 
 public class AddServicePage extends SearchServicePage {
-    @FindBy(how = How.NAME, using = "offer__title")
+    @FindBy(how = How.NAME, using = "offerTitle")
     public WebElement offerTitle;
 
-    @FindBy(how = How.NAME, using = "offer__category")
+    @FindBy(how = How.NAME, using = "offerCategory")
     public WebElement serviceCategory;
 
-    @FindBy(how = How.NAME, using = "offer__base-description")
+    @FindBy(how = How.NAME, using = "offerBaseDescription")
     public WebElement basicDescription;
 
-    @FindBy(how = How.NAME, using = "offer__base-price")
+    @FindBy(how = How.NAME, using = "offerBasePrice")
     public WebElement basicPrice;
 
-    @FindBy(how = How.NAME, using = "offer__extended-description")
+    @FindBy(how = How.NAME, using = "offerExtendedDescription")
     public WebElement expandedDescription;
 
-    @FindBy(how = How.NAME, using = "offer__extended-price")
+    @FindBy(how = How.NAME, using = "offerExtendedPrice")
     public WebElement expandedPrice;
 
-    @FindBy(how = How.NAME, using = "offer__extra-description")
+    @FindBy(how = How.NAME, using = "offerExtraDescription")
     public WebElement extraDescription;
 
-    @FindBy(how = How.NAME, using = "offer__extra-price")
+    @FindBy(how = How.NAME, using = "offerExtraPrice")
     public WebElement extraPrice;
 
-    @FindBy(how = How.NAME, using = "offer__user-name")
+    @FindBy(how = How.NAME, using = "offerUserName")
     public WebElement userName;
 
-    @FindBy(how = How.NAME, using = "offer__email")
+    @FindBy(how = How.NAME, using = "offerEmail")
     public WebElement userEmail;
 
-    @FindBy(how = How.NAME, using = "offer__phone")
+    @FindBy(how = How.NAME, using = "offerPhone")
     public WebElement userPhone;
 
-    @FindBy(how = How.NAME, using = "offer__user-additional-info")
+    @FindBy(how = How.NAME, using = "offerUserAdditionalInfo")
     public WebElement aboutMe;
 
     @FindBy(how = How.CLASS_NAME, using = "form__button")
@@ -82,6 +82,7 @@ public class AddServicePage extends SearchServicePage {
     public String RA_extendedDescription;
     public String RA_extraDescription;
     public String RA_aboutMe;
+    public String baseUrl="https://patronage2018.intive-projects.com/";
 
     public void waitForResult() {
         try {
@@ -384,9 +385,9 @@ public class AddServicePage extends SearchServicePage {
 
     public void mainPageIsVisible() {
         WebDriverWait wait = new WebDriverWait(driver, 3);
-        wait.until(ExpectedConditions.urlToBe("https://patronage2018.intive-projects.com/"));
+        wait.until(ExpectedConditions.urlToBe(baseUrl));
         String url = driver.getCurrentUrl();
-        Assert.assertEquals("https://patronage2018.intive-projects.com/", url);
+        Assert.assertEquals(baseUrl, url);
     }
 
     public void selectVoivodeship(String province) {
