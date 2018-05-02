@@ -24,7 +24,7 @@ public class LoginPage extends SearchServicePage {
     @FindBy(how = How.NAME, using = "users__email")
     public WebElement userEmail;
 
-    @FindBy(how = How.CSS, using = "#signup-form__submit")
+    @FindBy(how = How.ID, using = "signup-form__submit")
     public WebElement registerButton;
 
     public LoginPage() {

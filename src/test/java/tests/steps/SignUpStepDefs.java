@@ -70,7 +70,6 @@ public class SignUpStepDefs {
     @And("^I fill in password and repeatPassword with \"([^\"]*)\"$")
     public void iFillInPasswordAndRepeatPasswordWith(String password) {
         registrationFormPage.sendPassword(password);
-        registrationFormPage.sendConfirmPassword(password);
     }
 
     @And("^I fill in all necessary personal data with \"([^\"]*)\", \"([^\"]*)\"$")

@@ -19,9 +19,6 @@ public class RegistrationFormPage extends LoginPage {
     @FindBy(how = How.NAME, using = "users__password")
     public WebElement password;
 
-    @FindBy(how = How.NAME, using = "users__confirm-password")
-    public WebElement confirmPassword;
-
     @FindBy(how = How.NAME, using = "users__phone-number")
     public WebElement userPhoneNumber;
 
@@ -100,10 +97,6 @@ public class RegistrationFormPage extends LoginPage {
 
     public void sendPassword(String pass) {
         password.sendKeys(pass);
-    }
-
-    public void sendConfirmPassword(String pass) {
-        confirmPassword.sendKeys(pass);
     }
 
     public void sendPhone(String phoneNumber) {
