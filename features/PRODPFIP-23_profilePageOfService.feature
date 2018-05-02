@@ -5,7 +5,7 @@ Feature: PRODPFIP-23 Possibility to see the profile page of the service
     Given that there are no services added
     And I add services
       | test |
-    When I navigate to the main page
+    When I go to ShopMe main page
     And I enter a searching phrase "<searching_phrase>" into the search field
     And I click the search button
     Then search results are visible

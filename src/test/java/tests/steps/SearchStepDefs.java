@@ -14,10 +14,12 @@ import io.restassured.response.ResponseBody;
 import io.restassured.specification.RequestSpecification;
 import tests.pages.SearchResultsPage;
 import tests.pages.SearchServicePage;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -101,11 +103,6 @@ public class SearchStepDefs {
             newService.add("category", categoryJson);
             RestAssured.given().contentType("application/json").body(newService.toString()).when().post("/offers").then().assertThat().statusCode(200);
         }
-    }
-
-    @When("^I navigate to the main page$")
-    public void iNavigateToTheMainPage() {
-        searchServicePage.goToMainPage();
     }
 
     @And("^I enter a searching phrase \"([^\"]*)\" into the search field$")

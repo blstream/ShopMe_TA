@@ -6,7 +6,7 @@ Feature: PRODPFIP-123 Authenticate to the ShopMe website
         | login1@test.pl | Abcdefg1 | Imie | Nazwisko |
 
   Scenario Outline: Positive flow of authentication
-    Given I navigate to the main page
+    Given I go to ShopMe main page
     When I click button to log in
     And I enter an email "<email>" into the email field
     And I enter a password "<password>" into the password field

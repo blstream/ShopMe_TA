@@ -69,10 +69,10 @@ public class AddServicePage extends SearchServicePage {
     @FindBy(how = How.CLASS_NAME, using = "add-form")
     public WebElement error;
 
-    @FindBy(how = How.NAME, using = "offer__voivodeship")
+    @FindBy(how = How.NAME, using = "offerVoivodeship")
     public WebElement userVoivodeship;
 
-    @FindBy(how = How.NAME, using = "offer__city")
+    @FindBy(how = How.NAME, using = "offerCity")
     public WebElement userCity;
 
     private List<String> valuesBefore = new ArrayList<>();
@@ -82,15 +82,7 @@ public class AddServicePage extends SearchServicePage {
     public String RA_extendedDescription;
     public String RA_extraDescription;
     public String RA_aboutMe;
-    public String baseUrl="https://patronage2018.intive-projects.com/";
 
-    public void waitForResult() {
-        try {
-            TimeUnit.SECONDS.sleep(5);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
 
     public void setRA_title(String RA_title) {
         this.RA_title = RA_title;
@@ -167,7 +159,6 @@ public class AddServicePage extends SearchServicePage {
     public void pushSubmitButton() {
         wait.until(ExpectedConditions.elementToBeClickable(submitButton));
         submitButton.click();
-        waitForResult();
     }
 
     public void sendBasicDescription(int length) {
@@ -385,9 +376,9 @@ public class AddServicePage extends SearchServicePage {
 
     public void mainPageIsVisible() {
         WebDriverWait wait = new WebDriverWait(driver, 3);
-        wait.until(ExpectedConditions.urlToBe(baseUrl));
+        wait.until(ExpectedConditions.urlToBe(mainPageUrl));
         String url = driver.getCurrentUrl();
-        Assert.assertEquals(baseUrl, url);
+        Assert.assertEquals(mainPageUrl, url);
     }
 
     public void selectVoivodeship(String province) {

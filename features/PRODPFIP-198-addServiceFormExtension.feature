@@ -6,7 +6,8 @@ Feature: PRODPFIP-198 Adding new service - extension with province and city of t
     And I push add service button
     And I can see adding form
     And I fill in all necessary data
-      | Oferta testowa | Inne | Opis testowy | 100 | Jan | test@email.com | 100200300 |
+    # | title          | category | basic_description | basic_price | name | email          | phone     |
+      | Oferta testowa | Inne     | Opis testowy      | 100         | Jan  | test@email.com | 100200300 |
 
   Scenario Outline: Adding new basic service with new required fields - positive flow
     Given I can see city field disabled

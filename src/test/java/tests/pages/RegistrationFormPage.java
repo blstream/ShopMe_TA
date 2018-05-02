@@ -179,7 +179,7 @@ public class RegistrationFormPage extends LoginPage {
     }
 
     public void verifyIfExpandedRegisterFormIsVisible() {
-        wait.until((ExpectedConditions.visibilityOf(password)));
+        wait.until((ExpectedConditions.visibilityOf(usersPersonalDataCheckbox)));
     }
 
     public void acceptStatute() {

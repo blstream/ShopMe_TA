@@ -269,7 +269,7 @@ public class AddServiceStepDefs {
     }
 
     @Then("^I should be redirected to the main page$")
-    public void iShouldBeRedirectedToTheMainPage()  {
+    public void iShouldBeRedirectedToTheMainPage() {
         addServicePage.verifyIfMainPageIsVisible();
     }
 
