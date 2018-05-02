@@ -6,7 +6,7 @@ Feature: PRODPFIP-45 Pagination of search results
         And I add 11 services with the title "test 2"
 
     Scenario Outline: Correct displaying pagination
-        When I navigate to the main page
+        When I go to ShopMe main page
         And I enter a searching phrase "<searching_phrase>" into the search field
         And I click the search button
         Then search results are visible
@@ -23,7 +23,7 @@ Feature: PRODPFIP-45 Pagination of search results
 
 
     Scenario Outline: Correct number of results on each page
-        Given I navigate to the main page
+        Given I go to ShopMe main page
         And I enter a searching phrase "<searching_phrase>" into the search field
         When I click the search button
         Then The last page contains maximum 10 results from <number_of_results>
@@ -35,7 +35,7 @@ Feature: PRODPFIP-45 Pagination of search results
             |test 2          |11               |
 
     Scenario: Correct navigation with number-button between the pages
-        Given I navigate to the main page
+        Given I go to ShopMe main page
         When I enter a searching phrase "test 1" into the search field
         And I click the search button
         And search results are visible
@@ -46,7 +46,7 @@ Feature: PRODPFIP-45 Pagination of search results
         And I can return to the first page
 
     Scenario: Correct navigation on the last page
-        Given I navigate to the main page
+        Given I go to ShopMe main page
         When I enter a searching phrase "test 1" into the search field
         And I click the search button
         And search results are visible
@@ -57,7 +57,7 @@ Feature: PRODPFIP-45 Pagination of search results
         And next-button is invisible
 
     Scenario: Correct navigation with arrow-button between the pages
-        Given I navigate to the main page
+        Given I go to ShopMe main page
         When I enter a searching phrase "test 1" into the search field
         And I click the search button
         And search results are visible
@@ -67,7 +67,7 @@ Feature: PRODPFIP-45 Pagination of search results
         And I can return to the first page by clicking previous-button
 
     Scenario: Add offer and check correctness indexing
-        Given I navigate to the main page
+        Given I go to ShopMe main page
         And I enter a searching phrase "test 1" into the search field
         And I click the search button
         And search results are visible
