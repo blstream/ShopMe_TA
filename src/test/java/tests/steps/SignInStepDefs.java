@@ -6,6 +6,8 @@ import io.restassured.RestAssured;
 import tests.pages.LoginPage;
 import tests.pages.SearchServicePage;
 
+import static org.junit.Assert.assertEquals;
+
 public class SignInStepDefs {
 
     SearchServicePage searchServicePage = new SearchServicePage();
@@ -35,5 +37,21 @@ public class SignInStepDefs {
     @And("^I click the Sign in button$")
     public void iClickTheSignInButton() {
         loginPage.clickTheSignInBtn();
+    }
+
+    @And("^I am an authenticated user$")
+    public void iAmAnAuthenticatedUser() {
+
+    }
+
+    @And("^I can see information that I am signed in \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\"$")
+    public void iCanSeeInformationThatIAmSignedIn(String iAmLoggedInText, String firstName, String lastName) {
+        String expectedFirstName = searchServicePage.getUserNameFieldText();
+        assertEquals(firstName, expectedFirstName);
+    }
+
+    @And("^I can see the Log out button$")
+    public void iCanSeeTheLogOutButton() {
+        searchServicePage.logoutButtonIsDisplayed();
     }
 }

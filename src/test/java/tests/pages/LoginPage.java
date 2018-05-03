@@ -26,8 +26,6 @@ public class LoginPage extends SearchServicePage {
 
     @FindBy(how = How.ID, using = "signup-form__submit")
     public WebElement registerButton;
-//    searching with ID is the fastest strategy for locating elements, so
-//    I suggest to use how = How.ID, using = "signup-form__submit"
 
     @FindBy(how = How.NAME, using = "login__user-email")
     public WebElement logInUserEmail;

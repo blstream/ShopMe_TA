@@ -27,11 +27,17 @@ public class SearchServicePage {
     @FindBy(how = How.XPATH, using = "//a[@href='/add/form']")
     public WebElement newServiceButton;
 
-    @FindBy(how = How.XPATH, using = "//a[@href='/login']")
+    @FindBy(how = How.CLASS_NAME, using = "login-button")
     public WebElement loginButton;
 
-    @FindBy(how = How.CSS, using = "#root > div > header > div > a")
+    @FindBy(how = How.CLASS_NAME, using = "logo__link")
     public WebElement logoShopMe;
+
+    @FindBy(how = How.CLASS_NAME, using = "user-name")
+    public WebElement loggedUserName;
+
+    @FindBy(how = How.XPATH, using = "//a[@href='/']")
+    public WebElement logoutButton;
 
     public SearchServicePage() {
         PageFactory.initElements(driver, this);
@@ -91,5 +97,13 @@ public class SearchServicePage {
 
     public void loginButtonIsDisplayed(){
         assertTrue(loginButton.isDisplayed());
+    }
+
+    public void logoutButtonIsDisplayed(){
+        assertTrue(logoutButton.isDisplayed());
+    }
+
+    public String getUserNameFieldText(){
+        return loggedUserName.getText();
     }
 }

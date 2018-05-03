@@ -13,7 +13,7 @@ Feature: PRODPFIP-123 Authenticate to the ShopMe website
     And I click the Sign in button
     Then I should see ShopMe main page
     And I am an authenticated user
-    And I can see information that I am signed in "Zalogowano: <first_name> <last_name>"
+    And I can see information that I am signed in "Zalogowano:" "<first_name>" "<last_name>"
     And I can see the Log out button
 
     Examples:
