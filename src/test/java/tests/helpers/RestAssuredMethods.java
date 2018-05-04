@@ -107,6 +107,18 @@ public class RestAssuredMethods {
         return servicesOnPage;
     }
 
+    public Services searchForServicesWithPage(int pageNumber, int pageSize, String title) {
+        Response response = RestAssured.given()
+                .queryParam("page", pageNumber)
+                .queryParam("pageSize", pageSize)
+                .queryParam("title", title)
+                .get(baseURI + "/offers");
+        ResponseBody body = response.getBody();
+        Gson gson = new Gson();
+        Services servicesOnPage = gson.fromJson(body.asString(), Services.class);
+        return servicesOnPage;
+    }
+
     public List<MyService> getAllServices() {
         List<MyService> offersList = new ArrayList<>();
         for (int i = 1; ; i++) {
@@ -155,6 +167,5 @@ public class RestAssuredMethods {
 
             addService(service);
         }
-
     }
 }

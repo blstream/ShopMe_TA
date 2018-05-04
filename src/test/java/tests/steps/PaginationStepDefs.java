@@ -6,12 +6,31 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.junit.Assert;
 import tests.helpers.RestAssuredMethods;
+import tests.objects.MyService;
 import tests.pages.SearchResultsPage;
+
+import java.util.List;
+
 
 public class PaginationStepDefs {
 
     SearchResultsPage searchResultsPage = new SearchResultsPage();
     RestAssuredMethods restAssuredMethods = new RestAssuredMethods("https://patronage2018.intive-projects.com/api");
+    private List<MyService> servicesBeforeAdd;
+
+    public void setServicesBeforeAdd(List<MyService> servicesBeforeAdd) {
+        this.servicesBeforeAdd = servicesBeforeAdd;
+    }
+
+    @Then("^The results for \"([^\"]*)\" are shifted one forward$")
+    public void theResultsForAreShiftedOneForward(String searchingPhrase) {
+        List<MyService> newServices = restAssuredMethods.searchForServices(searchingPhrase);
+        List<MyService> List = restAssuredMethods.searchForServicesWithPage(4, 10, searchingPhrase).content;
+        for (int i = 0; i < servicesBeforeAdd.size(); i++)
+            Assert.assertTrue(servicesBeforeAdd.get(i).equalsOnList(newServices.get(i + 1)));
+        for (int i = 0; i < 10; i++)
+            Assert.assertTrue(searchResultsPage.getServicesTitles().get(i).substring(4).equals(List.get(i).title));
+    }
 
     @When("^I add (\\d+) different services$")
     public void iAddDifferentServices(int numberOfServices, DataTable services) {
@@ -87,11 +106,6 @@ public class PaginationStepDefs {
         searchResultsPage.pushLastPageButton();
     }
 
-    @And("^I can see that the last page is bold$")
-    public void iCanSeeThatNumberLastPageIsBold() {
-        searchResultsPage.areLastPageBold();
-    }
-
     @And("^I can see list of last records$")
     public void iCanSeeListOfLastRecords() {
         searchResultsPage.areLastServicesVisible();
@@ -112,9 +126,11 @@ public class PaginationStepDefs {
         searchResultsPage.returnToFirstPage();
     }
 
-    @And("^I click third page button$")
-    public void iClickThirdPageButton() {
+    @And("^I click third page button and I check searching results for \"([^\"]*)\"$")
+    public void iClickThirdPageButton(String searchingPhrase) {
         searchResultsPage.pushPageNumberButton(1, 3);
+        List<MyService> allServices = restAssuredMethods.searchForServices(searchingPhrase);
+        setServicesBeforeAdd(allServices);
     }
 
     @And("^I click fourth page button$")
@@ -127,5 +143,15 @@ public class PaginationStepDefs {
         searchResultsPage.deleteServicesFromPage(servicesNumber, pageNumber);
     }
 
-
+    @Then("^The results for \"([^\"]*)\" are shifted (\\d+) to the back$")
+    public void theResultsAreShiftedFourToTheBack(String searchingPhrase, int numberOfDeleteResults) {
+        List<MyService> newServices = restAssuredMethods.searchForServices(searchingPhrase);
+        List<MyService> List = restAssuredMethods.searchForServicesWithPage(4, 10, searchingPhrase).content;
+        for (int i = 0; i < 30; i++)
+            Assert.assertTrue(servicesBeforeAdd.get(i).equalsOnList(newServices.get(i)));
+        for (int i = 30 + numberOfDeleteResults - 1; i < newServices.size(); i++)
+            Assert.assertTrue(servicesBeforeAdd.get(i).equalsOnList(newServices.get(i - 4)));
+        for (int i = 0; i < 10; i++)
+            Assert.assertTrue(searchResultsPage.getServicesTitles().get(i).substring(4).equals(List.get(i).title));
+    }
 }

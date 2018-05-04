@@ -1,20 +1,18 @@
-@1
+@inProgress
 Feature: PRODPFIP-45 Pagination of search results
   As a user I want to navigate between search result pages so that I can see all the search results
 
   Scenario: Displaying all existing services
-    Given I add 50 different services
-     # | service name       | category | user name | user email      | user phone | user info | base description | base price | extended description | extended price | extra description | extra price |province           | city     |
-      | test        | law   | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          |WesternPomeranian | Szczecin |
+    Given that there are no services added
+    And I add 54 different services
+    # | service name | category | user name | user email      | user phone | user info | base description | base price | extended description | extended price | extra description | extra price | province          | city     |
+      | test         | law      | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          | WesternPomeranian | Szczecin |
     When I navigate to the main page
     And I enter a searching phrase "test" into the search field
     And I click the search button
     Then I can go to any service from database with title "test"
 
   Scenario: Correct displaying pagination
-    Given I add 13 different services
-     # | service name       | category | user name | user email      | user phone | user info | base description | base price | extended description | extended price | extra description | extra price |province           | city     |
-      | test        | law   | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          |WesternPomeranian | Szczecin |
     When I navigate to the main page
     And I enter a searching phrase "test" into the search field
     And I click the search button
@@ -25,22 +23,19 @@ Feature: PRODPFIP-45 Pagination of search results
     And I can see how many search result pages there are
 
   Scenario Outline: Correct number of results on each page
-    Given I add 13 different services
-    # | service name       | category | user name | user email      | user phone | user info | base description | base price | extended description | extended price | extra description | extra price |province           | city     |
-      | firstTest        | law   | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          |WesternPomeranian | Szczecin |
-    And I add 30 different services
-        # | service name       | category | user name | user email      | user phone | user info | base description | base price | extended description | extended price | extra description | extra price |province           | city     |
-      | secondTest        | law   | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          |WesternPomeranian | Szczecin |
-    Given I navigate to the main page
+    Given I add <number_of_services> different services
+    # | service name       | category | user name | user email      | user phone | user info | base description | base price | extended description | extended price | extra description | extra price | province          | city     |
+      | <searching_phrase> | law      | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          | WesternPomeranian | Szczecin |
+    When I navigate to the main page
     And I enter a searching phrase "<searching_phrase>" into the search field
-    When I click the search button
+    And I click the search button
     Then Every page but the last one contain 10 results
     And The last page contains less than 10 results
 
     Examples:
-      | searching_phrase |
-      | firstTest           |
-      | secondTest          |
+      | searching_phrase | number_of_services |
+      | firstTest        | 1                  |
+      | secondTest       | 10                 |
 
   Scenario: Correct navigation with number-button between the pages
     Given I navigate to the main page
@@ -59,8 +54,7 @@ Feature: PRODPFIP-45 Pagination of search results
     And I click the search button
     And search results are visible
     And I click the last page button
-    Then I can see that the last page is bold
-    And search results are visible
+    Then search results are visible
     And I can see list of last records
     And I can see first page button
     And next-button is invisible
@@ -81,19 +75,19 @@ Feature: PRODPFIP-45 Pagination of search results
     And I enter a searching phrase "test" into the search field
     And I click the search button
     And search results are visible
-    And I click third page button
-    When I add services
-    # | service name | category | user name | user email      | user phone | user info | base description | base price | extended description | extended price | extra description | extra price |
-      | specialTest       | budowa   | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          |
+    When I click third page button and I check searching results for "test"
+    And I add services
+    # | service name | category | user name | user email      | user phone | user info | base description | base price | extended description | extended price | extra description | extra price | province          | city     |
+      | special test | law      | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          | WesternPomeranian | Szczecin |
     And I click fourth page button
-    Then The results are shifted one forward
+    Then The results for "test" are shifted one forward
 
   Scenario: Delete offers and check correctness pagination
     Given I navigate to the main page
     And I enter a searching phrase "test" into the search field
     And I click the search button
     And search results are visible
-    When I click third page button
+    When I click third page button and I check searching results for "test"
     And I delete 4 services from the page number 2
     And I click fourth page button
-    Then The results are shifted four to the back
+    Then The results for "test" are shifted 4 to the back
