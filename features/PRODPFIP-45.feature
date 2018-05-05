@@ -30,7 +30,7 @@ Feature: PRODPFIP-45 Pagination of search results
     And I enter a searching phrase "<searching_phrase>" into the search field
     And I click the search button
     Then Every page but the last one contain 10 results
-    And The last page contains less than 10 results
+    And The last page contains maximum 10 results
 
     Examples:
       | searching_phrase | number_of_services |
@@ -75,7 +75,8 @@ Feature: PRODPFIP-45 Pagination of search results
     And I enter a searching phrase "test" into the search field
     And I click the search button
     And search results are visible
-    When I click third page button and I check searching results for "test"
+    When I click third page button
+    And I have a list of saved services for phrase "test"
     And I add services
     # | service name | category | user name | user email      | user phone | user info | base description | base price | extended description | extended price | extra description | extra price | province          | city     |
       | special test | law      | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          | WesternPomeranian | Szczecin |
@@ -87,7 +88,8 @@ Feature: PRODPFIP-45 Pagination of search results
     And I enter a searching phrase "test" into the search field
     And I click the search button
     And search results are visible
-    When I click third page button and I check searching results for "test"
+    When I click third page button
+    And I have a list of saved services for phrase "test"
     And I delete 4 services from the page number 2
     And I click fourth page button
     Then The results for "test" are shifted 4 to the back

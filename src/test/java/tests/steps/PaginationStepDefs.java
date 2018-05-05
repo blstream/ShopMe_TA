@@ -4,9 +4,13 @@ import cucumber.api.DataTable;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import gherkin.formatter.model.DataTableRow;
 import org.junit.Assert;
 import tests.helpers.RestAssuredMethods;
+import tests.objects.Category;
 import tests.objects.MyService;
+import tests.objects.User;
+import tests.objects.Voivodeship;
 import tests.pages.SearchResultsPage;
 
 import java.util.List;
@@ -25,7 +29,7 @@ public class PaginationStepDefs {
     @Then("^The results for \"([^\"]*)\" are shifted one forward$")
     public void theResultsForAreShiftedOneForward(String searchingPhrase) {
         List<MyService> newServices = restAssuredMethods.searchForServices(searchingPhrase);
-        List<MyService> List = restAssuredMethods.searchForServicesWithPage(4, 10, searchingPhrase).content;
+        List<MyService> List = restAssuredMethods.searchForServicesOnPage(4, 10, searchingPhrase).content;
         for (int i = 0; i < servicesBeforeAdd.size(); i++)
             Assert.assertTrue(servicesBeforeAdd.get(i).equalsOnList(newServices.get(i + 1)));
         for (int i = 0; i < 10; i++)
@@ -34,7 +38,24 @@ public class PaginationStepDefs {
 
     @When("^I add (\\d+) different services$")
     public void iAddDifferentServices(int numberOfServices, DataTable services) {
-        restAssuredMethods.addALotOfServicesServices(services, numberOfServices);
+        DataTable dt = services;
+        MyService service = new MyService();
+        User user1 = new User();
+        for (int i = 0; i < numberOfServices; i++) {
+            DataTableRow someRow = dt.getGherkinRows().get(0);
+
+            service.title = someRow.getCells().get(0) + String.valueOf(i);
+            service.category = new Category(null, someRow.getCells().get(1));
+            user1.voivodeship = new Voivodeship("1511273a-bb97-4e8a-924b-e6ff7583f135", someRow.getCells().get(12));
+            service.user = new User(someRow.getCells().get(2), someRow.getCells().get(3), someRow.getCells().get(4), someRow.getCells().get(5), user1.voivodeship, someRow.getCells().get(13));
+            service.baseDescription = someRow.getCells().get(6);
+            service.basePrice = Float.valueOf(someRow.getCells().get(7)) + i;
+            service.extendedDescription = someRow.getCells().get(8);
+            service.extendedPrice = Float.valueOf(someRow.getCells().get(9));
+            service.extraDescription = someRow.getCells().get(10);
+            service.extraPrice = Float.valueOf(someRow.getCells().get(11));
+            restAssuredMethods.addService(service);
+        }
     }
 
     @Then("^I can go to any service from database with title \"([^\"]*)\"$")
@@ -69,7 +90,7 @@ public class PaginationStepDefs {
         searchResultsPage.isCorrectNumberOfResultsOnEachPage(expectedNumberOrServices);
     }
 
-    @And("^The last page contains less than (\\d+) results$")
+    @And("^The last page contains maximum (\\d+) results$")
     public void theLastPageContainsLessThanResults(int limit) {
         searchResultsPage.isNumberOfLastServicesUnderLimit(limit);
     }
@@ -126,9 +147,13 @@ public class PaginationStepDefs {
         searchResultsPage.returnToFirstPage();
     }
 
-    @And("^I click third page button and I check searching results for \"([^\"]*)\"$")
-    public void iClickThirdPageButton(String searchingPhrase) {
+    @And("^I click third page button$")
+    public void iClickThirdPageButton() {
         searchResultsPage.pushPageNumberButton(1, 3);
+    }
+
+    @And("^I have a list of saved services for phrase \"([^\"]*)\"$")
+    public void iHaveAListOfSavedServicesFor(String searchingPhrase) {
         List<MyService> allServices = restAssuredMethods.searchForServices(searchingPhrase);
         setServicesBeforeAdd(allServices);
     }
@@ -146,7 +171,7 @@ public class PaginationStepDefs {
     @Then("^The results for \"([^\"]*)\" are shifted (\\d+) to the back$")
     public void theResultsAreShiftedFourToTheBack(String searchingPhrase, int numberOfDeleteResults) {
         List<MyService> newServices = restAssuredMethods.searchForServices(searchingPhrase);
-        List<MyService> List = restAssuredMethods.searchForServicesWithPage(4, 10, searchingPhrase).content;
+        List<MyService> List = restAssuredMethods.searchForServicesOnPage(4, 10, searchingPhrase).content;
         for (int i = 0; i < 30; i++)
             Assert.assertTrue(servicesBeforeAdd.get(i).equalsOnList(newServices.get(i)));
         for (int i = 30 + numberOfDeleteResults - 1; i < newServices.size(); i++)
