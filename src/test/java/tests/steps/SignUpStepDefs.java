@@ -61,7 +61,6 @@ public class SignUpStepDefs {
         registrationFormPage.checkIfSurnameIsFilled(surname);
     }
 
-
     @And("^I can see email filled with testEmail$")
     public void iCanSeeEmailFilledWithTestEmail() {
         registrationFormPage.checkIfEmailIsFilled(email);
@@ -135,6 +134,4 @@ public class SignUpStepDefs {
         registrationFormPage.sendZipCode(zipCode);
         registrationFormPage.selectVoivodeship(voivodeship);
     }
-
-
 }
