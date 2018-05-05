@@ -67,8 +67,8 @@ public class SignUpStepDefs {
         registrationFormPage.checkIfEmailIsFilled(email);
     }
 
-    @And("^I fill in password and repeatPassword with \"([^\"]*)\"$")
-    public void iFillInPasswordAndRepeatPasswordWith(String password) {
+    @And("^I fill in password with \"([^\"]*)\"$")
+    public void iFillInPasswordWith(String password) {
         registrationFormPage.sendPassword(password);
     }
 
@@ -135,4 +135,6 @@ public class SignUpStepDefs {
         registrationFormPage.sendZipCode(zipCode);
         registrationFormPage.selectVoivodeship(voivodeship);
     }
+
+
 }
