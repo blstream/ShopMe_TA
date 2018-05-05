@@ -61,14 +61,13 @@ public class SignUpStepDefs {
         registrationFormPage.checkIfSurnameIsFilled(surname);
     }
 
-
     @And("^I can see email filled with testEmail$")
     public void iCanSeeEmailFilledWithTestEmail() {
         registrationFormPage.checkIfEmailIsFilled(email);
     }
 
-    @And("^I fill in password and repeatPassword with \"([^\"]*)\"$")
-    public void iFillInPasswordAndRepeatPasswordWith(String password) {
+    @And("^I fill in password with \"([^\"]*)\"$")
+    public void iFillInPasswordWith(String password) {
         registrationFormPage.sendPassword(password);
     }
 
