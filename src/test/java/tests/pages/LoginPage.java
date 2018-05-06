@@ -84,7 +84,7 @@ public class LoginPage extends SearchServicePage {
         signInButton.click();
     }
 
-    public void iSeeAuthenticationMessage(String myName) {
+    public void iSeeAuthenticationInfo(String myName) {
         Assert.assertTrue(myName.equals(name.getText()));
         Assert.assertTrue(signInInfo.isDisplayed());
     }

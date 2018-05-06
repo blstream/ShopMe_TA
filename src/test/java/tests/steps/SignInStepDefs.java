@@ -40,7 +40,7 @@ public class SignInStepDefs {
 
     @And("^I can see information that I am signed in as \"([^\"]*)\"$")
     public void iCanSeeInformationThatIAmSignedIn(String name) {
-        loginPage.iSeeAuthenticationMessage(name);
+        loginPage.iSeeAuthenticationInfo(name);
     }
 
     @And("^I can see the Log out button$")
