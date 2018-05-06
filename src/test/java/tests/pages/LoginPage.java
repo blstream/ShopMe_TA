@@ -27,6 +27,21 @@ public class LoginPage extends SearchServicePage {
     @FindBy(how = How.ID, using = "signup-form__submit")
     public WebElement registerButton;
 
+    @FindBy(how = How.NAME, using = "login__user-email")
+    public WebElement logInUserEmail;
+
+    @FindBy(how = How.NAME, using = "login__user-password")
+    public WebElement logInUserPassword;
+
+    @FindBy(how = How.ID, using = "login-form__submit-form")
+    public WebElement signInButton;
+
+    @FindBy(how = How.CLASS_NAME, using = "user-name")
+    public WebElement name;
+
+    @FindBy(how = How.XPATH, using = "//span[contains(text(),'zalogowano:')]")
+    public WebElement signInInfo;
+
     public LoginPage() {
         PageFactory.initElements(driver, this);
     }
@@ -56,4 +71,22 @@ public class LoginPage extends SearchServicePage {
         String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Timestamp(System.currentTimeMillis()));
         return timeStamp;
     }
+
+    public void enterEmail(String email) {
+        logInUserEmail.sendKeys(email);
+    }
+
+    public void enterPassword(String password) {
+        logInUserPassword.sendKeys(password);
+    }
+
+    public void clickTheSignInBtn() {
+        signInButton.click();
+    }
+
+    public void iSeeAuthenticationInfo(String myName) {
+        Assert.assertTrue(myName.equals(name.getText()));
+        Assert.assertTrue(signInInfo.isDisplayed());
+    }
 }
+
