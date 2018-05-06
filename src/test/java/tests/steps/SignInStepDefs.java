@@ -1,13 +1,11 @@
 package tests.steps;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import io.restassured.RestAssured;
 import tests.pages.LoginPage;
 import tests.pages.SearchServicePage;
 
-import static org.junit.Assert.assertEquals;
 
 public class SignInStepDefs {
 
@@ -40,14 +38,9 @@ public class SignInStepDefs {
         loginPage.clickTheSignInBtn();
     }
 
-    @And("^I am an authenticated user$")
-    public void iAmAnAuthenticatedUser() {
-//TODO
-    }
-
-    @And("^I can see \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\"$")
-    public void iCanSeeInformationThatIAmSignedIn(String iAmLoggedInText, String firstName, String lastName) {
-//TODO
+    @And("^I can see information that I am signed in as \"([^\"]*)\"$")
+    public void iCanSeeInformationThatIAmSignedIn(String name) {
+        loginPage.iSeeAuthenticationMessage(name);
     }
 
     @And("^I can see the Log out button$")
