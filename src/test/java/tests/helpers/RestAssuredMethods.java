@@ -117,4 +117,27 @@ public class RestAssuredMethods {
     public void deleteService(MyService myService) {
         deleteServiceById(myService.id);
     }
+
+    public void addUser(){
+        Address address = new Address("5d214c01-95c3-4ec4-8f68-51dfb80b191c","Niepodległości", "12/1", "Szczecin", "70-125");
+        User user = new User();
+
+        user.id = "5d214c01-95c3-4ec4-8f68-51dfb80b191c";
+        user.name = "Johnnie";
+        user.surname = "Walkier";
+        user.email = "veryunknowne@gmail.com";
+        user.password = "a123456";
+        user.phoneNumber = "0234567890";
+        user.bankAccount = "01234567890123456789012345";
+        user.address = address;
+        user.voivodeship = new Voivodeship("1511273a-bb97-4e8a-924b-e6ff7583f135", "WesternPomeranian");
+        user.invoiceRequest = true;
+        user.invoice = new Invoice("5d214c01-95c3-4ec4-8f68-51dfb80b191c","Fight Club Sp.z.o.o.", "123-456-78-90", address);
+
+        Gson gson = new Gson();
+        String result = gson.toJson(user);
+System.out.println("------------------------------- "+ result);
+        RestAssured.baseURI = this.baseURI;
+        RestAssured.given().contentType("application/json").body(result).when().post("/users").then().assertThat().statusCode(200);
+    }
 }
