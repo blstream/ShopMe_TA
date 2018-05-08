@@ -1,5 +1,6 @@
 package tests.steps;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -133,5 +134,37 @@ public class SignUpStepDefs {
         registrationFormPage.sendCity(city);
         registrationFormPage.sendZipCode(zipCode);
         registrationFormPage.selectVoivodeship(voivodeship);
+    }
+
+    @When("^I fill in all necessary registration data with \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\"$")
+    public void iFillInAllNecessaryRegistrationDataWith(String name, String surname, String email) {
+        loginPage.sendName(name);
+        loginPage.sendSurname(surname);
+        loginPage.sendEmail(email);
+    }
+
+    @And("^I push Register button with fail$")
+    public void iPushRegisterButtonWithFail() {
+        loginPage.pushRegisterButtonWithFail();
+    }
+
+    @Then("^I can see inserted values in filled fields$")
+    public void iCanSeeInsertedValuesInFilledFields() {
+        loginPage.verifyIfValuesEqualsAfterPageRefresh();
+    }
+
+    @And("^I can see an error message \"([^\"]*)\"$")
+    public void iCanSeeAnErrorMessage(String message) {
+        loginPage.verifyIfValidationErrorMessageIsVisible(message);
+    }
+
+    @Then("^I should see in name maximum (\\d+) characters$")
+    public void iShouldSeeInNameMaximumCharacters(int expected) {
+        loginPage.verifyIfNameInputLimited(expected);
+    }
+
+    @And("^I should see in surname maximum (\\d+) characters$")
+    public void iShouldSeeInSurnameMaximumCharacters(int expected) {
+        loginPage.verifyIfSurnameInputLimited(expected);
     }
 }

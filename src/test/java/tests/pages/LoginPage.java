@@ -9,6 +9,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import static tests.Hooks.driver;
 import static tests.Hooks.wait;
@@ -41,6 +43,12 @@ public class LoginPage extends SearchServicePage {
 
     @FindBy(how = How.XPATH, using = "//span[contains(text(),'zalogowano:')]")
     public WebElement signInInfo;
+
+    @FindBy(how = How.CLASS_NAME, using = "input__error-message")
+    public List<WebElement> errorMessages;
+
+    private List<String> valuesBefore = new ArrayList<>();
+    private List<String> valuesAfter = new ArrayList<>();
 
     public LoginPage() {
         PageFactory.initElements(driver, this);
@@ -87,6 +95,50 @@ public class LoginPage extends SearchServicePage {
     public void iSeeAuthenticationInfo(String myName) {
         Assert.assertTrue(myName.equals(name.getText()));
         Assert.assertTrue(signInInfo.isDisplayed());
+    }
+
+    private void saveAllValues(List<String> values) {
+        values.clear();
+        values.add(userName.getAttribute("value"));
+        values.add(userSurname.getAttribute("value"));
+        values.add(userEmail.getAttribute("value"));
+    }
+
+    public void verifyIfValuesEqualsAfterPageRefresh() {
+        Assert.assertEquals(valuesBefore, valuesAfter);
+    }
+
+    public void pushRegisterButtonWithFail() {
+        waitUntilPageIsLoaded();
+        saveAllValues(valuesBefore);
+        registerButton.click();
+        saveAllValues(valuesAfter);
+    }
+
+    public void waitUntilPageIsLoaded() {
+        wait.until(ExpectedConditions.elementToBeClickable(registerButton));
+    }
+
+    public void verifyIfValidationErrorMessageIsVisible(String message) {
+        waitUntilPageIsLoaded();
+        boolean errorVisible = false;
+        for (WebElement currentElement : errorMessages) {
+            if (currentElement.getText().contains(message)) {
+                errorVisible = true;
+            }
+        }
+
+        Assert.assertTrue(errorVisible);
+    }
+
+    public void verifyIfNameInputLimited(int expectedLength) {
+        int actualLength = userName.getAttribute("value").length();
+        Assert.assertEquals(expectedLength, actualLength);
+    }
+
+    public void verifyIfSurnameInputLimited(int expectedLength) {
+        int actualLength = userSurname.getAttribute("value").length();
+        Assert.assertEquals(expectedLength, actualLength);
     }
 }
 
