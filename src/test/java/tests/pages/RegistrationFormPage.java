@@ -1,22 +1,11 @@
 package tests.pages;
 
-import com.google.gson.JsonObject;
-import cucumber.api.DataTable;
-import gherkin.formatter.model.DataTableRow;
-import io.restassured.RestAssured;
-import io.restassured.path.json.JsonPath;
-import io.restassured.response.Response;
-import io.restassured.response.ResponseBody;
-import io.restassured.specification.RequestSpecification;
 import org.junit.Assert;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-
-import java.util.HashMap;
-import java.util.List;
 
 import static tests.Hooks.driver;
 import static tests.Hooks.wait;
