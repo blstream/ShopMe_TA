@@ -11,4 +11,4 @@ Feature: PRODPFIP-122 User registration - using email already existing in databa
     When I fill in all necessary registration data with "Adam", "Jensen", "registration@test.com"
     And I push Register button
     Then I can see inserted values in filled fields
-    And I can see an error message "Użytkownik o podanym adresie e-mail juz istnieje"
+    And I can see an error message "Użytkownik o podanym adresie e-mail już istnieje"

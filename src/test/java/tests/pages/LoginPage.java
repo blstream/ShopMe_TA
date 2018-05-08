@@ -1,23 +1,23 @@
 package tests.pages;
 
-        import com.google.gson.JsonObject;
-        import io.restassured.RestAssured;
-        import io.restassured.response.Response;
-        import io.restassured.response.ResponseBody;
-        import org.junit.Assert;
-        import org.openqa.selenium.WebElement;
-        import org.openqa.selenium.support.FindBy;
-        import org.openqa.selenium.support.How;
-        import org.openqa.selenium.support.PageFactory;
-        import org.openqa.selenium.support.ui.ExpectedConditions;
+import com.google.gson.JsonObject;
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
+import io.restassured.response.ResponseBody;
+import org.junit.Assert;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.How;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
-        import java.sql.Timestamp;
-        import java.text.SimpleDateFormat;
-        import java.util.ArrayList;
-        import java.util.List;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
-        import static tests.Hooks.driver;
-        import static tests.Hooks.wait;
+import static tests.Hooks.driver;
+import static tests.Hooks.wait;
 
 public class LoginPage {
 
@@ -137,6 +137,7 @@ public class LoginPage {
         newUser.addProperty("name", "John");
         newUser.addProperty("surname", "Doe");
         newUser.addProperty("email", email);
+        newUser.addProperty(  "password", "password");
         newUser.addProperty("phoneNumber", "000000000");
         newUser.addProperty("bankAccount", "01234567890123456789012345");
         newUser.add("address", address);
