@@ -8,6 +8,11 @@ public class Voivodeship {
         this.name = name;
     }
 
+    public Voivodeship(String id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public String getName() {
         return name;
     }

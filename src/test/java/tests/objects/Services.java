@@ -5,11 +5,9 @@ import java.util.List;
 public class Services {
 
     public List<MyService> content = null;
-    public Pageable pageable;
     public Boolean last;
     public Integer totalPages;
     public Integer totalElements;
-    public Sort sort;
     public Boolean first;
     public Integer numberOfElements;
     public Integer size;
@@ -18,14 +16,12 @@ public class Services {
     public Services() {
     }
 
-    public Services(List<MyService> content, Pageable pageable, Boolean last, Integer totalPages, Integer totalElements, Sort sort, Boolean first, Integer numberOfElements, Integer size, Integer number) {
+    public Services(List<MyService> content, Boolean last, Integer totalPages, Integer totalElements, Boolean first, Integer numberOfElements, Integer size, Integer number) {
         super();
         this.content = content;
-        this.pageable = pageable;
         this.last = last;
         this.totalPages = totalPages;
         this.totalElements = totalElements;
-        this.sort = sort;
         this.first = first;
         this.numberOfElements = numberOfElements;
         this.size = size;
@@ -38,14 +34,6 @@ public class Services {
 
     public void setContent(List<MyService> content) {
         this.content = content;
-    }
-
-    public Pageable getPageable() {
-        return pageable;
-    }
-
-    public void setPageable(Pageable pageable) {
-        this.pageable = pageable;
     }
 
     public Boolean getLast() {
@@ -70,14 +58,6 @@ public class Services {
 
     public void setTotalElements(Integer totalElements) {
         this.totalElements = totalElements;
-    }
-
-    public Sort getSort() {
-        return sort;
-    }
-
-    public void setSort(Sort sort) {
-        this.sort = sort;
     }
 
     public Boolean getFirst() {
