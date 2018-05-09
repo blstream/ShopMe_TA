@@ -9,6 +9,6 @@ Feature: PRODPFIP-122 User registration - using email already existing in databa
 
   Scenario: Signing up ShopMe website with email already existing in database
     When I fill in all necessary registration data with "Adam", "Jensen", "registration@test.com"
-    And I push Register button
+    And I push Register button with fail
     Then I can see inserted values in filled fields
     And I can see an error message "Użytkownik o podanym adresie e-mail już istnieje"

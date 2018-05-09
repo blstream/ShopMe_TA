@@ -54,7 +54,6 @@ public class LoginPage extends SearchServicePage {
     @FindBy(how = How.CLASS_NAME, using = "signup-form__email-exists-message")
     public WebElement emailErrorMessage;
 
-
     private List<String> valuesBefore = new ArrayList<>();
     private List<String> valuesAfter = new ArrayList<>();
 
