@@ -135,8 +135,15 @@ public class SignUpStepDefs {
         registrationFormPage.selectVoivodeship(voivodeship);
     }
 
+    @And("^Email \"([^\"]*)\" used in registration is already in database$")
+    public void emailUsedInRegistrationIsAlreadyInDatabase(String email) {
+        if(!loginPage.checkIfEmailAlreadyInUse(email)){
+            loginPage.addUserWithEmail(email);
+        }
+    }
+
     @When("^I fill in all necessary registration data with \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\"$")
-    public void iFillInAllNecessaryRegistrationDataWith(String name, String surname, String email) {
+    public void iFillInAllNecessaryRegistrationDataWith(String name, String surname, String email)  {
         loginPage.sendName(name);
         loginPage.sendSurname(surname);
         loginPage.sendEmail(email);
@@ -154,7 +161,7 @@ public class SignUpStepDefs {
 
     @And("^I can see an error message \"([^\"]*)\"$")
     public void iCanSeeAnErrorMessage(String message) {
-        loginPage.verifyIfValidationErrorMessageIsVisible(message);
+        loginPage.verifyIfErrorMessageVisible(message);
     }
 
     @Then("^I should see in name maximum (\\d+) characters$")
