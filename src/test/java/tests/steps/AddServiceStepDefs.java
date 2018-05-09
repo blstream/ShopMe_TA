@@ -1,10 +1,11 @@
 package tests.steps;
 
-import cucumber.api.PendingException;
+import cucumber.api.DataTable;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import gherkin.formatter.model.DataTableRow;
 import tests.pages.AddServicePage;
 import tests.pages.SearchServicePage;
 
@@ -224,5 +225,52 @@ public class AddServiceStepDefs {
         addServicePage.mainPageIsVisible();
     }
 
-}
+    @And("^I fill in all necessary data$")
+    public void iFillInAllNecessaryData(DataTable dataTable) {
+        DataTable data = dataTable;
+        DataTableRow row = data.getGherkinRows().get(0);
+        addServicePage.sendTitle(row.getCells().get(0));
+        addServicePage.selectServiceCategory(row.getCells().get(1));
+        addServicePage.sendBasicDescription(row.getCells().get(2));
+        addServicePage.sendBasicPrice(row.getCells().get(3));
+        addServicePage.sendName(row.getCells().get(4));
+        addServicePage.sendEmail(row.getCells().get(5));
+        addServicePage.sendUserPhone(row.getCells().get(6));
+    }
 
+    @Given("^I can see city field disabled$")
+    public void iCanSeeCityFieldDisabled() {
+        addServicePage.checkIfCityIsDisabled();
+    }
+
+    @When("^I fill in province with \"([^\"]*)\"$")
+    public void iFillInProvinceWith(String province) {
+        addServicePage.selectVoivodeship(province);
+    }
+
+    @And("^I fill in city with \"([^\"]*)\"$")
+    public void iFillInCityWith(String city) {
+        addServicePage.sendCity(city);
+    }
+
+    @Then("^I should see an error message \"([^\"]*)\" next to the province and city field$")
+    public void iShouldSeeAnErrorMessageNextToTheProvinceAndCityField(String errorMessage) {
+        addServicePage.verifyIfValidationErrorMessageIsVisible(errorMessage);
+    }
+
+    @And("^I fill in city with (\\d+) characters$")
+    public void iFillInCityWithCharacters(int length) {
+        addServicePage.sendCity(addServicePage.generateString(length));
+    }
+
+    @Then("^I should see in city maximum (\\d+) characters$")
+    public void iShouldSeeInCityMaximumCharacters(int length) {
+        addServicePage.verifyIfUserCityInputLimited(length);
+    }
+
+    @Then("^I should be redirected to the main page$")
+    public void iShouldBeRedirectedToTheMainPage() {
+        addServicePage.verifyIfMainPageIsVisible();
+    }
+
+}

@@ -6,13 +6,14 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import static tests.Hooks.driver;
 import static tests.Hooks.wait;
 
-public class SearchResultsPage {
+public class SearchResultsPage extends SearchServicePage {
 
     @FindBy(how = How.CLASS_NAME, using = "search-results__list")
     public WebElement resultsList;
@@ -26,27 +27,20 @@ public class SearchResultsPage {
     @FindBy(how = How.CLASS_NAME, using = "services-item")
     public WebElement firstService;
 
-    @FindBy(how = How.CLASS_NAME, using = "services-item")
-    public List<WebElement> ServiceList;
-
-    private WebElement getServiceRowElement(int line){
-        return ServiceList.get(line);
-    }
-
-
     public SearchResultsPage() {
         PageFactory.initElements(driver, this);
     }
 
-    public void waitForNewResults() {
+    public boolean isResultsPresent() {
         wait.until(ExpectedConditions.visibilityOf(resultsList));
+        return resultsList.isDisplayed();
     }
 
     public void areNewResultsPresent(String expectedService) {
         wait.until(ExpectedConditions.textToBePresentInElement(firstService, expectedService));
     }
 
-    public List<String> getServicesTitles() {
+    public List<String> getElementsTitles() {
         List<WebElement> titlesWebElements = resultsList.findElements(By.className("services-item__title"));
         ArrayList<String> titles = new ArrayList<String>();
         for (int i = 0; i < titlesWebElements.size(); i++) {
@@ -55,7 +49,7 @@ public class SearchResultsPage {
         return titles;
     }
 
-    public List<String> getServicesPrices() {
+    public List<String> getElementsPrices() {
         List<WebElement> pricesWebElements = resultsList.findElements(By.className("services-item__price"));
         ArrayList<String> prices = new ArrayList<String>();
         for (int i = 0; i < pricesWebElements.size(); i++) {
@@ -64,7 +58,7 @@ public class SearchResultsPage {
         return prices;
     }
 
-    public List<String> getServicesDates() {
+    public List<String> getElementsDates() {
         List<WebElement> datesWebElements = resultsList.findElements(By.className("services-item__date"));
         ArrayList<String> dates = new ArrayList<String>();
         for (int i = 0; i < datesWebElements.size(); i++) {
@@ -82,11 +76,17 @@ public class SearchResultsPage {
         return noResultsField.getText();
     }
 
-    public String getTitle(int line) {
-         return getServiceRowElement(line).getText();
+    public String getFirstService() {
+        return firstService.getText();
     }
 
-    public void openServiceFromResults(int line) {
-        getServiceRowElement(line).click();
+    public void chooseFirstSearchResult() {
+        List<WebElement> list = driver.findElements(By.className("services-item__title"));
+        list.get(0).click();
+        try {
+            Thread.sleep(2000L);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

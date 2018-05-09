@@ -8,7 +8,7 @@ Feature: PRODPFIP-122 User registration - using email already existing in databa
     And I can see registration form
     And Email "registration@test.com" used in registration is already in database
 
-  Scenario: Signing up ShopMe website with invalid credentials
+  Scenario: Signing up ShopMe website with email already existing in database
     When I fill in all necessary registration data with "Adam", "Jensen", "registration@test.com"
     And I push Register button
     Then I can see inserted values in filled fields

@@ -14,6 +14,8 @@ Feature: PRODPFIP-20 Adding new service - alternative flow
     And I fill in name with "<name>"
     And I fill in email with "<email>"
     And I fill in phone with "<phone>"
+    And I fill in province with "zachodniopomorskie"
+    And I fill in city with "Szczecin"
     And I press Add service button with fail
     Then I should see an error message "Pole wymagane" next to the required field
     And I should see a message "Proszę wypełnić wszystkie wymagane pola"
@@ -21,17 +23,17 @@ Feature: PRODPFIP-20 Adding new service - alternative flow
 
     Examples:
       | title  | category | name     | email             | phone     | basic_price | basic_description |
-      | Budowa | budowa   |          | example@gmail.com | 000000000 | 10          | description       |
-      | Budowa | budowa   | testName | example@gmail.com | 000000000 |             | description       |
-      | Budowa | budowa   | testName |                   | 000000000 | 10          | description       |
-      | Budowa | budowa   | testName | example@gmail.com |           | 10          | description       |
-      | Budowa | budowa   | testName | example@gmail.com | 000000000 | 10          |                   |
-      |        | budowa   | testName | example@gmail.com | 000000000 | 10          | description       |
+      | Budowa | Budowa   |          | example@gmail.com | 000000000 | 10          | description       |
+      | Budowa | Budowa   | testName | example@gmail.com | 000000000 |             | description       |
+      | Budowa | Budowa   | testName |                   | 000000000 | 10          | description       |
+      | Budowa | Budowa   | testName | example@gmail.com |           | 10          | description       |
+      | Budowa | Budowa   | testName | example@gmail.com | 000000000 | 10          |                   |
+      |        | Budowa   | testName | example@gmail.com | 000000000 | 10          | description       |
       | Budowa |          | testName | example@gmail.com | 000000000 | 10          | description       |
 
   Scenario Outline: Adding new service with extensions with at least one empty required field
     When I fill in title with "Test title"
-    And I choose category "budowa"
+    And I choose category "Budowa"
     And I fill in basicDescription with "description"
     And I fill in basicPrice with "10"
     And I fill in expandedDescription with "<expanded_description>"
@@ -41,6 +43,8 @@ Feature: PRODPFIP-20 Adding new service - alternative flow
     And I fill in name with "Jerry"
     And I fill in email with "test@gmail.com"
     And I fill in phone with "000000000"
+    And I fill in province with "zachodniopomorskie"
+    And I fill in city with "Szczecin"
     And I press Add service button
     Then I should see an error message "Pole wymagane" next to the required field
     And I should see a message "Proszę wypełnić wszystkie wymagane pola"
@@ -55,12 +59,14 @@ Feature: PRODPFIP-20 Adding new service - alternative flow
 
   Scenario Outline: Adding new service with invalid credentials
     When I fill in title with "<title>"
-    And I choose category "transport"
+    And I choose category "Transport"
     And I fill in basicDescription with "description"
     And I fill in basicPrice with "10"
     And I fill in name with "<name>"
     And I fill in email with "<email>"
     And I fill in phone with "<phone>"
+    And I fill in province with "zachodniopomorskie"
+    And I fill in city with "Szczecin"
     And I press Add service button
     Then I should see inserted values in filled fields
     And I should see an error message "<error_message>" next to the field with invalid data
@@ -70,23 +76,23 @@ Feature: PRODPFIP-20 Adding new service - alternative flow
       | t         | testName | example@gmail.com | 000000000 | Zbyt mała liczba znaków             |
       | Ogród     | t        | example@gmail.com | 000000000 | Zbyt mała liczba znaków             |
       | Ogród     | tt       | example@gmail.com | 000000000 | Zbyt mała liczba znaków             |
-      | Transpor! | testName | example@gmail.com | 000000000 | Niedozwolone znaki specjalne        |
-      | Transpor@ | testName | example@gmail.com | 000000000 | Niedozwolone znaki specjalne        |
-      | Transpor# | testName | example@gmail.com | 000000000 | Niedozwolone znaki specjalne        |
-      | Transpor$ | testName | example@gmail.com | 000000000 | Niedozwolone znaki specjalne        |
-      | Transpor% | testName | example@gmail.com | 000000000 | Niedozwolone znaki specjalne        |
-      | Transpor^ | testName | example@gmail.com | 000000000 | Niedozwolone znaki specjalne        |
-      | Transpor& | testName | example@gmail.com | 000000000 | Niedozwolone znaki specjalne        |
-      | Transpor* | testName | example@gmail.com | 000000000 | Niedozwolone znaki specjalne        |
-      | Transpor( | testName | example@gmail.com | 000000000 | Niedozwolone znaki specjalne        |
-      | Transpor) | testName | example@gmail.com | 000000000 | Niedozwolone znaki specjalne        |
-      | Transpor_ | testName | example@gmail.com | 000000000 | Niedozwolone znaki specjalne        |
-      | Transpor+ | testName | example@gmail.com | 000000000 | Niedozwolone znaki specjalne        |
-      | Transpor= | testName | example@gmail.com | 000000000 | Niedozwolone znaki specjalne        |
-      | Transpor~ | testName | example@gmail.com | 000000000 | Niedozwolone znaki specjalne        |
-      | Transpor` | testName | example@gmail.com | 000000000 | Niedozwolone znaki specjalne        |
-      | Transpor! | testName | example@gmail.com | 000000000 | Niedozwolone znaki specjalne        |
-      | Transpor! | testName | example@gmail.com | 000000000 | Niedozwolone znaki specjalne        |
+      | Transpor! | testName | example@gmail.com | 000000000 | Niedozwolone znaki                  |
+      | Transpor@ | testName | example@gmail.com | 000000000 | Niedozwolone znaki                  |
+      | Transpor# | testName | example@gmail.com | 000000000 | Niedozwolone znaki                  |
+      | Transpor$ | testName | example@gmail.com | 000000000 | Niedozwolone znaki                  |
+      | Transpor% | testName | example@gmail.com | 000000000 | Niedozwolone znaki                  |
+      | Transpor^ | testName | example@gmail.com | 000000000 | Niedozwolone znaki                  |
+      | Transpor& | testName | example@gmail.com | 000000000 | Niedozwolone znaki                  |
+      | Transpor* | testName | example@gmail.com | 000000000 | Niedozwolone znaki                  |
+      | Transpor( | testName | example@gmail.com | 000000000 | Niedozwolone znaki                  |
+      | Transpor) | testName | example@gmail.com | 000000000 | Niedozwolone znaki                  |
+      | Transpor_ | testName | example@gmail.com | 000000000 | Niedozwolone znaki                  |
+      | Transpor+ | testName | example@gmail.com | 000000000 | Niedozwolone znaki                  |
+      | Transpor= | testName | example@gmail.com | 000000000 | Niedozwolone znaki                  |
+      | Transpor~ | testName | example@gmail.com | 000000000 | Niedozwolone znaki                  |
+      | Transpor` | testName | example@gmail.com | 000000000 | Niedozwolone znaki                  |
+      | Transpor! | testName | example@gmail.com | 000000000 | Niedozwolone znaki                  |
+      | Transpor! | testName | example@gmail.com | 000000000 | Niedozwolone znaki                  |
       | Transport | testNa11 | example@gmail.com | 000000000 | Pole może zawierać tylko litery     |
       | Transport | testNam! | example@gmail.com | 000000000 | Pole może zawierać tylko litery     |
       | Transport | testNam@ | example@gmail.com | 000000000 | Pole może zawierać tylko litery     |
@@ -130,7 +136,7 @@ Feature: PRODPFIP-20 Adding new service - alternative flow
 
   Scenario: Adding new basic service with 501 character description
     When I fill in title with "Usługi prawnicze"
-    And I choose category "prawo"
+    And I choose category "Prawo"
     And I fill in name with "testName"
     And I fill in email with "test@gmail.com"
     And I fill in phone with "000000000"
@@ -140,7 +146,7 @@ Feature: PRODPFIP-20 Adding new service - alternative flow
 
   Scenario: Adding new service with extensions with 501 character description
     When I fill in title with "Usługi prawnicze"
-    And I choose category "prawo"
+    And I choose category "Prawo"
     And I fill in name with "testName"
     And I fill in email with "test@gmail.com"
     And I fill in phone with "000000000"
@@ -155,7 +161,7 @@ Feature: PRODPFIP-20 Adding new service - alternative flow
 
   Scenario: Adding new basic service with 801 character about_me description
     When I fill in title with "Usługi prawnicze"
-    And I choose category "prawo"
+    And I choose category "Prawo"
     And I fill in name with "testName"
     And I fill in email with "test@gmail.com"
     And I fill in phone with "000000000"
@@ -166,7 +172,7 @@ Feature: PRODPFIP-20 Adding new service - alternative flow
 
   Scenario: Inserting more than maximum number of characters in form fields
     When I fill in title with "Loremipsumdolorsitametturpisdui"
-    And I choose category "prawo"
+    And I choose category "Prawo"
     And I fill in name with "Loremipsumdolorsitame"
     And I fill in email with "test@gmail.com"
     And I fill in phone with "00000000000"

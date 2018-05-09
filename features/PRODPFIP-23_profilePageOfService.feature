@@ -1,3 +1,4 @@
+
 Feature: PRODPFIP-23 Possibility to see the profile page of the service
   As a user I want to be able to click on the search result so that I can see details of the service
 
@@ -27,4 +28,3 @@ Feature: PRODPFIP-23 Possibility to see the profile page of the service
     Examples:
       | searching_phrase | title | category | user_name | email           | phone     | user_info | basic_info | basic_price | extended_info | extended_price | extra_info | extra_price | province           | city     |
       | test             | test  | budowa   | test      | test@domain.com | 888555222 | test      | test       | 10          | test          | 20             | test       | 30          | zachodniopomorskie | Szczecin |
-

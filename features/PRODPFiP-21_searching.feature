@@ -10,7 +10,7 @@ Feature: PRODPFIP-21 Searching for a service in the ShopMe website
       | programowanie Python         | budowa   | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          | zachodniopomorskie | Szczecin |
       | profesjonalne mycie okien    | budowa   | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          | zachodniopomorskie | Szczecin |
       | naprawa pralka Amica AWB10i2 | budowa   | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          | zachodniopomorskie | Szczecin |
-    When I navigate to the main page
+    When I go to ShopMe main page
     And I enter a searching phrase "<searching_phrase>" into the search field
     And I click the search button
     Then search results are visible
@@ -27,7 +27,7 @@ Feature: PRODPFIP-21 Searching for a service in the ShopMe website
       | naprawa pralka Amica AWB10i2 |
 
   Scenario Outline: Negative flow of searching - search phrase is not correct
-    Given I navigate to the main page
+    Given I go to ShopMe main page
     When I enter a searching phrase "<searching_phrase>" into the search field
     Then I can see error message "<error_message>"
 
@@ -45,7 +45,7 @@ Feature: PRODPFIP-21 Searching for a service in the ShopMe website
       | programowanie Python         | budowa   | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          | zachodniopomorskie | Szczecin |
       | profesjonalne mycie okien    | budowa   | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          | zachodniopomorskie | Szczecin |
       | naprawa pralka Amica AWB10i2 | budowa   | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          | zachodniopomorskie | Szczecin |
-    When I navigate to the main page
+    When I go to ShopMe main page
     And I enter a searching phrase "<searching_phrase>" into the search field
     And I press Enter key
     Then search results are visible

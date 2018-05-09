@@ -56,11 +56,6 @@ public class SearchStepDefs {
         restAssuredMethods.addServices(serviceList);
     }
 
-    @When("^I navigate to the main page$")
-    public void iNavigateToTheMainPage() {
-        searchServicePage.goToMainPage();
-    }
-
     @And("^I enter a searching phrase \"([^\"]*)\" into the search field$")
     public void iEnterASearchingPhraseIntoTheSearchField(String searchPhrase) {
         searchServicePage.getSearchResult(searchPhrase);
