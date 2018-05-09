@@ -127,7 +127,6 @@ public class LoginPage extends SearchServicePage {
                 errorVisible = true;
             }
         }
-
         Assert.assertTrue(errorVisible);
     }
 
@@ -141,4 +140,3 @@ public class LoginPage extends SearchServicePage {
         Assert.assertEquals(expectedLength, actualLength);
     }
 }
-

@@ -161,7 +161,7 @@ Feature: PRODPFIP-105 User registration - alternative flow for extended registra
       | Kwiatowa | 1      | Szczecin  | 71-000    |                    | Pole wymagane                       |
 
 
-  Scenario Outline: Signing up for ShopMe website without accepting terms of personal data processing
+  Scenario: Signing up for ShopMe website without accepting terms of personal data processing
     When I fill in password with "TestPassword1"
     And I fill in all necessary personal data with "123456789", "11111111111111111111111111"
     And I fill in all necessary address data with "Kwiatowa", "5", "Szczecin", "71-000","Zachodniopomorskie"
@@ -170,7 +170,7 @@ Feature: PRODPFIP-105 User registration - alternative flow for extended registra
     And I click Register button
     Then I should see an error message "Pole wymagane"
 
-  Scenario Outline: Signing up for ShopMe website without accepting statue
+  Scenario: Signing up for ShopMe website without accepting statue
     When I fill in password with "TestPassword1"
     And I fill in all necessary personal data with "123456789", "11111111111111111111111111"
     And I fill in all necessary address data with "Kwiatowa", "5", "Szczecin", "71-000","Zachodniopomorskie"

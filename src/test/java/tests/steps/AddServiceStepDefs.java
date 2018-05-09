@@ -272,5 +272,4 @@ public class AddServiceStepDefs {
     public void iShouldBeRedirectedToTheMainPage() {
         addServicePage.verifyIfMainPageIsVisible();
     }
-
 }

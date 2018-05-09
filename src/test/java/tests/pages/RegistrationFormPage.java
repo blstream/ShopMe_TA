@@ -194,5 +194,4 @@ public class RegistrationFormPage extends LoginPage {
             selectVoivodeship.selectByVisibleText(voivodeship);
         }
     }
-
 }
