@@ -20,38 +20,20 @@ public class ServiceProfilePage extends SearchServicePage {
     @FindBy(how = How.CLASS_NAME, using = "offer-details__category")
     public WebElement serviceCategory;
 
-    @FindBy(how = How.CLASS_NAME, using = "offer-details__contact--container--name")
+    @FindBy(how = How.CLASS_NAME, using = "offer-details__contact--data")
     public WebElement userName;
 
-    @FindBy(how = How.CLASS_NAME, using = "offer-details__contact--container--email")
-    public WebElement userEmail;
+    @FindBy(how = How.CLASS_NAME, using = "offer-details__contact--container")
+    public WebElement userContactData;
 
     @FindBy(how = How.CLASS_NAME, using = "offer-details__contact--button")
     public WebElement showButton;
 
-    @FindBy(how = How.CLASS_NAME, using = "offer-details__contact--container--phone")
-    public WebElement userPhone;
-
-    @FindBy(how = How.XPATH, using = "//*[@id=\"root\"]/div/main/div/div[1]/div[2]/p")
+    @FindBy(how = How.CLASS_NAME, using = "offer-details__additional-info--text")
     public WebElement userInfo;
 
-    @FindBy(how = How.CLASS_NAME, using = "offer-details__offers--base--description")
-    public WebElement basicInfo;
-
-    @FindBy(how = How.CLASS_NAME, using = "offer-details__offers--base--price")
-    public WebElement basicPrice;
-
-    @FindBy(how = How.CLASS_NAME, using = "offer-details__offers--extended--description")
-    public WebElement extendedInfo;
-
-    @FindBy(how = How.CLASS_NAME, using = "offer-details__offers--extended--price")
-    public WebElement extendedPrice;
-
-    @FindBy(how = How.CLASS_NAME, using = "offer-details__offers--extra--description")
-    public WebElement extraInfo;
-
-    @FindBy(how = How.CLASS_NAME, using = "offer-details__offers--extra--price")
-    public WebElement extraPrice;
+    @FindBy(how = How.CLASS_NAME, using = "offer-details__offers")
+    public WebElement serviceInfoContainers;
 
 
     public ServiceProfilePage() {
@@ -63,6 +45,7 @@ public class ServiceProfilePage extends SearchServicePage {
     }
 
     public String getTitleFieldText() {
+        waitForServiceDetails();
         return serviceTitle.getText();
     }
 
@@ -75,39 +58,19 @@ public class ServiceProfilePage extends SearchServicePage {
     }
 
     public String getUserEmailFieldText() {
-        return userEmail.getText();
+        return userContactData.getText();
     }
 
     public String getUserPhoneFieldText() {
-        return userPhone.getText();
+        return userContactData.getText();
     }
 
     public String getUserInfoFieldText() {
         return userInfo.getText();
     }
 
-    public String getBasicInfoFieldText() {
-        return basicInfo.getText();
-    }
-
-    public String getBasicPriceFieldText() {
-        return basicPrice.getText();
-    }
-
-    public String getExtendedInfoFieldText() {
-        return extendedInfo.getText();
-    }
-
-    public String getExtendedPriceFieldText() {
-        return extendedPrice.getText();
-    }
-
-    public String getExtraInfoFieldText() {
-        return extraInfo.getText();
-    }
-
-    public String getExtraPriceFieldText() {
-        return extraPrice.getText();
+    public String getServiceInfoContainerText(){
+        return serviceInfoContainers.getText();
     }
 
     public void showUserEmail() {

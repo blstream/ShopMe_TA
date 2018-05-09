@@ -1,6 +1,8 @@
 package tests.helpers;
 
 import com.google.gson.Gson;
+import cucumber.api.DataTable;
+import gherkin.formatter.model.DataTableRow;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.response.ResponseBody;
@@ -36,11 +38,11 @@ public class RestAssuredMethods {
 
     public void addService(MyService service) {
         MyService content = new MyService();
+
         content.title = service.getTitle();
         content.category = getCategoryByName(service.category.getName());
         content.baseDescription = service.getBaseDesription();
         content.basePrice = service.getBasePrice();
-        content.user.voivodeship = new Voivodeship(service.user.voivodeship.getName());
         content.user = new User(service.user.getName(), service.user.getEmail(), service.user.getPhoneNumber(), service.user.getAdditionalInfo(), service.user.voivodeship, service.user.getCity());
         content.extendedDescription = service.getExtendedDesription();
         content.extendedPrice = service.getExtendedPrice();
@@ -49,12 +51,28 @@ public class RestAssuredMethods {
         Gson gson = new Gson();
         String result = gson.toJson(content);
         RestAssured.baseURI = this.baseURI;
-        RestAssured.given().contentType("application/json").body(result).when().post("/offers").then().assertThat().statusCode(201);
+        RestAssured.given().contentType("application/json").body(result).when().post("/offers").then().assertThat().statusCode(200);
     }
 
-    public void addServices(List<MyService> myServiceList) {
-        for (int i = 0; i < myServiceList.size(); i++) {
-            addService(myServiceList.get(i));
+    public void addServices(DataTable services) {
+        DataTable dt = services;
+        MyService service = new MyService();
+        User user1 = new User();
+        for (int i = 0; i < dt.getGherkinRows().size(); i++) {
+            DataTableRow someRow = dt.getGherkinRows().get(i);
+
+            service.title = someRow.getCells().get(0);
+            service.category = new Category(null, someRow.getCells().get(1));
+            user1.voivodeship = new Voivodeship("1511273a-bb97-4e8a-924b-e6ff7583f135", someRow.getCells().get(12));
+            service.user = new User(someRow.getCells().get(2), someRow.getCells().get(3), someRow.getCells().get(4), someRow.getCells().get(5), user1.voivodeship, someRow.getCells().get(13));
+            service.baseDescription = someRow.getCells().get(6);
+            service.basePrice = Float.valueOf(someRow.getCells().get(7));
+            service.extendedDescription = someRow.getCells().get(8);
+            service.extendedPrice = Float.valueOf(someRow.getCells().get(9));
+            service.extraDescription = someRow.getCells().get(10);
+            service.extraPrice = Float.valueOf(someRow.getCells().get(11));
+
+            addService(service);
         }
     }
 

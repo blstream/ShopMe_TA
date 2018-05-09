@@ -37,7 +37,7 @@ public class MyService {
 
         if (date != null ? !date.equals(service.date) : service.date != null) return false;
         if (title != null ? !title.equals(service.title) : service.title != null) return false;
-        if (category != null ? !category.equals(service.category) : service.category != null) return false;
+        if (category != null ? !category.equalsOnList(service.category) : service.category != null) return false;
         if (baseDescription != null ? !baseDescription.equals(service.baseDescription) : service.baseDescription != null)
             return false;
         if (basePrice != null ? !basePrice.equals(service.basePrice) : service.basePrice != null) return false;
@@ -48,7 +48,7 @@ public class MyService {
         if (extraPrice != null ? !extraPrice.equals(service.extraPrice) : service.extraPrice != null) return false;
         if (extraDescription != null ? !extraDescription.equals(service.extraDescription) : service.extraDescription != null)
             return false;
-        if (user != null ? !user.equals(service.user) : service.user != null) return false;
+        if (user != null ? !user.equalsOnList(service.user) : service.user != null) return false;
 
         return true;
     }

@@ -1,3 +1,4 @@
+@workingGood
 Feature: PRODPFIP-20 Adding new service - alternative flow
   As a user I want to be able to add new service so that can be found by potential clients
 

@@ -36,24 +36,7 @@ public class SearchStepDefs {
 
     @And("^I add services$")
     public void iAddServices(DataTable services) {
-        DataTable dt = services;
-        List<MyService> serviceList = new ArrayList<>();
-        for (int i = 0; i < dt.getGherkinRows().size(); i++) {
-            DataTableRow someRow = dt.getGherkinRows().get(i);
-            MyService service = new MyService();
-            service.title = someRow.getCells().get(0);
-            service.category = new Category(null, someRow.getCells().get(1), null);
-            service.user.voivodeship = new Voivodeship(someRow.getCells().get(12));
-            service.user = new User(someRow.getCells().get(2), someRow.getCells().get(3), someRow.getCells().get(4), someRow.getCells().get(5), service.user.voivodeship, someRow.getCells().get(13));
-            service.baseDescription = someRow.getCells().get(6);
-            service.basePrice = Float.valueOf(someRow.getCells().get(7));
-            service.extendedDescription = someRow.getCells().get(8);
-            service.extendedPrice = Float.valueOf(someRow.getCells().get(9));
-            service.extraDescription = someRow.getCells().get(10);
-            service.extraPrice = Float.valueOf(someRow.getCells().get(11));
-            serviceList.add(service);
-        }
-        restAssuredMethods.addServices(serviceList);
+        restAssuredMethods.addServices(services);
     }
 
     @And("^I enter a searching phrase \"([^\"]*)\" into the search field$")

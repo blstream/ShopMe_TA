@@ -115,6 +115,10 @@ public class User {
         this.invoice = invoice;
     }
 
+    public Voivodeship getVoivodeship() {
+        return voivodeship;
+    }
+
     public boolean equalsOnList(Object o) {
         if (this == o) return true;
         if (!(o instanceof User)) return false;
