@@ -3,6 +3,7 @@ Feature: PRODPFIP-20 Adding new service - alternative flow
 
   Background:
     Given I go to ShopMe main page
+    And I am an signed in to the application with email "test@gmail.com" and password "TestPassword1"
     And I push add service button
     And I can see adding form
 
@@ -14,7 +15,7 @@ Feature: PRODPFIP-20 Adding new service - alternative flow
     And I fill in name with "<name>"
     And I fill in email with "<email>"
     And I fill in phone with "<phone>"
-    And I fill in province with "zachodniopomorskie"
+    And I fill in province with "Zachodniopomorskie"
     And I fill in city with "Szczecin"
     And I press Add service button with fail
     Then I should see an error message "Pole wymagane" next to the required field
@@ -43,7 +44,7 @@ Feature: PRODPFIP-20 Adding new service - alternative flow
     And I fill in name with "Jerry"
     And I fill in email with "test@gmail.com"
     And I fill in phone with "000000000"
-    And I fill in province with "zachodniopomorskie"
+    And I fill in province with "Zachodniopomorskie"
     And I fill in city with "Szczecin"
     And I press Add service button
     Then I should see an error message "Pole wymagane" next to the required field
@@ -65,7 +66,7 @@ Feature: PRODPFIP-20 Adding new service - alternative flow
     And I fill in name with "<name>"
     And I fill in email with "<email>"
     And I fill in phone with "<phone>"
-    And I fill in province with "zachodniopomorskie"
+    And I fill in province with "Zachodniopomorskie"
     And I fill in city with "Szczecin"
     And I press Add service button
     Then I should see inserted values in filled fields
