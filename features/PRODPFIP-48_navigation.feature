@@ -1,8 +1,10 @@
+@workingGood
 Feature: PRODPFIP-48 Navigation to the main page
   As a user I want to be able use ShopMe button to return to the main page
 
   Background:
     Given I go to ShopMe main page
+    And I am an signed in to the application with email "test@gmail.com" and password "TestPassword1"
 
   Scenario: Returning to the main page from search result page
     When I enter a searching phrase "test" into the search field

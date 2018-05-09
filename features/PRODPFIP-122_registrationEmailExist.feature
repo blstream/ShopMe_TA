@@ -1,4 +1,4 @@
-@inProgress
+@workingGood
 Feature: PRODPFIP-122 User registration - using email already existing in database
   As a user I will not be able to register new account with e-mail address that was already used to create account.
 

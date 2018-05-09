@@ -97,6 +97,7 @@ public class SearchServicePage {
     }
 
     public void loginButtonIsDisplayed(){
+        wait.until(ExpectedConditions.visibilityOf(loginButton));
         assertTrue(loginButton.isDisplayed());
     }
 

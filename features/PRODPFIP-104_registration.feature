@@ -1,4 +1,4 @@
-@inProgress
+@workingGood
 Feature: PRODPFIP-104 User registration
   As a user I want to be able to sign up so that I can be a registered user of ShopMe website
 

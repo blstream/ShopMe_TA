@@ -161,7 +161,7 @@ public class SignUpStepDefs {
 
     @And("^I can see an error message \"([^\"]*)\"$")
     public void iCanSeeAnErrorMessage(String message) {
-        loginPage.verifyIfErrorMessageVisible(message);
+        loginPage.verifyIfValidationErrorMessageIsVisible(message);
     }
 
     @Then("^I should see in name maximum (\\d+) characters$")

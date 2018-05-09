@@ -152,6 +152,7 @@ public class LoginPage extends SearchServicePage {
         boolean messageIsVisible = emailErrorMessage.getText().contains(expectedMessage);
         Assert.assertTrue(messageIsVisible);
     }
+//    this method is not working for now --> in step defs I used that one: verifyIfValidationErrorMessageIsVisible()
 
     public boolean checkIfEmailAlreadyInUse(String email) {
         String URI = "https://patronage2018.intive-projects.com/api/users/email=" + email;
