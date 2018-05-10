@@ -89,9 +89,8 @@ public class SearchResultsPage {
         int actualPage = lastPage;
         wait.until(ExpectedConditions.textToBePresentInElement(pageButtonsList.get(0), "<"));
         for (int i = 1; i <= lastPage; i++) {
-            wait.until(ExpectedConditions.textToBePresentInElement(activePageButton, String.valueOf(actualPage)));
             pageButtonsList.get(0).click();
-            wait.until(ExpectedConditions.textToBePresentInElement(activePageButton, String.valueOf(actualPage - 1)));
+            wait.until(ExpectedConditions.textToBePresentInElement(activePageButton, String.valueOf(actualPage)));
             --actualPage;
         }
         Assert.assertTrue(activePageButton.getText().equals("1"));
@@ -190,9 +189,9 @@ public class SearchResultsPage {
             Assert.assertTrue(lastPageButton.isDisplayed());
     }
 
-    public void deleteServicesFromPage(int numberOfElements, int pageNumber) {
+    public void deleteServicesFromPage(int numberOfElements, int pageNumber, String title) {
+        List<MyService> deleteList = restAssuredMethods.searchForServicesOnPage(pageNumber, 10,title).content;
         for (int i = 0; i < numberOfElements; ++i) {
-            List<MyService> deleteList = restAssuredMethods.getServices(pageNumber, 10).content;
             restAssuredMethods.deleteService(deleteList.get(i).id);
         }
     }

@@ -90,6 +90,6 @@ Feature: PRODPFIP-45 Pagination of search results
     And search results are visible
     When I click third page button
     And I have a list of saved services for phrase "test"
-    And I delete 4 services from the page number 2
+    And I delete 10 services from the page number 2 with searching phrase "test"
     And I click fourth page button
-    Then The results for "test" are shifted 4 to the back
+    Then The results for "test" are shifted 10 to the back

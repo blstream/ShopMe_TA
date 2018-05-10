@@ -163,9 +163,9 @@ public class PaginationStepDefs {
         searchResultsPage.pushPageNumberButton(3, 4);
     }
 
-    @And("^I delete (\\d+) services from the page number (\\d+)$")
-    public void iDeleteServicesFromTheSecondPage(int servicesNumber, int pageNumber) {
-        searchResultsPage.deleteServicesFromPage(servicesNumber, pageNumber);
+    @And("^I delete (\\d+) services from the page number (\\d+) with searching phrase \"([^\"]*)\"$")
+    public void iDeleteServicesFromTheSecondPage(int servicesNumber, int pageNumber, String title) {
+        searchResultsPage.deleteServicesFromPage(servicesNumber, pageNumber, title);
     }
 
     @Then("^The results for \"([^\"]*)\" are shifted (\\d+) to the back$")
@@ -174,9 +174,9 @@ public class PaginationStepDefs {
         List<MyService> List = restAssuredMethods.searchForServicesOnPage(4, 10, searchingPhrase).content;
         for (int i = 0; i < 30; i++)
             Assert.assertTrue(servicesBeforeAdd.get(i).equalsOnList(newServices.get(i)));
-        for (int i = 30 + numberOfDeleteResults - 1; i < newServices.size(); i++)
+        for (int i = 30 + numberOfDeleteResults; i < newServices.size(); i++)
             Assert.assertTrue(servicesBeforeAdd.get(i).equalsOnList(newServices.get(i - 4)));
         for (int i = 0; i < 10; i++)
-            Assert.assertTrue(searchResultsPage.getServicesTitles().get(i).substring(4).equals(List.get(i).title));
+         Assert.assertTrue(searchResultsPage.getServicesTitles().get(i).substring(4).equals(List.get(i).title));
     }
 }
