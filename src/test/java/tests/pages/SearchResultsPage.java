@@ -13,7 +13,7 @@ import java.util.List;
 import static tests.Hooks.driver;
 import static tests.Hooks.wait;
 
-public class SearchResultsPage {
+public class SearchResultsPage extends SearchServicePage {
 
     @FindBy(how = How.CLASS_NAME, using = "search-results__list")
     public WebElement resultsList;
