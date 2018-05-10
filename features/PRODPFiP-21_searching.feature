@@ -1,15 +1,16 @@
+@workingGood
 Feature: PRODPFIP-21 Searching for a service in the ShopMe website
   As a user I want to be able to search the service so that I can see search results
 
   Scenario Outline: Positive flow of searching with submit by the search button - search results contain correct title, price and are correctly sorted by date
     Given that there are no services added
     And I add services
-    # | service name                 | category | user name | user email      | user phone | user info | base description | base price | extended description | extended price | extra description | extra price | province           | city     |
-      | test                         | budowa   | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          | zachodniopomorskie | Szczecin |
-      | programowanie Java           | budowa   | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          | zachodniopomorskie | Szczecin |
-      | programowanie Python         | budowa   | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          | zachodniopomorskie | Szczecin |
-      | profesjonalne mycie okien    | budowa   | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          | zachodniopomorskie | Szczecin |
-      | naprawa pralka Amica AWB10i2 | budowa   | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          | zachodniopomorskie | Szczecin |
+#     | service name                 | category | user name | user email      | user phone | user info | base description | base price | extended description | extended price | extra description | extra price | province          | city     |
+      | test                         | building | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          | WesternPomeranian | Szczecin |
+      | programowanie Java           | building | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          | WesternPomeranian | Szczecin |
+      | programowanie Python         | building | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          | WesternPomeranian | Szczecin |
+      | profesjonalne mycie okien    | building | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          | WesternPomeranian | Szczecin |
+      | naprawa pralka Amica AWB10i2 | building | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          | WesternPomeranian | Szczecin |
     When I go to ShopMe main page
     And I enter a searching phrase "<searching_phrase>" into the search field
     And I click the search button
@@ -39,12 +40,12 @@ Feature: PRODPFIP-21 Searching for a service in the ShopMe website
   Scenario Outline: Positive flow of searching with submit by enter key - search results contain correct title, price and are correctly sorted by date
     Given that there are no services added
     And I add services
-    # | service name                 | category | user name | user email      | user phone | user info | base description | base price | extended description | extended price | extra description | extra price | province           | city     |
-      | test                         | budowa   | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          | zachodniopomorskie | Szczecin |
-      | programowanie Java           | budowa   | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          | zachodniopomorskie | Szczecin |
-      | programowanie Python         | budowa   | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          | zachodniopomorskie | Szczecin |
-      | profesjonalne mycie okien    | budowa   | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          | zachodniopomorskie | Szczecin |
-      | naprawa pralka Amica AWB10i2 | budowa   | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          | zachodniopomorskie | Szczecin |
+#     | service name                 | category | user name | user email      | user phone | user info | base description | base price | extended description | extended price | extra description | extra price | province          | city     |
+      | test                         | building | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          | WesternPomeranian | Szczecin |
+      | programowanie Java           | building | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          | WesternPomeranian | Szczecin |
+      | programowanie Python         | building | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          | WesternPomeranian | Szczecin |
+      | profesjonalne mycie okien    | building | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          | WesternPomeranian | Szczecin |
+      | naprawa pralka Amica AWB10i2 | building | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          | WesternPomeranian | Szczecin |
     When I go to ShopMe main page
     And I enter a searching phrase "<searching_phrase>" into the search field
     And I press Enter key

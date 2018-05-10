@@ -1,3 +1,4 @@
+@inProgress
 Feature: PRODPFIP-105 User registration - alternative flow for extended registration form
   As a user I will not be able to register new account with invalid credentials.
 
@@ -19,7 +20,7 @@ Feature: PRODPFIP-105 User registration - alternative flow for extended registra
     And I accept statute
     And I accept terms of personal data processing
     And I click Register button
-    Then I should see an error message "<error_message>"
+    Then I can see an error message "<error_message>"
     Examples:
       | password  | error_message                                                     |
       | samemale  | Hasło musi zawierać co najmniej jedna wielką literę i jedną cyfrę |
@@ -36,7 +37,7 @@ Feature: PRODPFIP-105 User registration - alternative flow for extended registra
     And I accept statute
     And I accept terms of personal data processing
     And I click Register button
-    Then I should see an error message "<error_message>"
+    Then I can see an error message "<error_message>"
     Examples:
       | phone_number | bank_account               | error_message                       |
       | A12345678    | 11111111111111111111111111 | Pole powinno zawierać jedynie cyfry |
@@ -116,7 +117,7 @@ Feature: PRODPFIP-105 User registration - alternative flow for extended registra
     And I accept statute
     And I accept terms of personal data processing
     And I click Register button
-    Then I should see an error message "<error_message>"
+    Then I can see an error message "<error_message>"
     Examples:
       | street   | number | city      | post_code | voivodeship        | error_message                       |
       | Te       | 1      | Szczecin  | 71-000    | Zachodniopomorskie | Zbyt mała liczba znaków             |
@@ -168,7 +169,7 @@ Feature: PRODPFIP-105 User registration - alternative flow for extended registra
     And I accept statute
     And I don't accept terms of personal data processing
     And I click Register button
-    Then I should see an error message "Pole wymagane"
+    Then I can see an error message "Pole wymagane"
 
   Scenario: Signing up for ShopMe website without accepting statue
     When I fill in password with "TestPassword1"
@@ -177,7 +178,7 @@ Feature: PRODPFIP-105 User registration - alternative flow for extended registra
     And I don't accept statute
     And I accept terms of personal data processing
     And I click Register button
-    Then I should see an error message "Pole wymagane"
+    Then I can see an error message "Pole wymagane"
 
   Scenario Outline: Signing up for ShopMe website with invalid invoice data
     When I fill in password with "TestPassword1"
@@ -188,7 +189,7 @@ Feature: PRODPFIP-105 User registration - alternative flow for extended registra
     And I accept statute
     And I accept terms of personal data processing
     And I click Register button
-    Then I should see an error message "<error_message>"
+    Then I can see an error message "<error_message>"
     Examples:
       | c_name    | nip        | c_street    | c_number | c_post_code | c_city    | error_message                       |
       |           | 0123456789 | Truskawkowa | 1        | 71-000      | Szczecin  | Pole wymagane                       |

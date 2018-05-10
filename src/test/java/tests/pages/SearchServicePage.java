@@ -48,8 +48,12 @@ public class SearchServicePage {
         return driver.getCurrentUrl();
     }
 
-    public void getSearchResult(String searchPhrase) {
+    public void waitForSearchFieldVisibility(){
         wait.until(ExpectedConditions.visibilityOf(searchField));
+    }
+
+    public void getSearchResult(String searchPhrase) {
+        waitForSearchFieldVisibility();
         searchField.clear();
         searchField.sendKeys(searchPhrase);
     }
@@ -67,6 +71,7 @@ public class SearchServicePage {
     }
 
     public void sendSearchPhrase(int phraseLength) {
+        waitForSearchFieldVisibility();
         searchField.sendKeys(generateString(phraseLength));
     }
 

@@ -1,9 +1,10 @@
-@inProgress
+@workingBad
 Feature: PRODPFIP-198 Adding new service - extension with province and city of the add service form
   As a user I want to be able to add new service so that can be found by potential clients
 
   Background:
     Given I go to ShopMe main page
+    And I am an signed in to the application with email "test@gmail.com" and password "TestPassword1"
     And I push add service button
     And I can see adding form
     And I fill in all necessary data

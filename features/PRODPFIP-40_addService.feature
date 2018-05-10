@@ -1,8 +1,10 @@
+@workingBad
 Feature:  PRODPFIP-40 Adding new service - basic flow
   As a user I want to be able to add new service so that can be found by potential clients
 
   Background:
     Given I go to ShopMe main page
+    And I am an signed in to the application with email "test@gmail.com" and password "TestPassword1"
     And I push add service button
     And I can see adding form
 
