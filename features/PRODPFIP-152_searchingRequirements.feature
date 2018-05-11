@@ -27,4 +27,3 @@ Feature: PRODPFIP-152 Specify requirements to searching functionality
       | searching_phrase               |
       | fotografia ślubna tanio okazja |
       | QA                             |
-

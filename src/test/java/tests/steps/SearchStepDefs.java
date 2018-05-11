@@ -5,18 +5,12 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import gherkin.formatter.model.DataTableRow;
 import tests.helpers.RestAssuredMethods;
-import tests.objects.Category;
-import tests.objects.MyService;
-import tests.objects.User;
-import tests.objects.Voivodeship;
 import tests.pages.SearchResultsPage;
 import tests.pages.SearchServicePage;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;

@@ -173,4 +173,9 @@ public class SignUpStepDefs {
     public void iShouldSeeInSurnameMaximumCharacters(int expected) {
         loginPage.verifyIfSurnameInputLimited(expected);
     }
+
+    @And("^I can see an email error message \"([^\"]*)\"$")
+    public void iCanSeeAnEmailErrorMessage(String message){
+        loginPage.verifyIfErrorMessageVisible(message);
+    }
 }
