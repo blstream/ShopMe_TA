@@ -4,7 +4,6 @@ Feature: PRODPFIP-48 Navigation to the main page
 
   Background:
     Given I go to ShopMe main page
-    And I am an signed in to the application with email "test@gmail.com" and password "TestPassword1"
 
   Scenario: Returning to the main page from search result page
     When I enter a searching phrase "test" into the search field
@@ -14,6 +13,7 @@ Feature: PRODPFIP-48 Navigation to the main page
     Then I should see ShopMe main page
 
   Scenario: Returning to the main page from add service page
+    Given I am an signed in to the application with email "test@gmail.com" and password "TestPassword1"
     When I push add service button
     And I can see adding form
     And I click ShopMe button
