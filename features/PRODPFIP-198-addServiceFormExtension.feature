@@ -70,5 +70,5 @@ Feature: PRODPFIP-198 Adding new service - extension with province and city of t
 
   Scenario: Inserting more than maximum number of characters in city field
     When I fill in province with "Mazowieckie"
-    And I fill in city with 31 characters
-    Then I should see in city maximum 30 characters
+    And I fill in city with 51 characters
+    Then I should see in city maximum 50 characters
