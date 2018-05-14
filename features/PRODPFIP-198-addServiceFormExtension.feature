@@ -1,8 +1,10 @@
+@workingBad
 Feature: PRODPFIP-198 Adding new service - extension with province and city of the add service form
   As a user I want to be able to add new service so that can be found by potential clients
 
   Background:
     Given I go to ShopMe main page
+    And I am an signed in to the application with email "test@gmail.com" and password "TestPassword1"
     And I push add service button
     And I can see adding form
     And I fill in all necessary data
@@ -64,11 +66,9 @@ Feature: PRODPFIP-198 Adding new service - extension with province and city of t
       | Test=   | Niedozwolone znaki |
       | Test_   | Niedozwolone znaki |
       | Test`   | Niedozwolone znaki |
-      | Test-   | Niedozwolone znaki |
       |         | Pole wymagane      |
 
   Scenario: Inserting more than maximum number of characters in city field
     When I fill in province with "Mazowieckie"
-    And I fill in city with 31 characters
-    Then I should see in city maximum 30 characters
-
+    And I fill in city with 51 characters
+    Then I should see in city maximum 50 characters

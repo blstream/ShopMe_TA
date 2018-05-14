@@ -161,7 +161,7 @@ public class SignUpStepDefs {
 
     @And("^I can see an error message \"([^\"]*)\"$")
     public void iCanSeeAnErrorMessage(String message) {
-        loginPage.verifyIfErrorMessageVisible(message);
+        loginPage.verifyIfValidationErrorMessageIsVisible(message);
     }
 
     @Then("^I should see in name maximum (\\d+) characters$")
@@ -172,5 +172,10 @@ public class SignUpStepDefs {
     @And("^I should see in surname maximum (\\d+) characters$")
     public void iShouldSeeInSurnameMaximumCharacters(int expected) {
         loginPage.verifyIfSurnameInputLimited(expected);
+    }
+
+    @And("^I can see an email error message \"([^\"]*)\"$")
+    public void iCanSeeAnEmailErrorMessage(String message){
+        loginPage.verifyIfErrorMessageVisible(message);
     }
 }

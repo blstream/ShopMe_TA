@@ -7,12 +7,14 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import gherkin.formatter.model.DataTableRow;
 import tests.pages.AddServicePage;
+import tests.pages.LoginPage;
 import tests.pages.SearchServicePage;
 
 public class AddServiceStepDefs {
 
     AddServicePage addServicePage = new AddServicePage();
     SearchServicePage searchServicePage = new SearchServicePage();
+    LoginPage loginPage = new LoginPage();
 
     @Given("^I go to ShopMe main page$")
     public void iGoToShopMeMainPage() {
@@ -273,4 +275,11 @@ public class AddServiceStepDefs {
         addServicePage.verifyIfMainPageIsVisible();
     }
 
+    @And("^I am an signed in to the application with email \"([^\"]*)\" and password \"([^\"]*)\"$")
+    public void iAmAnSignedInToTheApplicationWithEmailAndPassword(String email, String password) {
+        searchServicePage.pushLoginButton();
+        loginPage.enterEmail(email);
+        loginPage.enterPassword(password);
+        loginPage.clickTheSignInBtn();
+    }
 }

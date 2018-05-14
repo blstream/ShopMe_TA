@@ -134,7 +134,6 @@ public class LoginPage extends SearchServicePage {
                 errorVisible = true;
             }
         }
-
         Assert.assertTrue(errorVisible);
     }
 
@@ -153,6 +152,7 @@ public class LoginPage extends SearchServicePage {
         boolean messageIsVisible = emailErrorMessage.getText().contains(expectedMessage);
         Assert.assertTrue(messageIsVisible);
     }
+//    this method is working now, but we need both
 
     public boolean checkIfEmailAlreadyInUse(String email) {
         String URI = "https://patronage2018.intive-projects.com/api/users/email=" + email;
@@ -212,4 +212,3 @@ public class LoginPage extends SearchServicePage {
         RestAssured.given().contentType("application/json").body(newUser.toString()).when().post("/users").then().assertThat().statusCode(200);
     }
 }
-

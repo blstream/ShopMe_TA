@@ -1,10 +1,12 @@
+@workingGood
 Feature: PRODPFIP-25 Alternative flow of searching for a service
 
   Scenario Outline: Display no offer message
     Given that there are no services added
     And I add services
-      | odśnieżanie        |
-      | programowanie Java |
+#     | service name       | category | user name | user email      | user phone | user info | base description | base price | extended description | extended price | extra description | extra price | province          | city     |
+      | odśnieżanie        | law      | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          | WesternPomeranian | Szczecin |
+      | programowanie Java | law      | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          | WesternPomeranian | Szczecin |
     And I go to ShopMe main page
     When I enter a searching phrase "<phrase_that_does_not_exist>" into the search field
     And I click the search button

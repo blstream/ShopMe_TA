@@ -1,12 +1,16 @@
+@workingGood
 Feature: PRODPFIP-26 Re-search phrases
   As a user I want to be able to search the service again
 
-  Scenario Outline: Searching for phrases again
+  Background:
     Given that there are no services added
     And I add services
-      | zmywanie |
-      | pranie   |
-      | mycie    |
+#     | service name | category | user name | user email      | user phone | user info | base description | base price | extended description | extended price | extra description | extra price | province          | city     |
+      | zmywanie     | building | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          | WesternPomeranian | Szczecin |
+      | pranie       | building | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          | WesternPomeranian | Szczecin |
+      | mycie        | building | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          | WesternPomeranian | Szczecin |
+
+  Scenario Outline: Searching for phrases again
     And I go to ShopMe main page
     And I enter a searching phrase "<phrase1>" into the search field
     And I click the search button
@@ -37,7 +41,8 @@ Feature: PRODPFIP-26 Re-search phrases
     And I enter a searching phrase "mycie" into the search field
     And I click the search button
     When I add services
-    |mycie samochodów|
+#     | service name     | category | user name | user email      | user phone | user info | base description | base price | extended description | extended price | extra description | extra price | province          | city     |
+      | mycie samochodów | building | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          | WesternPomeranian | Szczecin |
     And I enter a searching phrase "mycie" into the search field
     And I click the search button
     Then search results are visible

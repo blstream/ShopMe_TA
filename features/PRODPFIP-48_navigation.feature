@@ -1,3 +1,4 @@
+@workingGood
 Feature: PRODPFIP-48 Navigation to the main page
   As a user I want to be able use ShopMe button to return to the main page
 
@@ -12,6 +13,7 @@ Feature: PRODPFIP-48 Navigation to the main page
     Then I should see ShopMe main page
 
   Scenario: Returning to the main page from add service page
+    Given I am an signed in to the application with email "test@gmail.com" and password "TestPassword1"
     When I push add service button
     And I can see adding form
     And I click ShopMe button

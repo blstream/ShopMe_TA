@@ -1,3 +1,4 @@
+@workingGood
 Feature: PRODPFIP-124 User registration - alternative flow
   As a user I will not be able to register new account with invalid credentials.
 
@@ -32,7 +33,6 @@ Feature: PRODPFIP-124 User registration - alternative flow
       | John | Do\     | registration@test.com | Niedozwolone znaki              |
       | Jo   | Doe     | registration@test.com | Zbyt mała liczba znaków         |
       | John | D       | registration@test.com | Zbyt mała liczba znaków         |
-
 
   Scenario Outline: Signing up ShopMe website with empty fields
     When I fill in all necessary registration data with "<name>", "<surname>", "<email>"
