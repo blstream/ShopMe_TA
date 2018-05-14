@@ -9,12 +9,14 @@ import io.restassured.response.ResponseBody;
 import org.junit.Assert;
 import tests.pages.LoginPage;
 import tests.pages.RegistrationFormPage;
+import tests.pages.RegistrationPage;
 import tests.pages.SearchServicePage;
 
 public class SignUpStepDefs {
 
     SearchServicePage searchServicePage = new SearchServicePage();
     LoginPage loginPage = new LoginPage();
+    RegistrationPage registrationPage = new RegistrationPage();
     RegistrationFormPage registrationFormPage = new RegistrationFormPage();
     private String email;
 
@@ -29,21 +31,21 @@ public class SignUpStepDefs {
 
     @And("^I can see registration form$")
     public void iCanSeeRegistrationForm() {
-        loginPage.verifyIfRegisterFormIsVisible();
+        registrationPage.verifyIfRegisterFormIsVisible();
     }
 
     @When("^I fill in all necessary registration data with testEmail, \"([^\"]*)\", \"([^\"]*)\",$")
     public void iFillInAllNecessaryRegistrationDataWithTestEmail(String name, String surname) {
-        String newEmail = "test+" + loginPage.generateTimeStamp() + "@gmail.com";
+        String newEmail = "test+" + registrationPage.generateTimeStamp() + "@gmail.com";
         setEmail(newEmail);
-        loginPage.sendName(name);
-        loginPage.sendSurname(surname);
-        loginPage.sendEmail(email);
+        registrationPage.sendName(name);
+        registrationPage.sendSurname(surname);
+        registrationPage.sendEmail(email);
     }
 
     @And("^I push Register button$")
     public void iPushRegisterButton() {
-        loginPage.pushRegisterButton();
+        registrationPage.pushRegisterButton();
     }
 
     @And("^I can see expanded registration form$")
@@ -137,45 +139,55 @@ public class SignUpStepDefs {
 
     @And("^Email \"([^\"]*)\" used in registration is already in database$")
     public void emailUsedInRegistrationIsAlreadyInDatabase(String email) {
-        if(!loginPage.checkIfEmailAlreadyInUse(email)){
-            loginPage.addUserWithEmail(email);
+        if(!registrationPage.checkIfEmailAlreadyInUse(email)){
+            registrationPage.addUserWithEmail(email);
         }
     }
 
     @When("^I fill in all necessary registration data with \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\"$")
     public void iFillInAllNecessaryRegistrationDataWith(String name, String surname, String email)  {
-        loginPage.sendName(name);
-        loginPage.sendSurname(surname);
-        loginPage.sendEmail(email);
+        registrationPage.sendName(name);
+        registrationPage.sendSurname(surname);
+        registrationPage.sendEmail(email);
     }
 
     @And("^I push Register button with fail$")
     public void iPushRegisterButtonWithFail() {
-        loginPage.pushRegisterButtonWithFail();
+        registrationPage.pushRegisterButtonWithFail();
     }
 
     @Then("^I can see inserted values in filled fields$")
     public void iCanSeeInsertedValuesInFilledFields() {
-        loginPage.verifyIfValuesEqualsAfterPageRefresh();
+        registrationPage.verifyIfValuesEqualsAfterPageRefresh();
     }
 
     @And("^I can see an error message \"([^\"]*)\"$")
     public void iCanSeeAnErrorMessage(String message) {
-        loginPage.verifyIfValidationErrorMessageIsVisible(message);
+        registrationPage.verifyIfValidationErrorMessageIsVisible(message);
     }
 
     @Then("^I should see in name maximum (\\d+) characters$")
     public void iShouldSeeInNameMaximumCharacters(int expected) {
-        loginPage.verifyIfNameInputLimited(expected);
+        registrationPage.verifyIfNameInputLimited(expected);
     }
 
     @And("^I should see in surname maximum (\\d+) characters$")
     public void iShouldSeeInSurnameMaximumCharacters(int expected) {
-        loginPage.verifyIfSurnameInputLimited(expected);
+        registrationPage.verifyIfSurnameInputLimited(expected);
     }
 
     @And("^I can see an email error message \"([^\"]*)\"$")
     public void iCanSeeAnEmailErrorMessage(String message){
-        loginPage.verifyIfErrorMessageVisible(message);
+        registrationPage.verifyIfErrorMessageVisible(message);
+    }
+
+    @And("^I push SignUp button$")
+    public void iPushSignUpButton() {
+        loginPage.clickTheRegisterBtn();
+    }
+
+    @And("^I can see a message \"([^\"]*)\"$")
+    public void iCanSeeAMessage(String expectedMessage) {
+        registrationPage.verifyIfFillInAllMessageVisible(expectedMessage);
     }
 }

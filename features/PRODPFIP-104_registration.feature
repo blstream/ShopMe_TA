@@ -5,6 +5,7 @@ Feature: PRODPFIP-104 User registration
   Background:
     Given I go to ShopMe main page
     And I push Login button
+    And I push SignUp button
     And I can see registration form
 
   Scenario Outline: Signing up for ShopMe website - positive flow

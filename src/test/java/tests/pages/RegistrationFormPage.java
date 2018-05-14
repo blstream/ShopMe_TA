@@ -11,7 +11,7 @@ import org.openqa.selenium.support.ui.Select;
 import static tests.Hooks.driver;
 import static tests.Hooks.wait;
 
-public class RegistrationFormPage extends LoginPage {
+public class RegistrationFormPage extends RegistrationPage {
 
     @FindBy(how = How.CLASS_NAME, using = "form__button")
     public WebElement registerButton;
