@@ -5,6 +5,7 @@ Feature: PRODPFIP-105 User registration - alternative flow for extended registra
   Background:
     Given I go to ShopMe main page
     And I push Login button
+    And I push SignUp button
     And I can see registration form
     And I fill in all necessary registration data with testEmail, "Jan", "Kowalski",
     And I push Register button

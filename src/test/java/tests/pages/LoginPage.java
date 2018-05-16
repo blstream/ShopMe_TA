@@ -21,7 +21,7 @@ public class LoginPage extends SearchServicePage {
     @FindBy(how = How.ID, using = "login-form__submit-form")
     public WebElement signInButton;
 
-    @FindBy(how = How.CLASS_NAME, using = "login-form__register-link")
+    @FindBy(how = How.CSS, using = ".login-form__register-link > a:nth-child(2)")
     public WebElement registerLink;
 
 

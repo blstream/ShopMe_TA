@@ -5,6 +5,7 @@ Feature: PRODPFIP-124 User registration - alternative flow
   Background:
     Given I go to ShopMe main page
     And I push Login button
+    And I push SignUp button
     And I can see registration form
 
   Scenario Outline: Signing up ShopMe website with invalid credentials
