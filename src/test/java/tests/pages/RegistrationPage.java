@@ -32,7 +32,7 @@ public class RegistrationPage {
 
     @FindBy(how = How.ID, using = "signup-form__submit")
     public WebElement registerButton;
-//it was not working with id="signup-form__submit" :(
+
     @FindBy(how = How.CLASS_NAME, using = "signup-form__error")
     public WebElement fillInAllError;
 

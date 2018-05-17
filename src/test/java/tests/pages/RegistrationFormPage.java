@@ -11,7 +11,7 @@ import org.openqa.selenium.support.ui.Select;
 import static tests.Hooks.driver;
 import static tests.Hooks.wait;
 
-public class RegistrationFormPage extends RegistrationPage {
+public class RegistrationFormPage {
 
     @FindBy(how = How.ID, using = "users__register-submit")
     public WebElement registerButton;
@@ -39,7 +39,6 @@ public class RegistrationFormPage extends RegistrationPage {
 
     @FindBy(how = How.XPATH, using = "//label[@for='invoiceCheckbox']")
     public WebElement invoiceCheckbox;
-//    (By.xpath("//label[@for='chk1']")
 
     @FindBy(how = How.XPATH, using = "//label[@for='users__personal-data-processing']")
     public WebElement usersPersonalDataCheckbox;
@@ -163,7 +162,7 @@ public class RegistrationFormPage extends RegistrationPage {
 
     public void acceptTermsOfPersonalDataProcessing() {
         usersPersonalDataCheckbox.click();
-//        Assert.assertTrue(usersPersonalDataCheckbox.isSelected());
+        Assert.assertTrue(usersPersonalDataCheckbox.isSelected());
     }
 
     public void pushRegisterButton() {
@@ -187,7 +186,7 @@ public class RegistrationFormPage extends RegistrationPage {
 
     public void acceptStatute() {
         statuteCheckbox.click();
-      //  Assert.assertTrue(statuteCheckbox.isSelected());
+          Assert.assertTrue(statuteCheckbox.isSelected());
     }
 
     public void waitUntilSelectOptionsAreVisible() {
