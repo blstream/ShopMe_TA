@@ -134,10 +134,8 @@ public class RestAssuredMethods {
         user.voivodeship = new Voivodeship("WesternPomeranian");
         user.invoiceRequest = true;
         user.invoice = new Invoice("5d214c01-95c3-4ec4-8f68-51dfb80b191c", "Fight Club Sp.z.o.o.", "123-456-78-90", address);
-
         Gson gson = new Gson();
         String result = gson.toJson(user);
-
         RestAssured.baseURI = this.baseURI;
         RestAssured.given().contentType("application/json").body(result).when().post("/users").then().assertThat().statusCode(200);
     }
