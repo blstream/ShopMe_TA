@@ -5,7 +5,7 @@ import cucumber.api.junit.Cucumber;
 import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(features = "features", tags = {"~@inProgress"})
+@CucumberOptions(features = "features", tags = {"@inProgres"})
 
 
 public class TestRunner {

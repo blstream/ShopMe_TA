@@ -3,8 +3,8 @@ Feature: PRODPFIP-45 Pagination of search results
   As a user I want to navigate between search result pages so that I can see all the search results
 
     Scenario: Displaying all existing services
-      Given that there are no services added
-      And I add 54 different services
+     # Given that there are no services added
+      Given I add 4 different services
       # | service name | category | user name | user email      | user phone | user info | base description | base price | extended description | extended price | extra description | extra price | province          | city     |
         | test         | law      | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          | WesternPomeranian | Szczecin |
       When I go to ShopMe main page

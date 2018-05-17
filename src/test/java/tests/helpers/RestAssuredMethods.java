@@ -51,7 +51,13 @@ public class RestAssuredMethods {
         Gson gson = new Gson();
         String result = gson.toJson(content);
         RestAssured.baseURI = this.baseURI;
-        RestAssured.given().contentType("application/json").body(result).when().post("/offers").then().assertThat().statusCode(200);
+        RestAssured.given()
+                .header("Authorization", "Bearer " + "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkYTA3Y2Y4OC0zYmM0LTRmOTItOWU3NS0zNTY4ZjhiNWM3OGEiLCJlbWFpbCI6InRAdC50Iiwic2NvcGVzIjpbIlVTRVIiXSwiaWF0IjoxNTI2NTg4NTkzLCJleHAiOjE1MjY1OTU3OTN9.iH7NjRoN75clpGvpl8WpGhBCKPM7ER2RSTPYI1OALL9ss_oYSZCNcS1E4jTUeH_ETCeX0_lJn1ZuuoFjpEg1iQ")
+                .contentType("application/json")
+                .body(result)
+                .when()
+                .post("/offers")
+                .then().assertThat().statusCode(200);
     }
 
     public void addServices(DataTable services) {
@@ -103,17 +109,18 @@ public class RestAssuredMethods {
         Services servicesOnPage = gson.fromJson(body.asString(), Services.class);
         return servicesOnPage;
     }
+
     public Services searchForServicesOnPage(int pageNumber, int pageSize, String title) {
-                Response response = RestAssured.given()
-                                .queryParam("page", pageNumber)
-                                .queryParam("pageSize", pageSize)
-                                .queryParam("title", title)
-                                .get(baseURI + "/offers");
-                ResponseBody body = response.getBody();
-                Gson gson = new Gson();
-                Services servicesOnPage = gson.fromJson(body.asString(), Services.class);
-                return servicesOnPage;
-            }
+        Response response = RestAssured.given()
+                .queryParam("page", pageNumber)
+                .queryParam("pageSize", pageSize)
+                .queryParam("title", title)
+                .get(baseURI + "/offers");
+        ResponseBody body = response.getBody();
+        Gson gson = new Gson();
+        Services servicesOnPage = gson.fromJson(body.asString(), Services.class);
+        return servicesOnPage;
+    }
 
     public List<MyService> getAllServices() {
         List<MyService> offersList = new ArrayList<>();
@@ -147,8 +154,8 @@ public class RestAssuredMethods {
         deleteServiceById(myService.id);
     }
 
-    public void addUserWithEmail(String email){
-        Address address = new Address("5d214c01-95c3-4ec4-8f68-51dfb80b191c","Niepodległości", "12/1", "Szczecin", "70-125");
+    public void addUserWithEmail(String email) {
+        Address address = new Address("5d214c01-95c3-4ec4-8f68-51dfb80b191c", "Niepodległości", "12/1", "Szczecin", "70-125");
         User user = new User();
 
         user.id = "5d214c01-95c3-4ec4-8f68-51dfb80b191c";
@@ -161,7 +168,7 @@ public class RestAssuredMethods {
         user.address = address;
         user.voivodeship = new Voivodeship("1511273a-bb97-4e8a-924b-e6ff7583f135", "WesternPomeranian");
         user.invoiceRequest = true;
-        user.invoice = new Invoice("5d214c01-95c3-4ec4-8f68-51dfb80b191c","Fight Club Sp.z.o.o.", "123-456-78-90", address);
+        user.invoice = new Invoice("5d214c01-95c3-4ec4-8f68-51dfb80b191c", "Fight Club Sp.z.o.o.", "123-456-78-90", address);
 
         Gson gson = new Gson();
         String result = gson.toJson(user);
