@@ -12,11 +12,11 @@ Feature: PRODPFIP-45 Pagination of search results
       And I click the search button
       Then I can go to any service from database with title "test"
 
-  Scenario: Correct displaying pagination
-    When I go to ShopMe main page
-    And I enter a searching phrase "test" into the search field
-    And I click the search button
-    Then search results are visible
+#  Scenario: Correct displaying pagination
+#    When I go to ShopMe main page
+#    And I enter a searching phrase "test" into the search field
+#    And I click the search button
+#    Then search results are visible
 #    And I can see 10 records
 #    And I can see pagination buttons
 #    And I can see that number 1 is bold

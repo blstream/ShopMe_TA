@@ -7,6 +7,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import tests.helpers.RestAssuredMethods;
 import tests.objects.MyService;
 
 import java.text.SimpleDateFormat;
@@ -20,6 +21,7 @@ import static tests.Hooks.driver;
 import static tests.Hooks.wait;
 
 public class SearchResultsPage extends SearchServicePage {
+    RestAssuredMethods restAssuredMethods = new RestAssuredMethods("https://patronage2018.intive-projects.com/api");
 
     @FindBy(how = How.CLASS_NAME, using = "search-results__list")
     public WebElement resultsList;
@@ -192,7 +194,7 @@ public class SearchResultsPage extends SearchServicePage {
             public void deleteServicesFromPage(int numberOfElements, int pageNumber, String title) {
                 List<MyService> deleteList = restAssuredMethods.searchForServicesOnPage(pageNumber, 10,title).content;
                 for (int i = 0; i < numberOfElements; ++i) {
-                        restAssuredMethods.deleteService(deleteList.get(i).id);
+                        restAssuredMethods.deleteServiceById(deleteList.get(i).id);
                     }
             }
 
