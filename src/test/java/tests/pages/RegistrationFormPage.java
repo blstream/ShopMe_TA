@@ -41,14 +41,8 @@ public class RegistrationFormPage {
     @FindBy(how = How.XPATH, using = "//label[@for='invoiceCheckbox']")
     public WebElement invoiceCheckbox;
 
-    // @FindBy(how = How.ID, using = "invoiceCheckbox")
-    // public WebElement invoiceCheckbox;
-
     @FindBy(how = How.XPATH, using = "//label[@for='users__personal-data-processing']")
     public WebElement usersPersonalDataCheckbox;
-    //@FindBy(how = How.ID, using = "users__personal-data-processing")
-    //public WebElement usersPersonalDataCheckbox;
-
 
     @FindBy(how = How.NAME, using = "users_invoiceCompanyName")
     public WebElement invoiceCompanyName;
@@ -73,6 +67,9 @@ public class RegistrationFormPage {
 
     @FindBy(how = How.XPATH, using = "//a[@href='/login']")
     public WebElement loginButton;
+
+    @FindBy(how = How.CLASS_NAME, using = "register-form")
+    public WebElement error;
 
     @FindBy(how = How.XPATH, using = "//label[@for='users__terms-and-conditions-checkbox']")
     public WebElement statuteCheckbox;
@@ -171,17 +168,16 @@ public class RegistrationFormPage {
 
     public void acceptTermsOfPersonalDataProcessing() {
         usersPersonalDataCheckbox.click();
-        // Assert.assertTrue(usersPersonalDataCheckbox.isSelected());
     }
 
     public void doNotacceptTermsOfPersonalDataProcessing() {
         Assert.assertFalse(usersPersonalDataCheckbox.isSelected());
+        // Assert.assertTrue(usersPersonalDataCheckbox.Selected());
     }
 
     public void pushRegisterButton() {
         wait.until(ExpectedConditions.elementToBeClickable(registerButton));
         registerButton.click();
-        // wait.until(ExpectedConditions.invisibilityOf(registerButton));
     }
 
     public void verifyIfConfirmationMessageIsVisible(String message) {
@@ -266,4 +262,8 @@ public class RegistrationFormPage {
         Assert.assertEquals(expectedLength, actualLength);
     }
 
+    public void verifyIfValidationErrorMessageIsVisible(String message) {
+        wait.until(ExpectedConditions.elementToBeClickable(registerButton));
+        Assert.assertTrue(error.getText().contains(message));
+    }
 }

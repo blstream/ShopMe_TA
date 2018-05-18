@@ -1,6 +1,5 @@
 package tests.steps;
 
-
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -10,7 +9,7 @@ import io.restassured.response.ResponseBody;
 import org.junit.Assert;
 import tests.pages.*;
 
-public class SignUpStepDefs extends SearchServicePage{
+public class SignUpStepDefs extends SearchServicePage {
 
     SearchServicePage searchServicePage = new SearchServicePage();
     LoginPage loginPage = new LoginPage();
@@ -137,13 +136,13 @@ public class SignUpStepDefs extends SearchServicePage{
 
     @And("^Email \"([^\"]*)\" used in registration is already in database$")
     public void emailUsedInRegistrationIsAlreadyInDatabase(String email) {
-        if(!registrationPage.checkIfEmailAlreadyInUse(email)){
+        if (!registrationPage.checkIfEmailAlreadyInUse(email)) {
             registrationPage.addUserWithEmail(email);
         }
     }
 
     @When("^I fill in all necessary registration data with \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\"$")
-    public void iFillInAllNecessaryRegistrationDataWith(String name, String surname, String email)  {
+    public void iFillInAllNecessaryRegistrationDataWith(String name, String surname, String email) {
         registrationPage.sendName(name);
         registrationPage.sendSurname(surname);
         registrationPage.sendEmail(email);
@@ -175,7 +174,7 @@ public class SignUpStepDefs extends SearchServicePage{
     }
 
     @And("^I can see an email error message \"([^\"]*)\"$")
-    public void iCanSeeAnEmailErrorMessage(String message){
+    public void iCanSeeAnEmailErrorMessage(String message) {
         registrationPage.verifyIfErrorMessageVisible(message);
     }
 
@@ -190,12 +189,12 @@ public class SignUpStepDefs extends SearchServicePage{
     }
 
     @And("^I don't accept terms of personal data processing$")
-    public void iDonTAcceptTermsOfPersonalDataProcessing()  {
-       registrationFormPage.doNotacceptTermsOfPersonalDataProcessing();
+    public void iDonTAcceptTermsOfPersonalDataProcessing() {
+        registrationFormPage.doNotacceptTermsOfPersonalDataProcessing();
     }
 
     @And("^I don't accept statute$")
-    public void iDonTAcceptStatute()  {
+    public void iDonTAcceptStatute() {
         registrationFormPage.doNotAcceptStatute();
     }
 
@@ -205,7 +204,7 @@ public class SignUpStepDefs extends SearchServicePage{
     }
 
     @Then("^I should see in password maximum (\\d+) characters$")
-    public void iShouldSeeInPasswordMaximumCharacters(int length) throws Throwable {
+    public void iShouldSeeInPasswordMaximumCharacters(int length) {
         registrationFormPage.verifyIfPasswordInputLimited(length);
     }
 
@@ -220,13 +219,13 @@ public class SignUpStepDefs extends SearchServicePage{
     }
 
     @When("^I fill in userBankAccountNumber with (\\d+) characters$")
-    public void iFillInUserBankAccountNumberWithCharacters(int length)  {
+    public void iFillInUserBankAccountNumberWithCharacters(int length) {
         registrationFormPage.sendBankAccountNumber(registrationFormPage.generateNumber(length));
     }
 
     @Then("^I should see in userBankAccountNumber maximum (\\d+) characters$")
-    public void iShouldSeeInUserBankAccountNumberMaximumCharacters(int length){
-     registrationFormPage.verifyIfUserBankAccountNumberInputLimited(length);
+    public void iShouldSeeInUserBankAccountNumberMaximumCharacters(int length) {
+        registrationFormPage.verifyIfUserBankAccountNumberInputLimited(length);
     }
 
     @When("^I fill in addressZipCode with \"([^\"]*)\"$")
@@ -235,7 +234,7 @@ public class SignUpStepDefs extends SearchServicePage{
     }
 
     @Then("^I should see in addressZipCode maximum (\\d+) characters$")
-    public void iShouldSeeInAddressZipCodeMaximumCharacters(int length){
+    public void iShouldSeeInAddressZipCodeMaximumCharacters(int length) {
         registrationFormPage.verifyIfUserZipCodeInputLimited(length);
     }
 
@@ -249,23 +248,28 @@ public class SignUpStepDefs extends SearchServicePage{
         registrationFormPage.verifyIfUserCityInputLimited(length);
     }
 
-    @When("^I fill in nip with \"([^\"]*)\"$")
-    public void iFillInNipWith(String nip){
-        registrationFormPage.sendNip(nip);
-    }
-
     @Then("^I should see in nip maximum (\\d+) characters$")
     public void iShouldSeeInNipMaximumCharacters(int length) {
-       registrationFormPage.verifyIfNipInputLimited(length);
+        registrationFormPage.verifyIfNipInputLimited(length);
     }
 
-    @When("^I fill in invoiceAddressCity with (\\d+) characters$")
-    public void iFillInInvoiceAddressCityWithCharacters(int length)  {
+    @And("^I fill in invoiceAddressCity with (\\d+) characters$")
+    public void iFillInInvoiceAddressCityWithCharacters(int length) {
         registrationFormPage.sendCompanyCity(registrationFormPage.generateString(length));
     }
 
     @Then("^I should see in invoiceAddressCity maximum (\\d+) characters$")
-    public void iShouldSeeInInvoiceAddressCityMaximumCharacters(int length){
+    public void iShouldSeeInInvoiceAddressCityMaximumCharacters(int length) {
         registrationFormPage.verifyIfInvoiceAddressCityInputLimited(length);
+    }
+
+    @Then("^I should see an error message \"([^\"]*)\"$")
+    public void iShouldSeeAnErrorMessage(String errorMessage) {
+        registrationFormPage.verifyIfValidationErrorMessageIsVisible(errorMessage);
+    }
+
+    @And("^fill in nip with \"([^\"]*)\"$")
+    public void fillInNipWith(String nip) {
+        registrationFormPage.sendNip(nip);
     }
 }
