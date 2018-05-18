@@ -124,7 +124,7 @@ public class RegistrationPage {
         Assert.assertTrue(messageIsVisible);
     }
 
-    public void verifyIfFillInAllMessageVisible(String expectedMessage){
+    public void verifyIfFillInAllMessageVisible(String expectedMessage) {
         wait.until(ExpectedConditions.visibilityOf(fillInAllError));
         boolean messageIsVisible = fillInAllError.getText().contains(expectedMessage);
         Assert.assertTrue(messageIsVisible);
@@ -175,7 +175,7 @@ public class RegistrationPage {
         newUser.addProperty("name", "John");
         newUser.addProperty("surname", "Doe");
         newUser.addProperty("email", email);
-        newUser.addProperty(  "password", "password");
+        newUser.addProperty("password", "password");
         newUser.addProperty("phoneNumber", "000000000");
         newUser.addProperty("bankAccount", "01234567890123456789012345");
         newUser.add("address", address);
@@ -183,8 +183,6 @@ public class RegistrationPage {
         newUser.addProperty("invoiceRequest", true);
         newUser.add("invoice", invoice);
         System.out.println(newUser.toString());
-
-
         RestAssured.given().contentType("application/json").body(newUser.toString()).when().post("/users").then().assertThat().statusCode(200);
     }
 

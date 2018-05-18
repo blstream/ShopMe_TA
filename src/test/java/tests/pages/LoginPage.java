@@ -11,7 +11,6 @@ import static tests.Hooks.wait;
 
 public class LoginPage extends SearchServicePage {
 
-
     @FindBy(how = How.NAME, using = "login__user-email")
     public WebElement logInUserEmail;
 
@@ -21,9 +20,8 @@ public class LoginPage extends SearchServicePage {
     @FindBy(how = How.ID, using = "login-form__submit-form")
     public WebElement signInButton;
 
-    @FindBy(how = How.CSS, using = ".login-form__register-link > a:nth-child(2)")
+    @FindBy(how = How.XPATH, using = "//a[@href='/signup']")
     public WebElement registerLink;
-
 
     public LoginPage() {
         PageFactory.initElements(driver, this);
@@ -41,7 +39,7 @@ public class LoginPage extends SearchServicePage {
         signInButton.click();
     }
 
-    public void clickTheRegisterBtn(){
+    public void clickTheRegisterBtn() {
         wait.until(ExpectedConditions.elementToBeClickable(registerLink)).click();
     }
 }

@@ -1,5 +1,6 @@
 package tests.pages;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -40,8 +41,14 @@ public class RegistrationFormPage {
     @FindBy(how = How.XPATH, using = "//label[@for='invoiceCheckbox']")
     public WebElement invoiceCheckbox;
 
+    // @FindBy(how = How.ID, using = "invoiceCheckbox")
+    // public WebElement invoiceCheckbox;
+
     @FindBy(how = How.XPATH, using = "//label[@for='users__personal-data-processing']")
     public WebElement usersPersonalDataCheckbox;
+    //@FindBy(how = How.ID, using = "users__personal-data-processing")
+    //public WebElement usersPersonalDataCheckbox;
+
 
     @FindBy(how = How.NAME, using = "users_invoiceCompanyName")
     public WebElement invoiceCompanyName;
@@ -69,6 +76,8 @@ public class RegistrationFormPage {
 
     @FindBy(how = How.XPATH, using = "//label[@for='users__terms-and-conditions-checkbox']")
     public WebElement statuteCheckbox;
+    //@FindBy(how = How.ID, using = "users__terms-and-conditions-checkbox")
+    // public WebElement statuteCheckbox;
 
     @FindBy(how = How.NAME, using = "offer__voivodeship")
     public WebElement voivodeshipSelect;
@@ -162,11 +171,17 @@ public class RegistrationFormPage {
 
     public void acceptTermsOfPersonalDataProcessing() {
         usersPersonalDataCheckbox.click();
-        Assert.assertTrue(usersPersonalDataCheckbox.isSelected());
+        // Assert.assertTrue(usersPersonalDataCheckbox.isSelected());
+    }
+
+    public void doNotacceptTermsOfPersonalDataProcessing() {
+        Assert.assertFalse(usersPersonalDataCheckbox.isSelected());
     }
 
     public void pushRegisterButton() {
+        wait.until(ExpectedConditions.elementToBeClickable(registerButton));
         registerButton.click();
+        // wait.until(ExpectedConditions.invisibilityOf(registerButton));
     }
 
     public void verifyIfConfirmationMessageIsVisible(String message) {
@@ -186,7 +201,11 @@ public class RegistrationFormPage {
 
     public void acceptStatute() {
         statuteCheckbox.click();
-          Assert.assertTrue(statuteCheckbox.isSelected());
+        //Assert.assertTrue(statuteCheckbox.isSelected());
+    }
+
+    public void doNotAcceptStatute() {
+        Assert.assertFalse(statuteCheckbox.isSelected());
     }
 
     public void waitUntilSelectOptionsAreVisible() {
@@ -203,4 +222,48 @@ public class RegistrationFormPage {
             selectVoivodeship.selectByVisibleText(voivodeship);
         }
     }
+
+    public String generateNumber(int length) {
+        return StringUtils.leftPad("", length, '1');
+    }
+
+    public String generateString(int length) {
+        return StringUtils.leftPad("", length, 'A');
+    }
+
+    public void verifyIfPasswordInputLimited(int expectedLength) {
+        int actualLength = password.getAttribute("value").length();
+        Assert.assertEquals(expectedLength, actualLength);
+    }
+
+    public void verifyIfUserPhoneInputLimited(int expectedLength) {
+        int actualLength = userPhoneNumber.getAttribute("value").length();
+        Assert.assertEquals(expectedLength, actualLength);
+    }
+
+    public void verifyIfUserBankAccountNumberInputLimited(int expectedLength) {
+        int actualLength = userBankAccountNumber.getAttribute("value").length();
+        Assert.assertEquals(expectedLength, actualLength);
+    }
+
+    public void verifyIfUserZipCodeInputLimited(int expectedLength) {
+        int actualLength = addressZipCode.getAttribute("value").length();
+        Assert.assertEquals(expectedLength, actualLength);
+    }
+
+    public void verifyIfUserCityInputLimited(int expectedLength) {
+        int actualLength = addressCity.getAttribute("value").length();
+        Assert.assertEquals(expectedLength, actualLength);
+    }
+
+    public void verifyIfNipInputLimited(int expectedLength) {
+        int actualLength = invoiceNip.getAttribute("value").length();
+        Assert.assertEquals(expectedLength, actualLength);
+    }
+
+    public void verifyIfInvoiceAddressCityInputLimited(int expectedLength) {
+        int actualLength = invoiceAddressCity.getAttribute("value").length();
+        Assert.assertEquals(expectedLength, actualLength);
+    }
+
 }

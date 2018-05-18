@@ -1,5 +1,6 @@
 package tests.steps;
 
+
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -7,12 +8,9 @@ import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.response.ResponseBody;
 import org.junit.Assert;
-import tests.pages.LoginPage;
-import tests.pages.RegistrationFormPage;
-import tests.pages.RegistrationPage;
-import tests.pages.SearchServicePage;
+import tests.pages.*;
 
-public class SignUpStepDefs {
+public class SignUpStepDefs extends SearchServicePage{
 
     SearchServicePage searchServicePage = new SearchServicePage();
     LoginPage loginPage = new LoginPage();
@@ -128,7 +126,7 @@ public class SignUpStepDefs {
         registrationFormPage.acceptStatute();
     }
 
-    @And("^I fill in all necessary address data with \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\",\"([^\"]*)\"$")
+    @And("^I fill in all necessary address data with \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\"$")
     public void iFillInAllNecessaryAddressDataWith(String street, String number, String city, String zipCode, String voivodeship) {
         registrationFormPage.sendStreet(street);
         registrationFormPage.sendNumber(number);
@@ -189,5 +187,85 @@ public class SignUpStepDefs {
     @And("^I can see a message \"([^\"]*)\"$")
     public void iCanSeeAMessage(String expectedMessage) {
         registrationPage.verifyIfFillInAllMessageVisible(expectedMessage);
+    }
+
+    @And("^I don't accept terms of personal data processing$")
+    public void iDonTAcceptTermsOfPersonalDataProcessing()  {
+       registrationFormPage.doNotacceptTermsOfPersonalDataProcessing();
+    }
+
+    @And("^I don't accept statute$")
+    public void iDonTAcceptStatute()  {
+        registrationFormPage.doNotAcceptStatute();
+    }
+
+    @When("^I fill in password with (\\d+) characters$")
+    public void iFillInPasswordWithCharacters(int length) {
+        registrationFormPage.sendPassword(registrationFormPage.generateString(length));
+    }
+
+    @Then("^I should see in password maximum (\\d+) characters$")
+    public void iShouldSeeInPasswordMaximumCharacters(int length) throws Throwable {
+        registrationFormPage.verifyIfPasswordInputLimited(length);
+    }
+
+    @When("^I fill in userPhoneNumber with \"([^\"]*)\"$")
+    public void iFillInUserPhoneNumberWith(String phone) {
+        registrationFormPage.sendPhone(phone);
+    }
+
+    @Then("^I should see in userPhoneNumber maximum (\\d+) characters$")
+    public void iShouldSeeInUserPhoneNumberMaximumCharacters(int length) {
+        registrationFormPage.verifyIfUserPhoneInputLimited(length);
+    }
+
+    @When("^I fill in userBankAccountNumber with (\\d+) characters$")
+    public void iFillInUserBankAccountNumberWithCharacters(int length)  {
+        registrationFormPage.sendBankAccountNumber(registrationFormPage.generateNumber(length));
+    }
+
+    @Then("^I should see in userBankAccountNumber maximum (\\d+) characters$")
+    public void iShouldSeeInUserBankAccountNumberMaximumCharacters(int length){
+     registrationFormPage.verifyIfUserBankAccountNumberInputLimited(length);
+    }
+
+    @When("^I fill in addressZipCode with \"([^\"]*)\"$")
+    public void iFillInAddressZipCodeWith(String zipCode) {
+        registrationFormPage.sendZipCode(zipCode);
+    }
+
+    @Then("^I should see in addressZipCode maximum (\\d+) characters$")
+    public void iShouldSeeInAddressZipCodeMaximumCharacters(int length){
+        registrationFormPage.verifyIfUserZipCodeInputLimited(length);
+    }
+
+    @When("^I fill in addressCity with (\\d+) characters$")
+    public void iFillInAddressCityWithCharacters(int length) {
+        registrationFormPage.sendCity(registrationFormPage.generateString(length));
+    }
+
+    @Then("^I should see in addressCity maximum (\\d+) characters$")
+    public void iShouldSeeInAddressCityMaximumCharacters(int length) {
+        registrationFormPage.verifyIfUserCityInputLimited(length);
+    }
+
+    @When("^I fill in nip with \"([^\"]*)\"$")
+    public void iFillInNipWith(String nip){
+        registrationFormPage.sendNip(nip);
+    }
+
+    @Then("^I should see in nip maximum (\\d+) characters$")
+    public void iShouldSeeInNipMaximumCharacters(int length) {
+       registrationFormPage.verifyIfNipInputLimited(length);
+    }
+
+    @When("^I fill in invoiceAddressCity with (\\d+) characters$")
+    public void iFillInInvoiceAddressCityWithCharacters(int length)  {
+        registrationFormPage.sendCompanyCity(registrationFormPage.generateString(length));
+    }
+
+    @Then("^I should see in invoiceAddressCity maximum (\\d+) characters$")
+    public void iShouldSeeInInvoiceAddressCityMaximumCharacters(int length){
+        registrationFormPage.verifyIfInvoiceAddressCityInputLimited(length);
     }
 }

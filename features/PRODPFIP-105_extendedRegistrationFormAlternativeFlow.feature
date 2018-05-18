@@ -17,7 +17,7 @@ Feature: PRODPFIP-105 User registration - alternative flow for extended registra
   Scenario Outline: Signing up for ShopMe website with invalid password
     When I fill in password with "<password>"
     And I fill in all necessary personal data with "123456789", "11111111111111111111111111"
-    And I fill in all necessary address data with "Kwiatowa", "5", "Szczecin", "71-000","Zachodniopomorskie"
+    And I fill in all necessary address data with "Kwiatowa", "5", "Szczecin", "71-000", "Zachodniopomorskie"
     And I accept statute
     And I accept terms of personal data processing
     And I click Register button
@@ -34,7 +34,7 @@ Feature: PRODPFIP-105 User registration - alternative flow for extended registra
   Scenario Outline: Signing up for ShopMe website with invalid phone number and bank account number
     When I fill in password with "TestPassword1"
     And I fill in all necessary personal data with "<phone_number>", "<bank_account>"
-    And I fill in all necessary address data with "Kwiatowa", "5", "Szczecin", "71-000","Zachodniopomorskie"
+    And I fill in all necessary address data with "Kwiatowa", "5", "Szczecin", "71-000", "Zachodniopomorskie"
     And I accept statute
     And I accept terms of personal data processing
     And I click Register button
@@ -114,7 +114,7 @@ Feature: PRODPFIP-105 User registration - alternative flow for extended registra
   Scenario Outline: Signing up for ShopMe website with invalid address data
     When I fill in password with "TestPassword1"
     And I fill in all necessary personal data with "123456789", "11111111111111111111111111"
-    And I fill in all necessary address data with "<street>", "<number>", "<city>", "<post_code>","<voivodeship>"
+    And I fill in all necessary address data with "<street>", "<number>", "<city>", "<post_code>", "<voivodeship>"
     And I accept statute
     And I accept terms of personal data processing
     And I click Register button
@@ -166,7 +166,7 @@ Feature: PRODPFIP-105 User registration - alternative flow for extended registra
   Scenario: Signing up for ShopMe website without accepting terms of personal data processing
     When I fill in password with "TestPassword1"
     And I fill in all necessary personal data with "123456789", "11111111111111111111111111"
-    And I fill in all necessary address data with "Kwiatowa", "5", "Szczecin", "71-000","Zachodniopomorskie"
+    And I fill in all necessary address data with "Kwiatowa", "5", "Szczecin", "71-000", "Zachodniopomorskie"
     And I accept statute
     And I don't accept terms of personal data processing
     And I click Register button
@@ -175,7 +175,7 @@ Feature: PRODPFIP-105 User registration - alternative flow for extended registra
   Scenario: Signing up for ShopMe website without accepting statue
     When I fill in password with "TestPassword1"
     And I fill in all necessary personal data with "123456789", "11111111111111111111111111"
-    And I fill in all necessary address data with "Kwiatowa", "5", "Szczecin", "71-000","Zachodniopomorskie"
+    And I fill in all necessary address data with "Kwiatowa", "5", "Szczecin", "71-000", "Zachodniopomorskie"
     And I don't accept statute
     And I accept terms of personal data processing
     And I click Register button
