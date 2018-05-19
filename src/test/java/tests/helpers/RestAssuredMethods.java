@@ -7,6 +7,7 @@ import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.response.ResponseBody;
 import tests.objects.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,7 +61,6 @@ public class RestAssuredMethods {
 
     public void deleteServiceById(String id) {
         MyService serviceToDelete = getServiceById(id);
-
         if (serviceToDelete != null) {
             RestAssured.baseURI = this.baseURI;
             RestAssured.given().contentType("application/json").when().delete("/offers/" + id).then().assertThat().statusCode(200);
@@ -152,7 +152,7 @@ public class RestAssuredMethods {
     }
 
     public String authorizeAndGetBearerToken() {
-        RestAssured.baseURI = "https://patronage2018.intive-projects.com/api";
+        RestAssured.baseURI = this.baseURI;
         Credentials credentials = new Credentials();
         credentials.setEmail("john.doe@gmail.com");
         credentials.setPassword("Password1234");

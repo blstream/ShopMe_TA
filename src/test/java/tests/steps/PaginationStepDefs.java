@@ -26,12 +26,12 @@ public class PaginationStepDefs {
         this.servicesBeforeAdd = servicesBeforeAdd;
     }
 
-    @Then("^The results for \"([^\"]*)\" are shifted one forward$")
-    public void theResultsForAreShiftedOneForward(String searchingPhrase) {
+    @Then("^The results for \"([^\"]*)\" are shifted ten forward$")
+    public void theResultsForAreShiftedTenForward(String searchingPhrase) {
         List<MyService> newServices = restAssuredMethods.searchForServices(searchingPhrase);
         List<MyService> List = restAssuredMethods.searchForServicesOnPage(4, 10, searchingPhrase).content;
         for (int i = 0; i < servicesBeforeAdd.size(); i++)
-            Assert.assertTrue(servicesBeforeAdd.get(i).equalsOnList(newServices.get(i + 1)));
+            Assert.assertTrue(servicesBeforeAdd.get(i).equalsOnList(newServices.get(i + 10)));
         for (int i = 0; i < 10; i++)
             Assert.assertTrue(searchResultsPage.getServicesTitles().get(i).substring(4).equals(List.get(i).title));
     }
@@ -54,7 +54,8 @@ public class PaginationStepDefs {
             service.extendedPrice = Float.valueOf(someRow.getCells().get(9));
             service.extraDescription = someRow.getCells().get(10);
             service.extraPrice = Float.valueOf(someRow.getCells().get(11));
-            restAssuredMethods.addService(service);
+            String token = restAssuredMethods.authorizeAndGetBearerToken();
+            restAssuredMethods.addServiceAuth(service, token);
         }
     }
 
@@ -172,10 +173,10 @@ public class PaginationStepDefs {
     public void theResultsAreShiftedFourToTheBack(String searchingPhrase, int numberOfDeleteResults) {
         List<MyService> newServices = restAssuredMethods.searchForServices(searchingPhrase);
         List<MyService> List = restAssuredMethods.searchForServicesOnPage(4, 10, searchingPhrase).content;
-        for (int i = 0; i < 30; i++)
+        for (int i = 0; i < 10; i++)
             Assert.assertTrue(servicesBeforeAdd.get(i).equalsOnList(newServices.get(i)));
-        for (int i = 30 + numberOfDeleteResults; i < newServices.size(); i++)
-            Assert.assertTrue(servicesBeforeAdd.get(i).equalsOnList(newServices.get(i - 4)));
+        for (int i = 10 + numberOfDeleteResults; i < newServices.size(); i++)
+            Assert.assertTrue(servicesBeforeAdd.get(i).equalsOnList(newServices.get(i - numberOfDeleteResults)));
         for (int i = 0; i < 10; i++)
             Assert.assertTrue(searchResultsPage.getServicesTitles().get(i).substring(4).equals(List.get(i).title));
     }
