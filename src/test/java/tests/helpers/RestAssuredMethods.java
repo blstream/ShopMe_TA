@@ -19,7 +19,7 @@ public class RestAssuredMethods {
         this.baseURI = baseURI;
     }
 
-    public void addServiceAuth(MyService service, String auth_token) {
+    public void authenticateAndAddService(MyService service, String authenticationToken) {
         MyService content = new MyService();
 
         content.title = service.getTitle();
@@ -34,10 +34,10 @@ public class RestAssuredMethods {
         Gson gson = new Gson();
         String result = gson.toJson(content);
         RestAssured.baseURI = this.baseURI;
-        RestAssured.given().header("Authorization", "Bearer " + auth_token).contentType("application/json").body(result).when().post("/offers").then().assertThat().statusCode(200);
+        RestAssured.given().header("Authorization", "Bearer " + authenticationToken).contentType("application/json").body(result).when().post("/offers").then().assertThat().statusCode(200);
     }
 
-    public void addServices(DataTable services, String auth_token) {
+    public void addServices(DataTable services, String authenticationToken) {
         DataTable dt = services;
         MyService service = new MyService();
         User user1 = new User();
@@ -55,7 +55,7 @@ public class RestAssuredMethods {
             service.extraDescription = someRow.getCells().get(10);
             service.extraPrice = Float.valueOf(someRow.getCells().get(11));
 
-            addServiceAuth(service, auth_token);
+            authenticateAndAddService(service, authenticationToken);
         }
     }
 
@@ -162,7 +162,7 @@ public class RestAssuredMethods {
                 when().
                 post("/users/login");
 
-        String auth_token = response.path("jwt").toString();
-        return auth_token;
+        String authenticationToken = response.path("jwt").toString();
+        return authenticationToken;
     }
 }

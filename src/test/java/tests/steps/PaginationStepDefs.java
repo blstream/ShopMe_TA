@@ -55,7 +55,7 @@ public class PaginationStepDefs {
             service.extraDescription = someRow.getCells().get(10);
             service.extraPrice = Float.valueOf(someRow.getCells().get(11));
             String token = restAssuredMethods.authorizeAndGetBearerToken();
-            restAssuredMethods.addServiceAuth(service, token);
+            restAssuredMethods.authenticateAndAddService(service, token);
         }
     }
 
