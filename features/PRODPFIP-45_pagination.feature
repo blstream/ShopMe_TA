@@ -2,41 +2,41 @@
 Feature: PRODPFIP-45 Pagination of search results
   As a user I want to navigate between search result pages so that I can see all the search results
 
-    Scenario: Displaying all existing services
-     # Given that there are no services added
-      Given I add 4 different services
-      # | service name | category | user name | user email      | user phone | user info | base description | base price | extended description | extended price | extra description | extra price | province          | city     |
-        | test         | law      | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          | WesternPomeranian | Szczecin |
-      When I go to ShopMe main page
-      And I enter a searching phrase "test" into the search field
-      And I click the search button
-      Then I can go to any service from database with title "test"
+#    Scenario: Displaying all existing services
+##     # Given that there are no services added
+##      Given I add 43 different services
+##      # | service name | category | user name | user email      | user phone | user info | base description | base price | extended description | extended price | extra description | extra price | province          | city     |
+##        | test         | law      | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          | WesternPomeranian | Szczecin |
+#      Given I go to ShopMe main page
+#      When I enter a searching phrase "test" into the search field
+#      And I click the search button
+#      Then I can go to any service from database with title "test"
 
 #  Scenario: Correct displaying pagination
 #    When I go to ShopMe main page
 #    And I enter a searching phrase "test" into the search field
 #    And I click the search button
 #    Then search results are visible
-#    And I can see 10 records
+#    And I can see first 10 records
 #    And I can see pagination buttons
 #    And I can see that number 1 is bold
 #    And I can see how many search result pages there are
 
-#  Scenario Outline: Correct number of results on each page
-#    Given I add <number_of_services> different services
-#    # | service name       | category | user name | user email      | user phone | user info | base description | base price | extended description | extended price | extra description | extra price | province          | city     |
-#      | <searching_phrase> | law      | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          | WesternPomeranian | Szczecin |
- #When I go to ShopMe main page
-#    And I enter a searching phrase "<searching_phrase>" into the search field
-#    And I click the search button
-#   Then Every page but the last one contain 10 results
-#    And The last page contains maximum 10 results
-#
-#    Examples:
-#      | searching_phrase | number_of_results |
-#      | firstTest           | 1               |
-#      | secondTest           | 10                |
-#
+  Scenario Outline: Correct number of results on each page
+    Given I add <number_of_services> different services
+    # | service name       | category | user name | user email      | user phone | user info | base description | base price | extended description | extended price | extra description | extra price | province          | city     |
+      | "<searching_phrase>" | law      | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          | WesternPomeranian | Szczecin |
+ When I go to ShopMe main page
+    And I enter a searching phrase "<searching_phrase>" into the search field
+    And I click the search button
+   Then Every page but the last one contain 10 results
+    And The last page contains maximum 10 results
+
+    Examples:
+      | searching_phrase | number_of_services |
+      | firstTest           | 1               |
+      | secondTest           | 10                |
+
 #  Scenario: Correct navigation with number-button between the pages
 #    Given I go to ShopMe main page
 #    When I enter a searching phrase "test" into the search field

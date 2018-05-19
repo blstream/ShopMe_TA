@@ -76,9 +76,9 @@ public class SearchResultsPage extends SearchServicePage {
                         if (getNumberOfPage(number + 1).getText().equals(String.valueOf(number + 2)))
                                 getNumberOfPage(number + 1).click();
                         else
-                            getNumberOfPage(5).click();
+                            getNumberOfPage(4).click();
                     } catch (IndexOutOfBoundsException e) {
-                        getNumberOfPage(5).click();
+                        getNumberOfPage(4).click();
                     }
             }
 
@@ -160,6 +160,7 @@ public class SearchResultsPage extends SearchServicePage {
                             }
                         if (j + 1 < pageNumberInFE) {
                                 pushNextPageNumberButton(j);
+                                System.out.println(j+"active:"+activePageButton.getText());
                                 wait.until(ExpectedConditions.textToBePresentInElement(activePageButton, String.valueOf(j + 2)));
                                 elementsPerPage = resultsList.findElements(By.className("services-item__title"));
                                 last = elementsPerPage.size();

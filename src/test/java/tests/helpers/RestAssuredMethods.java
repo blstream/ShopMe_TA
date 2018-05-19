@@ -35,7 +35,7 @@ public class RestAssuredMethods {
         String result = gson.toJson(content);
         RestAssured.baseURI = this.baseURI;
         RestAssured.given()
-                .header("Authorization", "Bearer " + "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkYTA3Y2Y4OC0zYmM0LTRmOTItOWU3NS0zNTY4ZjhiNWM3OGEiLCJlbWFpbCI6InRAdC50Iiwic2NvcGVzIjpbIlVTRVIiXSwiaWF0IjoxNTI2NTg4NTkzLCJleHAiOjE1MjY1OTU3OTN9.iH7NjRoN75clpGvpl8WpGhBCKPM7ER2RSTPYI1OALL9ss_oYSZCNcS1E4jTUeH_ETCeX0_lJn1ZuuoFjpEg1iQ")
+                .header("Authorization", "Bearer " + "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkYTA3Y2Y4OC0zYmM0LTRmOTItOWU3NS0zNTY4ZjhiNWM3OGEiLCJlbWFpbCI6InRAdC50Iiwic2NvcGVzIjpbIlVTRVIiXSwiaWF0IjoxNTI2NjUxOTEwLCJleHAiOjE1MjY2NTkxMTB9.m4Izy5aegk4x8Us2SmqCgO9NKCFNave0qhtFNJXMGEFNh18sgBlpr4Zj4DGZnuxqduGQ5aV4dj7xJ56YTz_j8w")
                 .contentType("application/json")
                 .body(result)
                 .when()
@@ -120,7 +120,7 @@ public class RestAssuredMethods {
         List<MyService> allElements = getAllServices();
         List<MyService> allElementsTitle = new ArrayList<>();
         for (int i = 0; i < allElements.size(); i++) {
-            if (allElements.get(i).title.equals(title))
+            if (allElements.get(i).title.toLowerCase().contains(title))
                 allElementsTitle.add(allElements.get(i));
         }
         return allElementsTitle;

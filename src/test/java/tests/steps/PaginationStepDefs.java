@@ -45,8 +45,8 @@ public class PaginationStepDefs {
             DataTableRow someRow = dt.getGherkinRows().get(0);
 
             service.title = someRow.getCells().get(0) + String.valueOf(i);
-            service.category = new Category(null, someRow.getCells().get(1));
-            user1.voivodeship = new Voivodeship("1511273a-bb97-4e8a-924b-e6ff7583f135", someRow.getCells().get(12));
+            service.category = new Category(someRow.getCells().get(1));
+            user1.voivodeship = new Voivodeship(someRow.getCells().get(12));
             service.user = new User(someRow.getCells().get(2), someRow.getCells().get(3), someRow.getCells().get(4), someRow.getCells().get(5), user1.voivodeship, someRow.getCells().get(13));
             service.baseDescription = someRow.getCells().get(6);
             service.basePrice = Float.valueOf(someRow.getCells().get(7)) + i;
