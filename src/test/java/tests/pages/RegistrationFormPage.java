@@ -73,8 +73,6 @@ public class RegistrationFormPage {
 
     @FindBy(how = How.XPATH, using = "//label[@for='users__terms-and-conditions-checkbox']")
     public WebElement statuteCheckbox;
-    //@FindBy(how = How.ID, using = "users__terms-and-conditions-checkbox")
-    // public WebElement statuteCheckbox;
 
     @FindBy(how = How.NAME, using = "offer__voivodeship")
     public WebElement voivodeshipSelect;
@@ -172,7 +170,6 @@ public class RegistrationFormPage {
 
     public void doNotacceptTermsOfPersonalDataProcessing() {
         Assert.assertFalse(usersPersonalDataCheckbox.isSelected());
-        // Assert.assertTrue(usersPersonalDataCheckbox.Selected());
     }
 
     public void pushRegisterButton() {
@@ -197,7 +194,6 @@ public class RegistrationFormPage {
 
     public void acceptStatute() {
         statuteCheckbox.click();
-        //Assert.assertTrue(statuteCheckbox.isSelected());
     }
 
     public void doNotAcceptStatute() {
