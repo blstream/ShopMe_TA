@@ -18,8 +18,7 @@ public class RestAssuredMethods {
         this.baseURI = baseURI;
     }
 
-
-    public void addService(MyService service) {
+    public void addServiceAuth(MyService service, String auth_token) {
         MyService content = new MyService();
 
         content.title = service.getTitle();
@@ -34,16 +33,10 @@ public class RestAssuredMethods {
         Gson gson = new Gson();
         String result = gson.toJson(content);
         RestAssured.baseURI = this.baseURI;
-        RestAssured.given()
-                .header("Authorization", "Bearer " + "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkYTA3Y2Y4OC0zYmM0LTRmOTItOWU3NS0zNTY4ZjhiNWM3OGEiLCJlbWFpbCI6InRAdC50Iiwic2NvcGVzIjpbIlVTRVIiXSwiaWF0IjoxNTI2NjUxOTEwLCJleHAiOjE1MjY2NTkxMTB9.m4Izy5aegk4x8Us2SmqCgO9NKCFNave0qhtFNJXMGEFNh18sgBlpr4Zj4DGZnuxqduGQ5aV4dj7xJ56YTz_j8w")
-                .contentType("application/json")
-                .body(result)
-                .when()
-                .post("/offers")
-                .then().assertThat().statusCode(200);
+        RestAssured.given().header("Authorization", "Bearer " + auth_token).contentType("application/json").body(result).when().post("/offers").then().assertThat().statusCode(200);
     }
 
-    public void addServices(DataTable services) {
+    public void addServices(DataTable services, String auth_token) {
         DataTable dt = services;
         MyService service = new MyService();
         User user1 = new User();
@@ -61,7 +54,7 @@ public class RestAssuredMethods {
             service.extraDescription = someRow.getCells().get(10);
             service.extraPrice = Float.valueOf(someRow.getCells().get(11));
 
-            addService(service);
+            addServiceAuth(service, auth_token);
         }
     }
 
@@ -156,5 +149,20 @@ public class RestAssuredMethods {
         String result = gson.toJson(user);
         RestAssured.baseURI = this.baseURI;
         RestAssured.given().contentType("application/json").body(result).when().post("/users").then().assertThat().statusCode(200);
+    }
+
+    public String authorizeAndGetBearerToken() {
+        RestAssured.baseURI = "https://patronage2018.intive-projects.com/api";
+        Credentials credentials = new Credentials();
+        credentials.setEmail("john.doe@gmail.com");
+        credentials.setPassword("Password1234");
+        Response response = RestAssured.given().
+                header("Content-Type", "application/json").
+                body(credentials).
+                when().
+                post("/users/login");
+
+        String auth_token = response.path("jwt").toString();
+        return auth_token;
     }
 }
