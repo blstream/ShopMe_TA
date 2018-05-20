@@ -4,13 +4,13 @@ Feature: PRODPFIP-45 Pagination of search results
 
   Scenario: Displaying all existing services
     Given that there are no services added
-    And I add 5 different services
+    And I add 30 different services
     # | service name | category | user name | user email      | user phone | user info | base description | base price | extended description | extended price | extra description | extra price | province          | city     |
       | test         | law      | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          | WesternPomeranian | Szczecin |
     When I go to ShopMe main page
     And I enter a searching phrase "test" into the search field
     And I click the search button
-    Then I can go to any service from database with title "test"
+    Then I can see all of the services with name "test" from database
 
   Scenario: Correct displaying pagination
     When I go to ShopMe main page
@@ -48,14 +48,14 @@ Feature: PRODPFIP-45 Pagination of search results
     And previous-button is visible
     And I can return to the first page
 
-  Scenario: Correct navigation on the last page
+  Scenario: Correct navigation to the last page
     Given I go to ShopMe main page
     When I enter a searching phrase "test" into the search field
     And I click the search button
     And search results are visible
     And I click the last page button
     Then search results are visible
-    And I can see list of last records
+    And I am on the last page
     And I can see first page button
     And next-button is invisible
 

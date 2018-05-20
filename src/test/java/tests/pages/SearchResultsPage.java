@@ -54,6 +54,9 @@ public class SearchResultsPage extends SearchServicePage {
     @FindBy(how = How.CLASS_NAME, using = "pagination__button--previous")
     public WebElement previousButton;
 
+    @FindBy(how = How.CLASS_NAME, using = "services-item__title")
+    public List<WebElement> servicesTitles;
+
     private WebElement getServiceRowElement(int line) {
         return ServiceList.get(line);
     }
@@ -107,7 +110,7 @@ public class SearchResultsPage extends SearchServicePage {
         }
     }
 
-    public String getLastPage() {
+    public String getLastPageNumberVisible() {
         wait.until(ExpectedConditions.visibilityOf(lastPageButton));
         return lastPageButton.getText();
     }
@@ -117,7 +120,7 @@ public class SearchResultsPage extends SearchServicePage {
         if (pageButtonsList.size() <= 3) {
             pageNumberInFE = pageButtonsList.size();
         } else {
-            pageNumberInFE = Integer.valueOf(getLastPage());
+            pageNumberInFE = Integer.valueOf(getLastPageNumberVisible());
         }
         return pageNumberInFE;
     }
@@ -137,8 +140,7 @@ public class SearchResultsPage extends SearchServicePage {
         wait.until(ExpectedConditions.visibilityOf(resultsList));
         Integer pageNumberInFE = getNumberOfPagesFromFE();
 
-        List<WebElement> elementsPerPage = resultsList.findElements(By.className("services-item__title"));
-        int last = elementsPerPage.size();
+        int last = servicesTitles.size();
         for (int j = 0; j < pageNumberInFE; j++) {
             for (int i = 0; i < last; i++) {
                 int b = getServiceRowElement(i).getText().length();
@@ -148,22 +150,18 @@ public class SearchResultsPage extends SearchServicePage {
             }
             if (j + 1 < pageNumberInFE) {
                 pushNextPageNumberButton(j);
-                System.out.println(j + "active:" + activePageButton.getText());
                 wait.until(ExpectedConditions.textToBePresentInElement(activePageButton, String.valueOf(j + 2)));
-                elementsPerPage = resultsList.findElements(By.className("services-item__title"));
-                last = elementsPerPage.size();
+                last = servicesTitles.size();
             }
         }
     }
 
     public void isNumberOfServicesCorrect(int numberPerPage) {
-        List<WebElement> titlesPerPage = resultsList.findElements(By.className("services-item__title"));
-        Assert.assertEquals(numberPerPage, titlesPerPage.size());
+        Assert.assertEquals(numberPerPage, servicesTitles.size());
     }
 
     public void isNumberOfLastServicesUnderLimit(int limit) {
-        List<WebElement> titlesPerPage = resultsList.findElements(By.className("services-item__title"));
-        assertTrue(titlesPerPage.size() <= limit);
+        assertTrue(servicesTitles.size() <= limit);
     }
 
     public void isNumberOfAllPagesVisible() {

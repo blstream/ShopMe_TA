@@ -29,11 +29,11 @@ public class PaginationStepDefs {
     @Then("^The results for \"([^\"]*)\" are shifted ten forward$")
     public void theResultsForAreShiftedTenForward(String searchingPhrase) {
         List<MyService> newServices = restAssuredMethods.searchForServices(searchingPhrase);
-        List<MyService> List = restAssuredMethods.searchForServicesOnPage(4, 10, searchingPhrase).content;
+        List<MyService> servicesFromFourthPage = restAssuredMethods.searchForServicesOnPage(4, 10, searchingPhrase).content;
         for (int i = 0; i < servicesBeforeAdd.size(); i++)
             Assert.assertTrue(servicesBeforeAdd.get(i).equalsOnList(newServices.get(i + 10)));
         for (int i = 0; i < 10; i++)
-            Assert.assertTrue(searchResultsPage.getServicesTitles().get(i).substring(4).equals(List.get(i).title));
+            Assert.assertTrue(searchResultsPage.getServicesTitles().get(i).substring(4).equals(servicesFromFourthPage.get(i).title));
     }
 
     @When("^I add (\\d+) different services$")
@@ -59,7 +59,7 @@ public class PaginationStepDefs {
         }
     }
 
-    @Then("^I can go to any service from database with title \"([^\"]*)\"$")
+    @Then("^I can see all of the services with name \"([^\"]*)\" from database$")
     public void iCanSeeAllServicesFromDatabaseWithTitle(String titlePhrase) {
         searchResultsPage.areAllDatabaseServicesPresent(titlePhrase);
     }
@@ -128,8 +128,8 @@ public class PaginationStepDefs {
         searchResultsPage.pushLastPageButton();
     }
 
-    @And("^I can see list of last records$")
-    public void iCanSeeListOfLastRecords() {
+    @And("^I am on the last page$")
+    public void iAmOnTheLastPage() {
         searchResultsPage.areLastServicesVisible();
     }
 
@@ -172,12 +172,12 @@ public class PaginationStepDefs {
     @Then("^The results for \"([^\"]*)\" are shifted (\\d+) to the back$")
     public void theResultsAreShiftedFourToTheBack(String searchingPhrase, int numberOfDeleteResults) {
         List<MyService> newServices = restAssuredMethods.searchForServices(searchingPhrase);
-        List<MyService> List = restAssuredMethods.searchForServicesOnPage(4, 10, searchingPhrase).content;
+        List<MyService> servicesFromFourthPage = restAssuredMethods.searchForServicesOnPage(4, 10, searchingPhrase).content;
         for (int i = 0; i < 10; i++)
             Assert.assertTrue(servicesBeforeAdd.get(i).equalsOnList(newServices.get(i)));
         for (int i = 10 + numberOfDeleteResults; i < newServices.size(); i++)
             Assert.assertTrue(servicesBeforeAdd.get(i).equalsOnList(newServices.get(i - numberOfDeleteResults)));
         for (int i = 0; i < 10; i++)
-            Assert.assertTrue(searchResultsPage.getServicesTitles().get(i).substring(4).equals(List.get(i).title));
+            Assert.assertTrue(searchResultsPage.getServicesTitles().get(i).substring(4).equals(servicesFromFourthPage.get(i).title));
     }
 }
