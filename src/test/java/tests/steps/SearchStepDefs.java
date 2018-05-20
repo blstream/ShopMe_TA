@@ -30,7 +30,8 @@ public class SearchStepDefs {
 
     @And("^I add services$")
     public void iAddServices(DataTable services) {
-        restAssuredMethods.addServices(services);
+        String token = restAssuredMethods.authorizeAndGetBearerToken();
+        restAssuredMethods.addServices(services, token);
     }
 
     @And("^I enter a searching phrase \"([^\"]*)\" into the search field$")

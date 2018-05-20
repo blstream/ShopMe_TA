@@ -9,10 +9,7 @@ import io.restassured.response.ResponseBody;
 import tests.objects.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
-
 
 public class RestAssuredMethods {
 
@@ -22,25 +19,11 @@ public class RestAssuredMethods {
         this.baseURI = baseURI;
     }
 
-    public Category[] getCategoryFromBE() {
-        Response response = RestAssured.given().get(baseURI + "/categories");
-        ResponseBody body = response.getBody();
-        Gson gson = new Gson();
-        Category[] categoryFromBE = gson.fromJson(body.asString(), Category[].class);
-        return categoryFromBE;
-    }
-
-    public Category getCategoryByName(String name) {
-        List<Category> categories = Arrays.asList(getCategoryFromBE());
-        Category category = categories.stream().filter(item -> item.name.equals(name)).collect(Collectors.toList()).get(0);
-        return category;
-    }
-
-    public void addService(MyService service) {
+    public void authenticateAndAddService(MyService service, String authenticationToken) {
         MyService content = new MyService();
 
         content.title = service.getTitle();
-        content.category = getCategoryByName(service.category.getName());
+        content.category = new Category(service.category.getName());
         content.baseDescription = service.getBaseDesription();
         content.basePrice = service.getBasePrice();
         content.user = new User(service.user.getName(), service.user.getEmail(), service.user.getPhoneNumber(), service.user.getAdditionalInfo(), service.user.voivodeship, service.user.getCity());
@@ -51,10 +34,10 @@ public class RestAssuredMethods {
         Gson gson = new Gson();
         String result = gson.toJson(content);
         RestAssured.baseURI = this.baseURI;
-        RestAssured.given().contentType("application/json").body(result).when().post("/offers").then().assertThat().statusCode(200);
+        RestAssured.given().header("Authorization", "Bearer " + authenticationToken).contentType("application/json").body(result).when().post("/offers").then().assertThat().statusCode(200);
     }
 
-    public void addServices(DataTable services) {
+    public void addServices(DataTable services, String authenticationToken) {
         DataTable dt = services;
         MyService service = new MyService();
         User user1 = new User();
@@ -62,8 +45,8 @@ public class RestAssuredMethods {
             DataTableRow someRow = dt.getGherkinRows().get(i);
 
             service.title = someRow.getCells().get(0);
-            service.category = new Category(null, someRow.getCells().get(1));
-            user1.voivodeship = new Voivodeship("1511273a-bb97-4e8a-924b-e6ff7583f135", someRow.getCells().get(12));
+            service.category = new Category(someRow.getCells().get(1));
+            user1.voivodeship = new Voivodeship(someRow.getCells().get(12));
             service.user = new User(someRow.getCells().get(2), someRow.getCells().get(3), someRow.getCells().get(4), someRow.getCells().get(5), user1.voivodeship, someRow.getCells().get(13));
             service.baseDescription = someRow.getCells().get(6);
             service.basePrice = Float.valueOf(someRow.getCells().get(7));
@@ -72,13 +55,12 @@ public class RestAssuredMethods {
             service.extraDescription = someRow.getCells().get(10);
             service.extraPrice = Float.valueOf(someRow.getCells().get(11));
 
-            addService(service);
+            authenticateAndAddService(service, authenticationToken);
         }
     }
 
     public void deleteServiceById(String id) {
         MyService serviceToDelete = getServiceById(id);
-
         if (serviceToDelete != null) {
             RestAssured.baseURI = this.baseURI;
             RestAssured.given().contentType("application/json").when().delete("/offers/" + id).then().assertThat().statusCode(200);
@@ -104,6 +86,18 @@ public class RestAssuredMethods {
         return servicesOnPage;
     }
 
+    public Services searchForServicesOnPage(int pageNumber, int pageSize, String title) {
+        Response response = RestAssured.given()
+                .queryParam("page", pageNumber)
+                .queryParam("pageSize", pageSize)
+                .queryParam("title", title)
+                .get(baseURI + "/offers");
+        ResponseBody body = response.getBody();
+        Gson gson = new Gson();
+        Services servicesOnPage = gson.fromJson(body.asString(), Services.class);
+        return servicesOnPage;
+    }
+
     public List<MyService> getAllServices() {
         List<MyService> offersList = new ArrayList<>();
         for (int i = 1; ; i++) {
@@ -119,7 +113,7 @@ public class RestAssuredMethods {
         List<MyService> allElements = getAllServices();
         List<MyService> allElementsTitle = new ArrayList<>();
         for (int i = 0; i < allElements.size(); i++) {
-            if (allElements.get(i).title.equals(title))
+            if (allElements.get(i).title.toLowerCase().contains(title))
                 allElementsTitle.add(allElements.get(i));
         }
         return allElementsTitle;
@@ -136,8 +130,8 @@ public class RestAssuredMethods {
         deleteServiceById(myService.id);
     }
 
-    public void addUserWithEmail(String email){
-        Address address = new Address("5d214c01-95c3-4ec4-8f68-51dfb80b191c","Niepodległości", "12/1", "Szczecin", "70-125");
+    public void addUserWithEmail(String email) {
+        Address address = new Address("5d214c01-95c3-4ec4-8f68-51dfb80b191c", "Niepodległości", "12/1", "Szczecin", "70-125");
         User user = new User();
 
         user.id = "5d214c01-95c3-4ec4-8f68-51dfb80b191c";
@@ -148,14 +142,27 @@ public class RestAssuredMethods {
         user.phoneNumber = "0234567890";
         user.bankAccount = "01234567890123456789012345";
         user.address = address;
-        user.voivodeship = new Voivodeship("1511273a-bb97-4e8a-924b-e6ff7583f135", "WesternPomeranian");
+        user.voivodeship = new Voivodeship("WesternPomeranian");
         user.invoiceRequest = true;
-        user.invoice = new Invoice("5d214c01-95c3-4ec4-8f68-51dfb80b191c","Fight Club Sp.z.o.o.", "123-456-78-90", address);
-
+        user.invoice = new Invoice("5d214c01-95c3-4ec4-8f68-51dfb80b191c", "Fight Club Sp.z.o.o.", "123-456-78-90", address);
         Gson gson = new Gson();
         String result = gson.toJson(user);
-
         RestAssured.baseURI = this.baseURI;
         RestAssured.given().contentType("application/json").body(result).when().post("/users").then().assertThat().statusCode(200);
+    }
+
+    public String authorizeAndGetBearerToken() {
+        RestAssured.baseURI = this.baseURI;
+        Credentials credentials = new Credentials();
+        credentials.setEmail("john.doe@gmail.com");
+        credentials.setPassword("Password1234");
+        Response response = RestAssured.given().
+                header("Content-Type", "application/json").
+                body(credentials).
+                when().
+                post("/users/login");
+
+        String authenticationToken = response.path("jwt").toString();
+        return authenticationToken;
     }
 }

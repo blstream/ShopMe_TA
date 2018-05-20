@@ -5,6 +5,7 @@ Feature: PRODPFIP-122 User registration - using email already existing in databa
   Background:
     Given I go to ShopMe main page
     And I push Login button
+    And I push SignUp button
     And I can see registration form
     And Email "registration@test.com" used in registration is already in database
 
