@@ -5,6 +5,7 @@ Feature: PRODPFIP-105 User registration - alternative flow for extended registra
   Background:
     Given I go to ShopMe main page
     And I push Login button
+    And I push SignUp button
     And I can see registration form
     And I fill in all necessary registration data with testEmail, "Jan", "Kowalski",
     And I push Register button
@@ -16,16 +17,16 @@ Feature: PRODPFIP-105 User registration - alternative flow for extended registra
   Scenario Outline: Signing up for ShopMe website with invalid password
     When I fill in password with "<password>"
     And I fill in all necessary personal data with "123456789", "11111111111111111111111111"
-    And I fill in all necessary address data with "Kwiatowa", "5", "Szczecin", "71-000","Zachodniopomorskie"
+    And I fill in all necessary address data with "Kwiatowa", "5", "Szczecin", "71-000", "Zachodniopomorskie"
     And I accept statute
     And I accept terms of personal data processing
     And I click Register button
-    Then I can see an error message "<error_message>"
+    Then I should see an error message "<error_message>"
     Examples:
       | password  | error_message                                                     |
-      | samemale  | Hasło musi zawierać co najmniej jedna wielką literę i jedną cyfrę |
-      | samemale1 | Hasło musi zawierać co najmniej jedna wielką literę i jedną cyfrę |
-      | TestTest  | Hasło musi zawierać co najmniej jedna wielką literę i jedną cyfrę |
+      | samemale  | Hasło musi zawierać co najmniej jedną wielką literę i jedną cyfrę |
+      | samemale1 | Hasło musi zawierać co najmniej jedną wielką literę i jedną cyfrę |
+      | TestTest  | Hasło musi zawierać co najmniej jedną wielką literę i jedną cyfrę |
       | Zamalo1   | Zbyt mała liczba znaków                                           |
       |           | Pole wymagane                                                     |
 
@@ -33,11 +34,11 @@ Feature: PRODPFIP-105 User registration - alternative flow for extended registra
   Scenario Outline: Signing up for ShopMe website with invalid phone number and bank account number
     When I fill in password with "TestPassword1"
     And I fill in all necessary personal data with "<phone_number>", "<bank_account>"
-    And I fill in all necessary address data with "Kwiatowa", "5", "Szczecin", "71-000","Zachodniopomorskie"
+    And I fill in all necessary address data with "Kwiatowa", "5", "Szczecin", "71-000", "Zachodniopomorskie"
     And I accept statute
     And I accept terms of personal data processing
     And I click Register button
-    Then I can see an error message "<error_message>"
+    Then I should see an error message "<error_message>"
     Examples:
       | phone_number | bank_account               | error_message                       |
       | A12345678    | 11111111111111111111111111 | Pole powinno zawierać jedynie cyfry |
@@ -66,7 +67,7 @@ Feature: PRODPFIP-105 User registration - alternative flow for extended registra
       | /12345678    | 11111111111111111111111111 | Pole powinno zawierać jedynie cyfry |
       | ?12345678    | 11111111111111111111111111 | Pole powinno zawierać jedynie cyfry |
       | '12345678    | 11111111111111111111111111 | Pole powinno zawierać jedynie cyfry |
-      | "12345678    | 11111111111111111111111111 | Pole powinno zawierać jedynie cyfry |
+      | “12345678    | 11111111111111111111111111 | Pole powinno zawierać jedynie cyfry |
       | :12345678    | 11111111111111111111111111 | Pole powinno zawierać jedynie cyfry |
       | ;12345678    | 11111111111111111111111111 | Pole powinno zawierać jedynie cyfry |
       | \12345678    | 11111111111111111111111111 | Pole powinno zawierać jedynie cyfry |
@@ -102,7 +103,7 @@ Feature: PRODPFIP-105 User registration - alternative flow for extended registra
       | 123456789    | >1111111111111111111111111 | Pole powinno zawierać jedynie cyfry |
       | 123456789    | <1111111111111111111111111 | Pole powinno zawierać jedynie cyfry |
       | 123456789    | '1111111111111111111111111 | Pole powinno zawierać jedynie cyfry |
-      | 123456789    | "1111111111111111111111111 | Pole powinno zawierać jedynie cyfry |
+      | 123456789    | “1111111111111111111111111 | Pole powinno zawierać jedynie cyfry |
       | 123456789    | :1111111111111111111111111 | Pole powinno zawierać jedynie cyfry |
       | 123456789    | ;1111111111111111111111111 | Pole powinno zawierać jedynie cyfry |
       | 123456789    | ]1111111111111111111111111 | Pole powinno zawierać jedynie cyfry |
@@ -113,11 +114,11 @@ Feature: PRODPFIP-105 User registration - alternative flow for extended registra
   Scenario Outline: Signing up for ShopMe website with invalid address data
     When I fill in password with "TestPassword1"
     And I fill in all necessary personal data with "123456789", "11111111111111111111111111"
-    And I fill in all necessary address data with "<street>", "<number>", "<city>", "<post_code>","<voivodeship>"
+    And I fill in all necessary address data with "<street>", "<number>", "<city>", "<post_code>", "<voivodeship>"
     And I accept statute
     And I accept terms of personal data processing
     And I click Register button
-    Then I can see an error message "<error_message>"
+    Then I should see an error message "<error_message>"
     Examples:
       | street   | number | city      | post_code | voivodeship        | error_message                       |
       | Te       | 1      | Szczecin  | 71-000    | Zachodniopomorskie | Zbyt mała liczba znaków             |
@@ -148,7 +149,7 @@ Feature: PRODPFIP-105 User registration - alternative flow for extended registra
       | Kwiatowa | 1      | Szczecin  | <1-000    | Zachodniopomorskie | Pole powinno zawierać jedynie cyfry |
       | Kwiatowa | 1      | Szczecin  | ?1-000    | Zachodniopomorskie | Pole powinno zawierać jedynie cyfry |
       | Kwiatowa | 1      | Szczecin  | '1-000    | Zachodniopomorskie | Pole powinno zawierać jedynie cyfry |
-      | Kwiatowa | 1      | Szczecin  | "1-000    | Zachodniopomorskie | Pole powinno zawierać jedynie cyfry |
+      | Kwiatowa | 1      | Szczecin  | “1-000    | Zachodniopomorskie | Pole powinno zawierać jedynie cyfry |
       | Kwiatowa | 1      | Szczecin  | :1-000    | Zachodniopomorskie | Pole powinno zawierać jedynie cyfry |
       | Kwiatowa | 1      | Szczecin  | ;1-000    | Zachodniopomorskie | Pole powinno zawierać jedynie cyfry |
       | Kwiatowa | 1      | Szczecin  | ]1-000    | Zachodniopomorskie | Pole powinno zawierać jedynie cyfry |
@@ -165,20 +166,20 @@ Feature: PRODPFIP-105 User registration - alternative flow for extended registra
   Scenario: Signing up for ShopMe website without accepting terms of personal data processing
     When I fill in password with "TestPassword1"
     And I fill in all necessary personal data with "123456789", "11111111111111111111111111"
-    And I fill in all necessary address data with "Kwiatowa", "5", "Szczecin", "71-000","Zachodniopomorskie"
+    And I fill in all necessary address data with "Kwiatowa", "5", "Szczecin", "71-000", "Zachodniopomorskie"
     And I accept statute
     And I don't accept terms of personal data processing
     And I click Register button
-    Then I can see an error message "Pole wymagane"
+    Then I should see an error message "Pole wymagane"
 
   Scenario: Signing up for ShopMe website without accepting statue
     When I fill in password with "TestPassword1"
     And I fill in all necessary personal data with "123456789", "11111111111111111111111111"
-    And I fill in all necessary address data with "Kwiatowa", "5", "Szczecin", "71-000","Zachodniopomorskie"
+    And I fill in all necessary address data with "Kwiatowa", "5", "Szczecin", "71-000", "Zachodniopomorskie"
     And I don't accept statute
     And I accept terms of personal data processing
     And I click Register button
-    Then I can see an error message "Pole wymagane"
+    Then I should see an error message "Pole wymagane"
 
   Scenario Outline: Signing up for ShopMe website with invalid invoice data
     When I fill in password with "TestPassword1"
@@ -189,7 +190,7 @@ Feature: PRODPFIP-105 User registration - alternative flow for extended registra
     And I accept statute
     And I accept terms of personal data processing
     And I click Register button
-    Then I can see an error message "<error_message>"
+    Then I should see an error message "<error_message>"
     Examples:
       | c_name    | nip        | c_street    | c_number | c_post_code | c_city    | error_message                       |
       |           | 0123456789 | Truskawkowa | 1        | 71-000      | Szczecin  | Pole wymagane                       |
@@ -197,7 +198,6 @@ Feature: PRODPFIP-105 User registration - alternative flow for extended registra
       | Firma     | abc1234567 | Truskawkowa | 1        | 71-000      | Szczecin  | Pole powinno zawierać jedynie cyfry |
       | Firma     | 012345678  | Truskawkowa | 1        | 71-000      | Szczecin  | Zbyt mała liczba znaków             |
       | Firma     | 012345678! | Truskawkowa | 1        | 71-000      | Szczecin  | Pole powinno zawierać jedynie cyfry |
-      | Firma     | 012345678  | Truskawkowa | 1        | 71-000      | Szczecin  | Pole powinno zawierać jedynie cyfry |
       | Firma     | 012345678` | Truskawkowa | 1        | 71-000      | Szczecin  | Pole powinno zawierać jedynie cyfry |
       | Firma     | 012345678~ | Truskawkowa | 1        | 71-000      | Szczecin  | Pole powinno zawierać jedynie cyfry |
       | Firma     | 012345678@ | Truskawkowa | 1        | 71-000      | Szczecin  | Pole powinno zawierać jedynie cyfry |
@@ -221,7 +221,7 @@ Feature: PRODPFIP-105 User registration - alternative flow for extended registra
       | Firma     | 012345678> | Truskawkowa | 1        | 71-000      | Szczecin  | Pole powinno zawierać jedynie cyfry |
       | Firma     | 012345678< | Truskawkowa | 1        | 71-000      | Szczecin  | Pole powinno zawierać jedynie cyfry |
       | Firma     | 012345678' | Truskawkowa | 1        | 71-000      | Szczecin  | Pole powinno zawierać jedynie cyfry |
-      | Firma     | 012345678" | Truskawkowa | 1        | 71-000      | Szczecin  | Pole powinno zawierać jedynie cyfry |
+      | Firma     | 012345678“ | Truskawkowa | 1        | 71-000      | Szczecin  | Pole powinno zawierać jedynie cyfry |
       | Firma     | 012345678: | Truskawkowa | 1        | 71-000      | Szczecin  | Pole powinno zawierać jedynie cyfry |
       | Firma     | 012345678; | Truskawkowa | 1        | 71-000      | Szczecin  | Pole powinno zawierać jedynie cyfry |
       | Firma     | 012345678] | Truskawkowa | 1        | 71-000      | Szczecin  | Pole powinno zawierać jedynie cyfry |
@@ -259,7 +259,7 @@ Feature: PRODPFIP-105 User registration - alternative flow for extended registra
       | Firma     | 0123456789 | Truskawkowa | 1        | >1-000      | Szczecin  | Pole powinno zawierać jedynie cyfry |
       | Firma     | 0123456789 | Truskawkowa | 1        | <1-000      | Szczecin  | Pole powinno zawierać jedynie cyfry |
       | Firma     | 0123456789 | Truskawkowa | 1        | '1-000      | Szczecin  | Pole powinno zawierać jedynie cyfry |
-      | Firma     | 0123456789 | Truskawkowa | 1        | "1-000      | Szczecin  | Pole powinno zawierać jedynie cyfry |
+      | Firma     | 0123456789 | Truskawkowa | 1        | “1-000      | Szczecin  | Pole powinno zawierać jedynie cyfry |
       | Firma     | 0123456789 | Truskawkowa | 1        | :1-000      | Szczecin  | Pole powinno zawierać jedynie cyfry |
       | Firma     | 0123456789 | Truskawkowa | 1        | ;1-000      | Szczecin  | Pole powinno zawierać jedynie cyfry |
       | Firma     | 0123456789 | Truskawkowa | 1        | [1-000      | Szczecin  | Pole powinno zawierać jedynie cyfry |
@@ -293,9 +293,11 @@ Feature: PRODPFIP-105 User registration - alternative flow for extended registra
     Then I should see in addressCity maximum 50 characters
 
   Scenario: Signing up for ShopMe website with 11 character nip
-    When I fill in nip with "01234567891"
+    When I select dataForInvoice checkbox
+    And fill in nip with "01234567891"
     Then I should see in nip maximum 10 characters
 
   Scenario: Signing up for ShopMe website with 51 character company city
-    When I fill in invoiceAddressCity with 51 characters
+    When I select dataForInvoice checkbox
+    And I fill in invoiceAddressCity with 51 characters
     Then I should see in invoiceAddressCity maximum 50 characters

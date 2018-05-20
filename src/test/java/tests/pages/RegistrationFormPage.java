@@ -1,5 +1,6 @@
 package tests.pages;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -11,9 +12,9 @@ import org.openqa.selenium.support.ui.Select;
 import static tests.Hooks.driver;
 import static tests.Hooks.wait;
 
-public class RegistrationFormPage extends LoginPage {
+public class RegistrationFormPage {
 
-    @FindBy(how = How.CLASS_NAME, using = "form__button")
+    @FindBy(how = How.ID, using = "users__register-submit")
     public WebElement registerButton;
 
     @FindBy(how = How.NAME, using = "users__password")
@@ -37,10 +38,10 @@ public class RegistrationFormPage extends LoginPage {
     @FindBy(how = How.NAME, using = "users__address-zip-code")
     public WebElement addressZipCode;
 
-    @FindBy(how = How.NAME, using = "invoiceCheckbox")
+    @FindBy(how = How.XPATH, using = "//label[@for='invoiceCheckbox']")
     public WebElement invoiceCheckbox;
 
-    @FindBy(how = How.NAME, using = "users__personal-data-processing")
+    @FindBy(how = How.XPATH, using = "//label[@for='users__personal-data-processing']")
     public WebElement usersPersonalDataCheckbox;
 
     @FindBy(how = How.NAME, using = "users_invoiceCompanyName")
@@ -67,31 +68,43 @@ public class RegistrationFormPage extends LoginPage {
     @FindBy(how = How.XPATH, using = "//a[@href='/login']")
     public WebElement loginButton;
 
-    @FindBy(how = How.NAME, using = "users__terms-and-conditions-checkbox")
+    @FindBy(how = How.CLASS_NAME, using = "register-form")
+    public WebElement error;
+
+    @FindBy(how = How.XPATH, using = "//label[@for='users__terms-and-conditions-checkbox']")
     public WebElement statuteCheckbox;
 
     @FindBy(how = How.NAME, using = "offer__voivodeship")
     public WebElement voivodeshipSelect;
 
-    @FindBy(how = How.CLASS_NAME, using = "input-select__item-option--yellow")
+    @FindBy(how = How.CLASS_NAME, using = "input-select__inline-label")
     public WebElement selectOption;
+
+    @FindBy(how = How.NAME, using = "users__name")
+    public WebElement usersName;
+
+    @FindBy(how = How.NAME, using = "users__surname")
+    public WebElement usersSurname;
+
+    @FindBy(how = How.NAME, using = "users__email")
+    public WebElement usersEmail;
 
     public RegistrationFormPage() {
         PageFactory.initElements(driver, this);
     }
 
     public void checkIfNameIsFilled(String name) {
-        String user_name = userName.getAttribute("value");
+        String user_name = usersName.getAttribute("value");
         Assert.assertEquals(user_name, name);
     }
 
     public void checkIfSurnameIsFilled(String surname) {
-        String user_surname = userSurname.getAttribute("value");
+        String user_surname = usersSurname.getAttribute("value");
         Assert.assertEquals(user_surname, surname);
     }
 
     public void checkIfEmailIsFilled(String email) {
-        String user_email = userEmail.getAttribute("value");
+        String user_email = usersEmail.getAttribute("value");
         Assert.assertEquals(user_email, email);
     }
 
@@ -153,10 +166,14 @@ public class RegistrationFormPage extends LoginPage {
 
     public void acceptTermsOfPersonalDataProcessing() {
         usersPersonalDataCheckbox.click();
-        Assert.assertTrue(usersPersonalDataCheckbox.isSelected());
+    }
+
+    public void doNotacceptTermsOfPersonalDataProcessing() {
+        Assert.assertFalse(usersPersonalDataCheckbox.isSelected());
     }
 
     public void pushRegisterButton() {
+        wait.until(ExpectedConditions.elementToBeClickable(registerButton));
         registerButton.click();
     }
 
@@ -172,12 +189,15 @@ public class RegistrationFormPage extends LoginPage {
     }
 
     public void verifyIfExpandedRegisterFormIsVisible() {
-        wait.until((ExpectedConditions.visibilityOf(usersPersonalDataCheckbox)));
+        wait.until((ExpectedConditions.visibilityOf(registerButton)));
     }
 
     public void acceptStatute() {
         statuteCheckbox.click();
-        Assert.assertTrue(statuteCheckbox.isSelected());
+    }
+
+    public void doNotAcceptStatute() {
+        Assert.assertFalse(statuteCheckbox.isSelected());
     }
 
     public void waitUntilSelectOptionsAreVisible() {
@@ -193,5 +213,53 @@ public class RegistrationFormPage extends LoginPage {
         } else {
             selectVoivodeship.selectByVisibleText(voivodeship);
         }
+    }
+
+    public String generateNumber(int length) {
+        return StringUtils.leftPad("", length, '1');
+    }
+
+    public String generateString(int length) {
+        return StringUtils.leftPad("", length, 'A');
+    }
+
+    public void verifyIfPasswordInputLimited(int expectedLength) {
+        int actualLength = password.getAttribute("value").length();
+        Assert.assertEquals(expectedLength, actualLength);
+    }
+
+    public void verifyIfUserPhoneInputLimited(int expectedLength) {
+        int actualLength = userPhoneNumber.getAttribute("value").length();
+        Assert.assertEquals(expectedLength, actualLength);
+    }
+
+    public void verifyIfUserBankAccountNumberInputLimited(int expectedLength) {
+        int actualLength = userBankAccountNumber.getAttribute("value").length();
+        Assert.assertEquals(expectedLength, actualLength);
+    }
+
+    public void verifyIfUserZipCodeInputLimited(int expectedLength) {
+        int actualLength = addressZipCode.getAttribute("value").length();
+        Assert.assertEquals(expectedLength, actualLength);
+    }
+
+    public void verifyIfUserCityInputLimited(int expectedLength) {
+        int actualLength = addressCity.getAttribute("value").length();
+        Assert.assertEquals(expectedLength, actualLength);
+    }
+
+    public void verifyIfNipInputLimited(int expectedLength) {
+        int actualLength = invoiceNip.getAttribute("value").length();
+        Assert.assertEquals(expectedLength, actualLength);
+    }
+
+    public void verifyIfInvoiceAddressCityInputLimited(int expectedLength) {
+        int actualLength = invoiceAddressCity.getAttribute("value").length();
+        Assert.assertEquals(expectedLength, actualLength);
+    }
+
+    public void verifyIfValidationErrorMessageIsVisible(String message) {
+        wait.until(ExpectedConditions.elementToBeClickable(registerButton));
+        Assert.assertTrue(error.getText().contains(message));
     }
 }

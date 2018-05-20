@@ -5,6 +5,7 @@ Feature: PRODPFIP-104 User registration
   Background:
     Given I go to ShopMe main page
     And I push Login button
+    And I push SignUp button
     And I can see registration form
 
   Scenario Outline: Signing up for ShopMe website - positive flow
@@ -16,7 +17,7 @@ Feature: PRODPFIP-104 User registration
     And I can see email filled with testEmail
     And I fill in password with "<password>"
     And I fill in all necessary personal data with "<phone_number>", "<bank_account>"
-    And I fill in all necessary address data with "<street>", "<number>", "<city>", "<post_code>","<voivodeship>"
+    And I fill in all necessary address data with "<street>", "<number>", "<city>", "<post_code>", "<voivodeship>"
     And I select dataForInvoice checkbox
     And I fill in all necessary invoice data with "<c_name>", "<nip>", "<c_street>", "<c_number>", "<c_post_code>", "<c_city>"
     And I accept statute

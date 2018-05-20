@@ -7,14 +7,13 @@ import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.response.ResponseBody;
 import org.junit.Assert;
-import tests.pages.LoginPage;
-import tests.pages.RegistrationFormPage;
-import tests.pages.SearchServicePage;
+import tests.pages.*;
 
-public class SignUpStepDefs {
+public class SignUpStepDefs extends SearchServicePage {
 
     SearchServicePage searchServicePage = new SearchServicePage();
     LoginPage loginPage = new LoginPage();
+    RegistrationPage registrationPage = new RegistrationPage();
     RegistrationFormPage registrationFormPage = new RegistrationFormPage();
     private String email;
 
@@ -29,21 +28,21 @@ public class SignUpStepDefs {
 
     @And("^I can see registration form$")
     public void iCanSeeRegistrationForm() {
-        loginPage.verifyIfRegisterFormIsVisible();
+        registrationPage.verifyIfRegisterFormIsVisible();
     }
 
     @When("^I fill in all necessary registration data with testEmail, \"([^\"]*)\", \"([^\"]*)\",$")
     public void iFillInAllNecessaryRegistrationDataWithTestEmail(String name, String surname) {
-        String newEmail = "test+" + loginPage.generateTimeStamp() + "@gmail.com";
+        String newEmail = "test+" + registrationPage.generateTimeStamp() + "@gmail.com";
         setEmail(newEmail);
-        loginPage.sendName(name);
-        loginPage.sendSurname(surname);
-        loginPage.sendEmail(email);
+        registrationPage.sendName(name);
+        registrationPage.sendSurname(surname);
+        registrationPage.sendEmail(email);
     }
 
     @And("^I push Register button$")
     public void iPushRegisterButton() {
-        loginPage.pushRegisterButton();
+        registrationPage.pushRegisterButton();
     }
 
     @And("^I can see expanded registration form$")
@@ -126,7 +125,7 @@ public class SignUpStepDefs {
         registrationFormPage.acceptStatute();
     }
 
-    @And("^I fill in all necessary address data with \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\",\"([^\"]*)\"$")
+    @And("^I fill in all necessary address data with \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\"$")
     public void iFillInAllNecessaryAddressDataWith(String street, String number, String city, String zipCode, String voivodeship) {
         registrationFormPage.sendStreet(street);
         registrationFormPage.sendNumber(number);
@@ -137,45 +136,140 @@ public class SignUpStepDefs {
 
     @And("^Email \"([^\"]*)\" used in registration is already in database$")
     public void emailUsedInRegistrationIsAlreadyInDatabase(String email) {
-        if(!loginPage.checkIfEmailAlreadyInUse(email)){
-            loginPage.addUserWithEmail(email);
+        if (!registrationPage.checkIfEmailAlreadyInUse(email)) {
+            registrationPage.addUserWithEmail(email);
         }
     }
 
     @When("^I fill in all necessary registration data with \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\"$")
-    public void iFillInAllNecessaryRegistrationDataWith(String name, String surname, String email)  {
-        loginPage.sendName(name);
-        loginPage.sendSurname(surname);
-        loginPage.sendEmail(email);
+    public void iFillInAllNecessaryRegistrationDataWith(String name, String surname, String email) {
+        registrationPage.sendName(name);
+        registrationPage.sendSurname(surname);
+        registrationPage.sendEmail(email);
     }
 
     @And("^I push Register button with fail$")
     public void iPushRegisterButtonWithFail() {
-        loginPage.pushRegisterButtonWithFail();
+        registrationPage.pushRegisterButtonWithFail();
     }
 
     @Then("^I can see inserted values in filled fields$")
     public void iCanSeeInsertedValuesInFilledFields() {
-        loginPage.verifyIfValuesEqualsAfterPageRefresh();
+        registrationPage.verifyIfValuesEqualsAfterPageRefresh();
     }
 
     @And("^I can see an error message \"([^\"]*)\"$")
     public void iCanSeeAnErrorMessage(String message) {
-        loginPage.verifyIfValidationErrorMessageIsVisible(message);
+        registrationPage.verifyIfValidationErrorMessageIsVisible(message);
     }
 
     @Then("^I should see in name maximum (\\d+) characters$")
     public void iShouldSeeInNameMaximumCharacters(int expected) {
-        loginPage.verifyIfNameInputLimited(expected);
+        registrationPage.verifyIfNameInputLimited(expected);
     }
 
     @And("^I should see in surname maximum (\\d+) characters$")
     public void iShouldSeeInSurnameMaximumCharacters(int expected) {
-        loginPage.verifyIfSurnameInputLimited(expected);
+        registrationPage.verifyIfSurnameInputLimited(expected);
     }
 
     @And("^I can see an email error message \"([^\"]*)\"$")
-    public void iCanSeeAnEmailErrorMessage(String message){
-        loginPage.verifyIfErrorMessageVisible(message);
+    public void iCanSeeAnEmailErrorMessage(String message) {
+        registrationPage.verifyIfErrorMessageVisible(message);
+    }
+
+    @And("^I push SignUp button$")
+    public void iPushSignUpButton() {
+        loginPage.clickTheRegisterBtn();
+    }
+
+    @And("^I can see a message \"([^\"]*)\"$")
+    public void iCanSeeAMessage(String expectedMessage) {
+        registrationPage.verifyIfFillInAllMessageVisible(expectedMessage);
+    }
+
+    @And("^I don't accept terms of personal data processing$")
+    public void iDonTAcceptTermsOfPersonalDataProcessing() {
+        registrationFormPage.doNotacceptTermsOfPersonalDataProcessing();
+    }
+
+    @And("^I don't accept statute$")
+    public void iDonTAcceptStatute() {
+        registrationFormPage.doNotAcceptStatute();
+    }
+
+    @When("^I fill in password with (\\d+) characters$")
+    public void iFillInPasswordWithCharacters(int length) {
+        registrationFormPage.sendPassword(registrationFormPage.generateString(length));
+    }
+
+    @Then("^I should see in password maximum (\\d+) characters$")
+    public void iShouldSeeInPasswordMaximumCharacters(int length) {
+        registrationFormPage.verifyIfPasswordInputLimited(length);
+    }
+
+    @When("^I fill in userPhoneNumber with \"([^\"]*)\"$")
+    public void iFillInUserPhoneNumberWith(String phone) {
+        registrationFormPage.sendPhone(phone);
+    }
+
+    @Then("^I should see in userPhoneNumber maximum (\\d+) characters$")
+    public void iShouldSeeInUserPhoneNumberMaximumCharacters(int length) {
+        registrationFormPage.verifyIfUserPhoneInputLimited(length);
+    }
+
+    @When("^I fill in userBankAccountNumber with (\\d+) characters$")
+    public void iFillInUserBankAccountNumberWithCharacters(int length) {
+        registrationFormPage.sendBankAccountNumber(registrationFormPage.generateNumber(length));
+    }
+
+    @Then("^I should see in userBankAccountNumber maximum (\\d+) characters$")
+    public void iShouldSeeInUserBankAccountNumberMaximumCharacters(int length) {
+        registrationFormPage.verifyIfUserBankAccountNumberInputLimited(length);
+    }
+
+    @When("^I fill in addressZipCode with \"([^\"]*)\"$")
+    public void iFillInAddressZipCodeWith(String zipCode) {
+        registrationFormPage.sendZipCode(zipCode);
+    }
+
+    @Then("^I should see in addressZipCode maximum (\\d+) characters$")
+    public void iShouldSeeInAddressZipCodeMaximumCharacters(int length) {
+        registrationFormPage.verifyIfUserZipCodeInputLimited(length);
+    }
+
+    @When("^I fill in addressCity with (\\d+) characters$")
+    public void iFillInAddressCityWithCharacters(int length) {
+        registrationFormPage.sendCity(registrationFormPage.generateString(length));
+    }
+
+    @Then("^I should see in addressCity maximum (\\d+) characters$")
+    public void iShouldSeeInAddressCityMaximumCharacters(int length) {
+        registrationFormPage.verifyIfUserCityInputLimited(length);
+    }
+
+    @Then("^I should see in nip maximum (\\d+) characters$")
+    public void iShouldSeeInNipMaximumCharacters(int length) {
+        registrationFormPage.verifyIfNipInputLimited(length);
+    }
+
+    @And("^I fill in invoiceAddressCity with (\\d+) characters$")
+    public void iFillInInvoiceAddressCityWithCharacters(int length) {
+        registrationFormPage.sendCompanyCity(registrationFormPage.generateString(length));
+    }
+
+    @Then("^I should see in invoiceAddressCity maximum (\\d+) characters$")
+    public void iShouldSeeInInvoiceAddressCityMaximumCharacters(int length) {
+        registrationFormPage.verifyIfInvoiceAddressCityInputLimited(length);
+    }
+
+    @Then("^I should see an error message \"([^\"]*)\"$")
+    public void iShouldSeeAnErrorMessage(String errorMessage) {
+        registrationFormPage.verifyIfValidationErrorMessageIsVisible(errorMessage);
+    }
+
+    @And("^fill in nip with \"([^\"]*)\"$")
+    public void fillInNipWith(String nip) {
+        registrationFormPage.sendNip(nip);
     }
 }

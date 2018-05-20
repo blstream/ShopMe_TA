@@ -5,6 +5,7 @@ Feature: PRODPFIP-124 User registration - alternative flow
   Background:
     Given I go to ShopMe main page
     And I push Login button
+    And I push SignUp button
     And I can see registration form
 
   Scenario Outline: Signing up ShopMe website with invalid credentials
@@ -12,6 +13,7 @@ Feature: PRODPFIP-124 User registration - alternative flow
     And I push Register button with fail
     Then I can see inserted values in filled fields
     And I can see an error message "<error_message>"
+    And I can see a message "Proszę uzupełnić wymagane pola"
 
     Examples:
       | name | surname | email                 | error_message                   |

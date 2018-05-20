@@ -39,6 +39,12 @@ public class SearchServicePage {
     @FindBy(how = How.XPATH, using = "//a[@href='/']")
     public WebElement logoutButton;
 
+    @FindBy(how = How.CLASS_NAME, using = "user-name")
+    public WebElement loggedInUserName;
+
+    @FindBy(how = How.XPATH, using = "//span[contains(text(),'zalogowano:')]")
+    public WebElement signInInfo;
+
     public SearchServicePage() {
         PageFactory.initElements(driver, this);
     }
@@ -48,7 +54,7 @@ public class SearchServicePage {
         return driver.getCurrentUrl();
     }
 
-    public void waitForSearchFieldVisibility(){
+    public void waitForSearchFieldVisibility() {
         wait.until(ExpectedConditions.visibilityOf(searchField));
     }
 
@@ -101,16 +107,21 @@ public class SearchServicePage {
         logoShopMe.click();
     }
 
-    public void loginButtonIsDisplayed(){
+    public void loginButtonIsDisplayed() {
         wait.until(ExpectedConditions.visibilityOf(loginButton));
         assertTrue(loginButton.isDisplayed());
     }
 
-    public void logoutButtonIsDisplayed(){
+    public void logoutButtonIsDisplayed() {
         assertTrue(logoutButton.isDisplayed());
     }
 
-    public String getUserNameFieldText(){
+    public String getUserNameFieldText() {
         return loggedUserName.getText();
+    }
+
+    public void iSeeAuthenticationInfo(String myName) {
+        Assert.assertTrue(myName.equals(loggedInUserName.getText()));
+        Assert.assertTrue(signInInfo.isDisplayed());
     }
 }
