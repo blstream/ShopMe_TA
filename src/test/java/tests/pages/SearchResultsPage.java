@@ -1,7 +1,6 @@
 package tests.pages;
 
 import org.junit.Assert;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
@@ -19,6 +18,7 @@ import static tests.Hooks.driver;
 import static tests.Hooks.wait;
 
 public class SearchResultsPage extends SearchServicePage {
+
     RestAssuredMethods restAssuredMethods = new RestAssuredMethods("https://patronage2018.intive-projects.com/api");
 
     @FindBy(how = How.CLASS_NAME, using = "search-results__list")
@@ -56,6 +56,15 @@ public class SearchResultsPage extends SearchServicePage {
 
     @FindBy(how = How.CLASS_NAME, using = "services-item__title")
     public List<WebElement> servicesTitles;
+
+    @FindBy(how = How.CLASS_NAME, using = "services-item__price")
+    public List<WebElement> servicesPrices;
+
+    @FindBy(how = How.CLASS_NAME, using = "services-item__date")
+    public List<WebElement> servicesDates;
+
+    @FindBy(how = How.CLASS_NAME, using = "services-item__category")
+    public List<WebElement> servicesCategories;
 
     private WebElement getServiceRowElement(int line) {
         return ServiceList.get(line);
@@ -242,30 +251,35 @@ public class SearchResultsPage extends SearchServicePage {
     }
 
     public List<String> getServicesTitles() {
-        List<WebElement> titlesWebElements = resultsList.findElements(By.className("services-item__title"));
         ArrayList<String> titles = new ArrayList<>();
-        for (int i = 0; i < titlesWebElements.size(); i++) {
-            titles.add(titlesWebElements.get(i).getText());
+        for (int i = 0; i < servicesTitles.size(); i++) {
+            titles.add(servicesTitles.get(i).getText());
         }
         return titles;
     }
 
     public List<String> getServicesPrices() {
-        List<WebElement> pricesWebElements = resultsList.findElements(By.className("services-item__price"));
         ArrayList<String> prices = new ArrayList<>();
-        for (int i = 0; i < pricesWebElements.size(); i++) {
-            prices.add(pricesWebElements.get(i).getText());
+        for (int i = 0; i < servicesPrices.size(); i++) {
+            prices.add(servicesPrices.get(i).getText());
         }
         return prices;
     }
 
     public List<String> getServicesDates() {
-        List<WebElement> datesWebElements = resultsList.findElements(By.className("services-item__date"));
         ArrayList<String> dates = new ArrayList<>();
-        for (int i = 0; i < datesWebElements.size(); i++) {
-            dates.add(datesWebElements.get(i).getText());
+        for (int i = 0; i < servicesDates.size(); i++) {
+            dates.add(servicesDates.get(i).getText());
         }
         return dates;
+    }
+
+    public List<String> getServicesCategories() {
+        ArrayList<String> categories = new ArrayList<>();
+        for (int i = 0; i < servicesCategories.size(); i++) {
+            categories.add(servicesCategories.get(i).getText());
+        }
+        return categories;
     }
 
     public String getErrorMessage() {

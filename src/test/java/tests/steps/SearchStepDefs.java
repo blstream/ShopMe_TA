@@ -63,11 +63,13 @@ public class SearchStepDefs {
         List<String> prices = searchResultsPage.getServicesPrices();
         List<String> dates = searchResultsPage.getServicesDates();
 
-        assertTrue(prices.size() == dates.size());
         for (int i = 0; i < prices.size(); i++) {
             String price = prices.get(i);
+            assertTrue(!price.isEmpty());
+        }
+        for (int i = 0; i < dates.size(); i++) {
             String date = dates.get(i);
-            assertTrue(!price.isEmpty() && !date.isEmpty());
+            assertTrue(!date.isEmpty());
         }
     }
 
@@ -126,5 +128,14 @@ public class SearchStepDefs {
     @Then("^the search button is not clickable$")
     public void theSearchButtonIsNotClickable() {
         searchServicePage.searchBtnIsNotClickable();
+    }
+
+    @And("^I see the category \"([^\"]*)\"$")
+    public void iSeeTheCategory(String expectedCategory) {
+        List<String> categories = searchResultsPage.getServicesCategories();
+        for (int i = 0; i < categories.size(); i++) {
+            String category = categories.get(i);
+            assertTrue(category.equals(expectedCategory));
+        }
     }
 }
