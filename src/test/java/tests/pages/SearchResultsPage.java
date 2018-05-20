@@ -1,5 +1,6 @@
 package tests.pages;
 
+import com.google.common.collect.Lists;
 import org.junit.Assert;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -57,14 +58,8 @@ public class SearchResultsPage extends SearchServicePage {
     @FindBy(how = How.CLASS_NAME, using = "services-item__title")
     public List<WebElement> servicesTitles;
 
-    @FindBy(how = How.CLASS_NAME, using = "services-item__price")
-    public List<WebElement> servicesPrices;
-
-    @FindBy(how = How.CLASS_NAME, using = "services-item__date")
-    public List<WebElement> servicesDates;
-
-    @FindBy(how = How.CLASS_NAME, using = "services-item__category")
-    public List<WebElement> servicesCategories;
+    @FindBy(how = How.CLASS_NAME, using = "services-item__span")
+    public List<WebElement> servicesCategoryPriceAndDate;
 
     private WebElement getServiceRowElement(int line) {
         return ServiceList.get(line);
@@ -258,28 +253,16 @@ public class SearchResultsPage extends SearchServicePage {
         return titles;
     }
 
+    public List<String> getServicesCategories() {
+        return getSpanValuesByIndex(0);
+    }
+
     public List<String> getServicesPrices() {
-        ArrayList<String> prices = new ArrayList<>();
-        for (int i = 0; i < servicesPrices.size(); i++) {
-            prices.add(servicesPrices.get(i).getText());
-        }
-        return prices;
+        return getSpanValuesByIndex(1);
     }
 
     public List<String> getServicesDates() {
-        ArrayList<String> dates = new ArrayList<>();
-        for (int i = 0; i < servicesDates.size(); i++) {
-            dates.add(servicesDates.get(i).getText());
-        }
-        return dates;
-    }
-
-    public List<String> getServicesCategories() {
-        ArrayList<String> categories = new ArrayList<>();
-        for (int i = 0; i < servicesCategories.size(); i++) {
-            categories.add(servicesCategories.get(i).getText());
-        }
-        return categories;
+        return getSpanValuesByIndex(2);
     }
 
     public String getErrorMessage() {
@@ -297,5 +280,19 @@ public class SearchResultsPage extends SearchServicePage {
 
     public void openServiceFromResults(int line) {
         getServiceRowElement(line).click();
+    }
+
+    private List<String> getSpanValuesByIndex(int spanIndex) {
+        ArrayList<String> spanValuesList = new ArrayList<>();
+        int sizeOfCategoryPriceAndDateArray = servicesCategoryPriceAndDate.size();
+        for (int i = 0; i < sizeOfCategoryPriceAndDateArray; i++) {
+            spanValuesList.add(servicesCategoryPriceAndDate.get(i).getText());
+        }
+        List<List<String>> categoryPriceAndDateSubsets = Lists.partition(spanValuesList, 3);
+        ArrayList<String> chosenSpanValues = new ArrayList<>();
+        for (int i = 0; i < categoryPriceAndDateSubsets.size(); i++) {
+            chosenSpanValues.add(categoryPriceAndDateSubsets.get(i).get(spanIndex));
+        }
+        return chosenSpanValues;
     }
 }

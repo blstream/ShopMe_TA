@@ -17,7 +17,7 @@ Feature: PRODPFIP-21 Searching for a service in the ShopMe website
     Then search results are visible
     And I see that title of the service contains "<searching_phrase>"
     And I see basic price and added data of each record
-    And I see the category "<category>"
+    And I see the category
     And all results are sorted by date descending
 
     Examples:
@@ -53,7 +53,7 @@ Feature: PRODPFIP-21 Searching for a service in the ShopMe website
     Then search results are visible
     And I see that title of the service contains "<searching_phrase>"
     And I see basic price and added data of each record
-    And I see the category "<category>"
+    And I see the category
     And all results are sorted by date descending
 
     Examples:

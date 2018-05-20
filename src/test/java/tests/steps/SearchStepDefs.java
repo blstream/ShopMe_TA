@@ -14,6 +14,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 
@@ -65,11 +66,11 @@ public class SearchStepDefs {
 
         for (int i = 0; i < prices.size(); i++) {
             String price = prices.get(i);
-            assertTrue(!price.isEmpty());
+            assertFalse(price.isEmpty());
         }
         for (int i = 0; i < dates.size(); i++) {
             String date = dates.get(i);
-            assertTrue(!date.isEmpty());
+            assertFalse(date.isEmpty());
         }
     }
 
@@ -130,12 +131,12 @@ public class SearchStepDefs {
         searchServicePage.searchBtnIsNotClickable();
     }
 
-    @And("^I see the category \"([^\"]*)\"$")
-    public void iSeeTheCategory(String expectedCategory) {
+    @And("^I see the category$")
+    public void iSeeTheCategory() {
         List<String> categories = searchResultsPage.getServicesCategories();
         for (int i = 0; i < categories.size(); i++) {
             String category = categories.get(i);
-            assertTrue(category.equals(expectedCategory));
+            assertFalse(category.isEmpty());
         }
     }
 }
