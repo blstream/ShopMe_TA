@@ -53,7 +53,9 @@ public class SearchStepDefs {
     @And("^I see that title of the service contains \"([^\"]*)\"$")
     public void iSeeThatTitleOfTheServiceContains(String searchPhrase) {
         List<String> titles = searchResultsPage.getServicesTitles();
-        for (int i = 0; i < titles.size(); i++) {
+        int numberOfElements = titles.size();
+        assertTrue(numberOfElements > 0);
+        for (int i = 0; i < numberOfElements; i++) {
             String title = titles.get(i).toLowerCase();
             assertTrue(title.contains(searchPhrase.toLowerCase()));
         }
@@ -63,12 +65,14 @@ public class SearchStepDefs {
     public void iSeeBasicPriceAndAddedDataOfEachRecord() {
         List<String> prices = searchResultsPage.getServicesPrices();
         List<String> dates = searchResultsPage.getServicesDates();
-
-        for (int i = 0; i < prices.size(); i++) {
+        int numberOfElementsPrices = prices.size();
+        int numberOfElementsDates = dates.size();
+        assertTrue(numberOfElementsPrices > 0 && numberOfElementsDates > 0);
+        for (int i = 0; i < numberOfElementsPrices; i++) {
             String price = prices.get(i);
             assertFalse(price.isEmpty());
         }
-        for (int i = 0; i < dates.size(); i++) {
+        for (int i = 0; i < numberOfElementsDates; i++) {
             String date = dates.get(i);
             assertFalse(date.isEmpty());
         }
