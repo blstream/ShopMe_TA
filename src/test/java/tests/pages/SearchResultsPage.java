@@ -1,7 +1,7 @@
 package tests.pages;
 
+import com.google.common.collect.Lists;
 import org.junit.Assert;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
@@ -34,7 +34,7 @@ public class SearchResultsPage extends SearchServicePage {
     public WebElement firstService;
 
     @FindBy(how = How.CLASS_NAME, using = "services-item")
-    public List<WebElement> ServiceList;
+    public List<WebElement> serviceList;
 
     @FindBy(how = How.CLASS_NAME, using = "pagination__button--last")
     public WebElement lastPageButton;
@@ -57,8 +57,11 @@ public class SearchResultsPage extends SearchServicePage {
     @FindBy(how = How.CLASS_NAME, using = "services-item__title")
     public List<WebElement> servicesTitles;
 
+    @FindBy(how = How.CLASS_NAME, using = "services-item__span")
+    public List<WebElement> servicesCategoryPriceAndDate;
+
     private WebElement getServiceRowElement(int line) {
-        return ServiceList.get(line);
+        return serviceList.get(line);
     }
 
     private WebElement getNumberOfPage(int pageNumber) {
@@ -242,30 +245,23 @@ public class SearchResultsPage extends SearchServicePage {
     }
 
     public List<String> getServicesTitles() {
-        List<WebElement> titlesWebElements = resultsList.findElements(By.className("services-item__title"));
         ArrayList<String> titles = new ArrayList<>();
-        for (int i = 0; i < titlesWebElements.size(); i++) {
-            titles.add(titlesWebElements.get(i).getText());
+        for (int i = 0; i < servicesTitles.size(); i++) {
+            titles.add(servicesTitles.get(i).getText());
         }
         return titles;
     }
 
+    public List<String> getServicesCategories() {
+        return getSpanValuesByIndex(0);
+    }
+
     public List<String> getServicesPrices() {
-        List<WebElement> pricesWebElements = resultsList.findElements(By.className("services-item__price"));
-        ArrayList<String> prices = new ArrayList<>();
-        for (int i = 0; i < pricesWebElements.size(); i++) {
-            prices.add(pricesWebElements.get(i).getText());
-        }
-        return prices;
+        return getSpanValuesByIndex(1);
     }
 
     public List<String> getServicesDates() {
-        List<WebElement> datesWebElements = resultsList.findElements(By.className("services-item__date"));
-        ArrayList<String> dates = new ArrayList<>();
-        for (int i = 0; i < datesWebElements.size(); i++) {
-            dates.add(datesWebElements.get(i).getText());
-        }
-        return dates;
+        return getSpanValuesByIndex(2);
     }
 
     public String getErrorMessage() {
@@ -283,5 +279,19 @@ public class SearchResultsPage extends SearchServicePage {
 
     public void openServiceFromResults(int line) {
         getServiceRowElement(line).click();
+    }
+
+    private List<String> getSpanValuesByIndex(int spanIndex) {
+        ArrayList<String> spanValuesList = new ArrayList<>();
+        int sizeOfCategoryPriceAndDateArray = servicesCategoryPriceAndDate.size();
+        for (int i = 0; i < sizeOfCategoryPriceAndDateArray; i++) {
+            spanValuesList.add(servicesCategoryPriceAndDate.get(i).getText());
+        }
+        List<List<String>> categoryPriceAndDateSubsets = Lists.partition(spanValuesList, 3);
+        ArrayList<String> chosenSpanValues = new ArrayList<>();
+        for (int i = 0; i < categoryPriceAndDateSubsets.size(); i++) {
+            chosenSpanValues.add(categoryPriceAndDateSubsets.get(i).get(spanIndex));
+        }
+        return chosenSpanValues;
     }
 }
