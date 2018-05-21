@@ -14,6 +14,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 
@@ -52,7 +53,9 @@ public class SearchStepDefs {
     @And("^I see that title of the service contains \"([^\"]*)\"$")
     public void iSeeThatTitleOfTheServiceContains(String searchPhrase) {
         List<String> titles = searchResultsPage.getServicesTitles();
-        for (int i = 0; i < titles.size(); i++) {
+        int numberOfElements = titles.size();
+        assertTrue(numberOfElements > 0);
+        for (int i = 0; i < numberOfElements; i++) {
             String title = titles.get(i).toLowerCase();
             assertTrue(title.contains(searchPhrase.toLowerCase()));
         }
@@ -62,12 +65,16 @@ public class SearchStepDefs {
     public void iSeeBasicPriceAndAddedDataOfEachRecord() {
         List<String> prices = searchResultsPage.getServicesPrices();
         List<String> dates = searchResultsPage.getServicesDates();
-
-        assertTrue(prices.size() == dates.size());
-        for (int i = 0; i < prices.size(); i++) {
+        int numberOfElementsPrices = prices.size();
+        int numberOfElementsDates = dates.size();
+        assertTrue(numberOfElementsPrices > 0 && numberOfElementsDates > 0);
+        for (int i = 0; i < numberOfElementsPrices; i++) {
             String price = prices.get(i);
+            assertFalse(price.isEmpty());
+        }
+        for (int i = 0; i < numberOfElementsDates; i++) {
             String date = dates.get(i);
-            assertTrue(!price.isEmpty() && !date.isEmpty());
+            assertFalse(date.isEmpty());
         }
     }
 
@@ -126,5 +133,14 @@ public class SearchStepDefs {
     @Then("^the search button is not clickable$")
     public void theSearchButtonIsNotClickable() {
         searchServicePage.searchBtnIsNotClickable();
+    }
+
+    @And("^I see the category$")
+    public void iSeeTheCategory() {
+        List<String> categories = searchResultsPage.getServicesCategories();
+        for (int i = 0; i < categories.size(); i++) {
+            String category = categories.get(i);
+            assertFalse(category.isEmpty());
+        }
     }
 }
