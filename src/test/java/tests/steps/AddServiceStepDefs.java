@@ -9,12 +9,14 @@ import gherkin.formatter.model.DataTableRow;
 import tests.pages.AddServicePage;
 import tests.pages.LoginPage;
 import tests.pages.SearchServicePage;
+import tests.pages.ServiceProfilePage;
 
 public class AddServiceStepDefs {
 
     AddServicePage addServicePage = new AddServicePage();
     SearchServicePage searchServicePage = new SearchServicePage();
     LoginPage loginPage = new LoginPage();
+    ServiceProfilePage serviceProfilePage = new ServiceProfilePage();
 
     @Given("^I go to ShopMe main page$")
     public void iGoToShopMeMainPage() {
@@ -222,11 +224,6 @@ public class AddServiceStepDefs {
         addServicePage.pushSubmitButtonWithFail();
     }
 
-    @And("^I am redirected to the main page$")
-    public void iAmRedirectedToTheMainPage() {
-        addServicePage.mainPageIsVisible();
-    }
-
     @And("^I fill in all necessary data$")
     public void iFillInAllNecessaryData(DataTable dataTable) {
         DataTable data = dataTable;
@@ -270,16 +267,17 @@ public class AddServiceStepDefs {
         addServicePage.verifyIfUserCityInputLimited(length);
     }
 
-    @Then("^I should be redirected to the main page$")
-    public void iShouldBeRedirectedToTheMainPage() {
-        addServicePage.verifyIfMainPageIsVisible();
-    }
-
     @And("^I am an signed in to the application with email \"([^\"]*)\" and password \"([^\"]*)\"$")
     public void iAmAnSignedInToTheApplicationWithEmailAndPassword(String email, String password) {
         searchServicePage.pushLoginButton();
         loginPage.enterEmail(email);
         loginPage.enterPassword(password);
         loginPage.clickTheSignInBtn();
+    }
+
+    @And("^I am redirected to the profile page of the service$")
+    public void iAmRedirectedToTheProfilePageOfTheService() {
+        serviceProfilePage.waitForTitleVisibleAfterAddOffer(3);
+
     }
 }

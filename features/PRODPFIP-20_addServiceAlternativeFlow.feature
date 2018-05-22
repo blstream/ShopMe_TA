@@ -4,7 +4,7 @@ Feature: PRODPFIP-20 Adding new service - alternative flow
 
   Background:
     Given I go to ShopMe main page
-    And I am an signed in to the application with email "test@gmail.com" and password "TestPassword1"
+    And I am an signed in to the application with email "john.doe@gmail.com" and password "Password1234"
     And I push add service button
     And I can see adding form
 

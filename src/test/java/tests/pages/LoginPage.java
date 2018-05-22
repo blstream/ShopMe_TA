@@ -11,10 +11,10 @@ import static tests.Hooks.wait;
 
 public class LoginPage extends SearchServicePage {
 
-    @FindBy(how = How.NAME, using = "login__user-email")
+    @FindBy(how = How.NAME, using = "userEmail")
     public WebElement logInUserEmail;
 
-    @FindBy(how = How.NAME, using = "login__user-password")
+    @FindBy(how = How.NAME, using = "userPassword")
     public WebElement logInUserPassword;
 
     @FindBy(how = How.ID, using = "login-form__submit-form")
