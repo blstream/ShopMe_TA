@@ -13,7 +13,7 @@ Feature: PRODPFIP-48 Navigation to the main page
     Then I should see ShopMe main page
 
   Scenario: Returning to the main page from add service page
-    Given I am an signed in to the application with email "test@gmail.com" and password "TestPassword1"
+    Given I am an signed in to the application with email "john.doe@gmail.com" and password "Password1234"
     When I push add service button
     And I can see adding form
     And I click ShopMe button
@@ -29,12 +29,13 @@ Feature: PRODPFIP-48 Navigation to the main page
 
   Scenario: Returning to the main page from login page
     When I push Login button
-    And I can see registration form
+    And I can see login form
     And I click ShopMe button
     Then I should see ShopMe main page
 
   Scenario: Returning to the main page from registration page
     When I push Login button
+    And I push SignUp button
     And I fill in all necessary registration data with testEmail, "Test", "Test",
     And I push Register button
     And I can see expanded registration form

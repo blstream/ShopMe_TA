@@ -3,7 +3,7 @@ Feature: PRODPFIP-123 Authenticate to the ShopMe website
   As a registered user I want to be able to successful sign in to the ShopMe website
 
   Background:
-    Given I am a registered user in database with email "test@gmail.com"
+    Given I am a registered user in database with email "john.doe@gmail.com"
     And I go to ShopMe main page
     And I am not authenticated
 
@@ -17,5 +17,5 @@ Feature: PRODPFIP-123 Authenticate to the ShopMe website
     And I can see the Log out button
 
     Examples:
-      | email          | password      | user_name    |
-      | test@gmail.com | TestPassword1 | Jan Kowalski |
+      | email              | password     | user_name |
+      | john.doe@gmail.com | Password1234 | John Doe  |
