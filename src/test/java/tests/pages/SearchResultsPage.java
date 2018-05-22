@@ -34,9 +34,6 @@ public class SearchResultsPage extends SearchServicePage {
     @FindBy(how = How.CLASS_NAME, using = "services-item")
     public WebElement firstService;
 
-    @FindBy(how = How.CLASS_NAME, using = "services-item")
-    public List<WebElement> serviceList;
-
     @FindBy(how = How.CLASS_NAME, using = "pagination__button--last")
     public WebElement lastPageButton;
 
@@ -62,7 +59,7 @@ public class SearchResultsPage extends SearchServicePage {
     public List<WebElement> servicesCategoryPriceAndDate;
 
     private WebElement getServiceRowElement(int line) {
-        return serviceList.get(line);
+        return servicesTitles.get(line);
     }
 
     private WebElement getNumberOfPage(int pageNumber) {
