@@ -1,4 +1,4 @@
-@inProgress
+@workingGood
 Feature: PRODPFIP-45 Pagination of search results
   As a user I want to navigate between search result pages so that I can see all the search results
 

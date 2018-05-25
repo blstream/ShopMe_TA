@@ -1,5 +1,6 @@
 package tests.pages;
 
+import org.junit.Assert;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
@@ -11,10 +12,10 @@ import static tests.Hooks.wait;
 
 public class LoginPage extends SearchServicePage {
 
-    @FindBy(how = How.NAME, using = "login__user-email")
+    @FindBy(how = How.NAME, using = "userEmail")
     public WebElement logInUserEmail;
 
-    @FindBy(how = How.NAME, using = "login__user-password")
+    @FindBy(how = How.NAME, using = "userPassword")
     public WebElement logInUserPassword;
 
     @FindBy(how = How.ID, using = "login-form__submit-form")
@@ -22,6 +23,7 @@ public class LoginPage extends SearchServicePage {
 
     @FindBy(how = How.XPATH, using = "//a[@href='/signup']")
     public WebElement registerLink;
+
 
     public LoginPage() {
         PageFactory.initElements(driver, this);
@@ -41,5 +43,10 @@ public class LoginPage extends SearchServicePage {
 
     public void clickTheRegisterBtn() {
         wait.until(ExpectedConditions.elementToBeClickable(registerLink)).click();
+    }
+
+    public void verifyIfLoginFormIsVisible() {
+        wait.until(ExpectedConditions.elementToBeClickable(signInButton));
+        Assert.assertTrue(signInButton.isDisplayed());
     }
 }

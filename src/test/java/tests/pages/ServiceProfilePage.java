@@ -5,6 +5,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static tests.Hooks.driver;
 import static tests.Hooks.wait;
@@ -49,6 +50,12 @@ public class ServiceProfilePage extends SearchServicePage {
         return serviceTitle.getText();
     }
 
+    public String waitForTitleVisibleAfterAddOffer(int secondsToWait) {
+        WebDriverWait wait = new WebDriverWait(driver, secondsToWait);
+        wait.until(ExpectedConditions.visibilityOf(serviceTitle));
+        return getTitleFieldText();
+    }
+
     public String getCategoryFieldText() {
         return serviceCategory.getText();
     }
@@ -69,7 +76,7 @@ public class ServiceProfilePage extends SearchServicePage {
         return userInfo.getText();
     }
 
-    public String getServiceInfoContainerText(){
+    public String getServiceInfoContainerText() {
         return serviceInfoContainers.getText();
     }
 

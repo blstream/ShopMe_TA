@@ -4,7 +4,7 @@ Feature:  PRODPFIP-40 Adding new service - basic flow
 
   Background:
     Given I go to ShopMe main page
-    And I am an signed in to the application with email "test@gmail.com" and password "TestPassword1"
+    And I am an signed in to the application with email "john.doe@gmail.com" and password "Password1234"
     And I push add service button
     And I can see adding form
 
@@ -21,7 +21,7 @@ Feature:  PRODPFIP-40 Adding new service - basic flow
     And I fill in aboutMe with "<about_me>"
     And I press Add service button
     Then I should see confirmation message "Pomyślnie dodano ofertę"
-    And I am redirected to the main page
+    And I am redirected to the profile page of the service
 
     Examples:
       | title                          | category            | name                 | email          | phone      | basic_price | basic_description | about_me |
@@ -54,7 +54,7 @@ Feature:  PRODPFIP-40 Adding new service - basic flow
     And I fill in aboutMe with "aboutMe"
     And I press Add service button
     Then I should see confirmation message "Pomyślnie dodano ofertę"
-    And I am redirected to the main page
+    And I am redirected to the profile page of the service
 
     Examples:
       | title            | category         | expanded_price | expanded_description | extra_description | extra_price |
@@ -76,7 +76,7 @@ Feature:  PRODPFIP-40 Adding new service - basic flow
     And I press Add service button
     Then I should see confirmation message "Pomyślnie dodano ofertę"
     And New basic service with 500 character description is added
-    And I am redirected to the main page
+    And I am redirected to the profile page of the service
 
   Scenario: Adding new service with extensions with 500 character description
     When I fill in title with "Usługi prawnicze"
@@ -95,7 +95,7 @@ Feature:  PRODPFIP-40 Adding new service - basic flow
     And I press Add service button
     Then I should see confirmation message "Pomyślnie dodano ofertę"
     And New service with 500 character expanded and extra descriptions is added
-    And I am redirected to the main page
+    And I am redirected to the profile page of the service
 
   Scenario: Adding new basic service with 800 character aboutMe description
     When I fill in title with "Usługi prawnicze"
@@ -111,4 +111,4 @@ Feature:  PRODPFIP-40 Adding new service - basic flow
     And I press Add service button
     Then I should see confirmation message "Pomyślnie dodano ofertę"
     And New service with 800 character aboutMe is added
-    And I am redirected to the main page
+    And I am redirected to the profile page of the service
