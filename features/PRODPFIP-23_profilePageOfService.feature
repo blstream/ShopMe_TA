@@ -3,10 +3,9 @@ Feature: PRODPFIP-23 Possibility to see the profile page of the service
   As a user I want to be able to click on the search result so that I can see details of the service
 
   Scenario Outline: Profile page of the service is displayed after clicking on the search result
-    Given that there are no services added
-    And I add services
-#     | service name | category | user name | user email      | user phone | user info | base description | base price | extended description | extended price | extra description | extra price | province          | city     |
-      | test         | building | test      | test@domain.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          | WesternPomeranian | Szczecin |
+    Given I add services
+#     | service name | category | user name | user email         | user phone | user info | base description | base price | extended description | extended price | extra description | extra price | province          | city     |
+      | test         | others   | John Doe  | john.doe@gmail.com | 888555222  | test      | test             | 10         | test                 | 20             | test              | 30          | WesternPomeranian | Szczecin |
     When I go to ShopMe main page
     And I enter a searching phrase "<searching_phrase>" into the search field
     And I click the search button
@@ -26,5 +25,5 @@ Feature: PRODPFIP-23 Possibility to see the profile page of the service
     And I can see extra service "<extra_info>" with price "<extra_price>"
 
     Examples:
-      | searching_phrase | title | category | user_name | email           | phone     | user_info | basic_info | basic_price | extended_info | extended_price | extra_info | extra_price | province           | city     |
-      | test             | test  | Budowa   | test      | test@domain.com | 888555222 | test      | test       | 10          | test          | 20             | test       | 30          | zachodniopomorskie | Szczecin |
+      | searching_phrase | title | category | user_name | email              | phone     | user_info | basic_info | basic_price | extended_info | extended_price | extra_info | extra_price | province           | city     |
+      | test             | test  | Inne     | John Doe  | john.doe@gmail.com | 888555222 | test      | test       | 10          | test          | 20             | test       | 30          | zachodniopomorskie | Szczecin |

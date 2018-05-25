@@ -47,4 +47,9 @@ public class SignInStepDefs {
     public void iCanSeeTheLogOutButton() {
         searchServicePage.logoutButtonIsDisplayed();
     }
+
+    @And("^I can see login form$")
+    public void iCanSeeLoginForm() {
+        loginPage.verifyIfLoginFormIsVisible();
+    }
 }

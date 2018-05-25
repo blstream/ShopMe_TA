@@ -373,13 +373,6 @@ public class AddServicePage extends SearchServicePage {
         saveAllValues(valuesAfter);
     }
 
-    public void mainPageIsVisible() {
-        WebDriverWait wait = new WebDriverWait(driver, 3);
-        wait.until(ExpectedConditions.urlToBe(mainPageUrl));
-        String url = driver.getCurrentUrl();
-        Assert.assertEquals(mainPageUrl, url);
-    }
-
     public void selectVoivodeship(String province) {
         waitUntilSelectOptionsAreVisible();
         Select selectVoivodeship = new Select(userVoivodeship);
