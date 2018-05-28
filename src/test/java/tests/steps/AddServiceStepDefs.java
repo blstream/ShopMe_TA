@@ -1,5 +1,6 @@
 package tests.steps;
 
+
 import cucumber.api.DataTable;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
@@ -185,6 +186,7 @@ public class AddServiceStepDefs {
         addServicePage.selectServiceCategory(row.getCells().get(1));
         addServicePage.sendBasicDescription(row.getCells().get(2));
         addServicePage.sendBasicPrice(row.getCells().get(3));
+        addServicePage.setRA_title(row.getCells().get(0));
     }
 
     @Given("^I can see city field disabled$")

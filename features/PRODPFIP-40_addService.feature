@@ -78,5 +78,3 @@ Feature:  PRODPFIP-40 Adding new service - basic flow
     Then I should see confirmation message "Pomyślnie dodano ofertę"
     And New service with 500 character expanded and extra descriptions is added
     And I am redirected to the profile page of the service
-
-
