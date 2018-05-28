@@ -1,11 +1,11 @@
 package tests.pages;
 
+import org.junit.Assert;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static tests.Hooks.driver;
 import static tests.Hooks.wait;
@@ -15,7 +15,7 @@ public class ServiceProfilePage extends SearchServicePage {
     @FindBy(how = How.CLASS_NAME, using = "offer-details")
     public WebElement serviceDetails;
 
-    @FindBy(how = How.CLASS_NAME, using = "offer-details__header")
+    @FindBy(how = How.CLASS_NAME, using = "details__header")
     public WebElement serviceTitle;
 
     @FindBy(how = How.CLASS_NAME, using = "offer-details__category")
@@ -50,10 +50,9 @@ public class ServiceProfilePage extends SearchServicePage {
         return serviceTitle.getText();
     }
 
-    public String waitForTitleVisibleAfterAddOffer(int secondsToWait) {
-        WebDriverWait wait = new WebDriverWait(driver, secondsToWait);
+    public void waitForTitleVisibleAfterAddOffer() {
         wait.until(ExpectedConditions.visibilityOf(serviceTitle));
-        return getTitleFieldText();
+        Assert.assertTrue(serviceTitle.isDisplayed());
     }
 
     public String getCategoryFieldText() {
@@ -87,4 +86,5 @@ public class ServiceProfilePage extends SearchServicePage {
     public void showUserPhone() {
         showButton.click();
     }
+
 }

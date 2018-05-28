@@ -44,21 +44,6 @@ public class AddServiceStepDefs {
         addServicePage.selectServiceCategory(category);
     }
 
-    @And("^I fill in name with \"([^\"]*)\"$")
-    public void iFillInNameWith(String name) {
-        addServicePage.sendName(name);
-    }
-
-    @And("^I fill in email with \"([^\"]*)\"$")
-    public void iFillInEmailWith(String email) {
-        addServicePage.sendEmail(email);
-    }
-
-    @And("^I fill in phone with \"([^\"]*)\"$")
-    public void iFillInPhoneWith(String phone) {
-        addServicePage.sendUserPhone(phone);
-    }
-
     @And("^I fill in basicPrice with \"([^\"]*)\"$")
     public void iFillInBasicPriceWith(String basicPrice) {
         addServicePage.sendBasicPrice(basicPrice);
@@ -68,12 +53,6 @@ public class AddServiceStepDefs {
     public void iFillInBasicDescriptionWith(String basicDescription) {
         addServicePage.sendBasicDescription(basicDescription);
         addServicePage.setRA_basicDescription(basicDescription);
-    }
-
-    @And("^I fill in aboutMe with \"([^\"]*)\"$")
-    public void iFillInAboutMeWith(String aboutMe) {
-        addServicePage.sendAboutMe(aboutMe);
-        addServicePage.setRA_aboutMe(aboutMe);
     }
 
     @And("^I press Add service button$")
@@ -107,17 +86,6 @@ public class AddServiceStepDefs {
     public void iFillInExpandedDescriptionWithCharacters(int phraseLength) {
         addServicePage.sendExpandedDescription(phraseLength);
         addServicePage.setRA_extendedDescription(addServicePage.generateString(phraseLength));
-    }
-
-    @And("^I fill in aboutMe with (\\d+) characters$")
-    public void iFillInAboutMeWithCharacters(int phraseLength) {
-        addServicePage.sendAboutMeDescription(phraseLength);
-        addServicePage.setRA_aboutMe(addServicePage.generateString(phraseLength));
-    }
-
-    @Then("^New service with (\\d+) character aboutMe is added$")
-    public void newServiceWithCharacterAboutMeIsAdded(int phraseLength) {
-        addServicePage.RA_checkAboutMe();
     }
 
     @Then("^I should see confirmation message \"([^\"]*)\"$")
@@ -169,29 +137,14 @@ public class AddServiceStepDefs {
         addServicePage.verifyIfValidationErrorMessageIsVisible(error_message);
     }
 
-    @Then("^I should see in about_me maximum (\\d+) characters$")
-    public void iShouldSeeInAbout_meMaximumCharacters(int maximumLength) {
-        addServicePage.verifyIfAboutMeInputLimited(maximumLength);
-    }
-
     @Then("^I should see in title maximum (\\d+) characters$")
     public void iShouldSeeInTitleMaximumCharacters(int maximumLength) {
         addServicePage.verifyIfTitleInputLimited(maximumLength);
     }
 
-    @Then("^I should see in name  maximum (\\d+) characters$")
-    public void iShouldSeeInNameMaximumCharacters(int maximumLength) {
-        addServicePage.verifyIfNameInputLimited(maximumLength);
-    }
-
     @Then("^I should see in basic_price maximum (\\d+) decimal places$")
     public void iShouldSeeInBasic_priceMaximumDecimalPlaces(int maximumLength) {
         addServicePage.verifyIfBasicPriceInputLimited(maximumLength);
-    }
-
-    @And("^I should see in phone maximum (\\d+) characters$")
-    public void iShouldSeeInPhoneMaximumCharacters(int maximumLength) {
-        addServicePage.verifyIfPhoneInputLimited(maximumLength);
     }
 
     @Then("^I should see that expanded_description and expanded_price fields are blocked$")
@@ -232,9 +185,6 @@ public class AddServiceStepDefs {
         addServicePage.selectServiceCategory(row.getCells().get(1));
         addServicePage.sendBasicDescription(row.getCells().get(2));
         addServicePage.sendBasicPrice(row.getCells().get(3));
-        addServicePage.sendName(row.getCells().get(4));
-        addServicePage.sendEmail(row.getCells().get(5));
-        addServicePage.sendUserPhone(row.getCells().get(6));
     }
 
     @Given("^I can see city field disabled$")
@@ -277,7 +227,6 @@ public class AddServiceStepDefs {
 
     @And("^I am redirected to the profile page of the service$")
     public void iAmRedirectedToTheProfilePageOfTheService() {
-        serviceProfilePage.waitForTitleVisibleAfterAddOffer(3);
-
+        serviceProfilePage.waitForTitleVisibleAfterAddOffer();
     }
 }
