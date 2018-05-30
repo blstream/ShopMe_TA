@@ -5,7 +5,7 @@ public class MyService {
 
     public String id;
     public Long date;
-    public Category category;
+    public String category;
     public String title;
     public String baseDescription;
     public Float basePrice;
@@ -13,12 +13,17 @@ public class MyService {
     public Float extendedPrice;
     public String extraDescription;
     public Float extraPrice;
-    public User user;
+    public String userName;
+    public String userSurname;
+    public String userEmail;
+    public String userPhone;
+    public String voivodeship;
+    public String city;
 
     public MyService() {
     }
 
-    public MyService(String title, Category category, String baseDescription, Float basePrice, String extendedDescription, Float extendedPrice, String extraDescription, Float extraPrice, User user) {
+    public MyService(String title, String category, String baseDescription, Float basePrice, String extendedDescription, Float extendedPrice, String extraDescription, Float extraPrice, String userName, String userSurname, String userEmail, String userPhone, String voivodeship, String city) {
         this.title = title;
         this.category = category;
         this.baseDescription = baseDescription;
@@ -27,7 +32,12 @@ public class MyService {
         this.extendedPrice = extendedPrice;
         this.extraDescription = extraDescription;
         this.extraPrice = extraPrice;
-        this.user = user;
+        this.userName = userName;
+        this.userSurname = userSurname;
+        this.userEmail = userEmail;
+        this.userPhone = userPhone;
+        this.voivodeship = voivodeship;
+        this.city = city;
     }
 
     public boolean equalsOnList(Object o) {
@@ -37,7 +47,7 @@ public class MyService {
 
         if (date != null ? !date.equals(service.date) : service.date != null) return false;
         if (title != null ? !title.equals(service.title) : service.title != null) return false;
-        if (category != null ? !category.equalsOnList(service.category) : service.category != null) return false;
+        if (category != null ? !category.equals(service.category) : service.category != null) return false;
         if (baseDescription != null ? !baseDescription.equals(service.baseDescription) : service.baseDescription != null)
             return false;
         if (basePrice != null ? !basePrice.equals(service.basePrice) : service.basePrice != null) return false;
@@ -48,8 +58,18 @@ public class MyService {
         if (extraPrice != null ? !extraPrice.equals(service.extraPrice) : service.extraPrice != null) return false;
         if (extraDescription != null ? !extraDescription.equals(service.extraDescription) : service.extraDescription != null)
             return false;
-        if (user != null ? !user.equalsOnList(service.user) : service.user != null) return false;
-
+        if (userName != null ? !userName.equals(service.userName) : service.userName != null)
+            return false;
+        if (userSurname != null ? !userSurname.equals(service.userSurname) : service.userSurname != null)
+            return false;
+        if (userEmail != null ? !userEmail.equals(service.userEmail) : service.userEmail != null)
+            return false;
+        if (userPhone != null ? !userPhone.equals(service.userPhone) : service.userPhone != null)
+            return false;
+        if (voivodeship != null ? !voivodeship.equals(service.voivodeship) : service.voivodeship != null)
+            return false;
+        if (city != null ? !city.equals(service.city) : service.city != null)
+            return false;
         return true;
     }
 
@@ -66,7 +86,12 @@ public class MyService {
                 ", extendedPrice='" + extendedDescription + '\'' +
                 ", extraDescription='" + extraDescription + '\'' +
                 ", extraPrice='" + extraPrice + '\'' +
-                ", user='" + user +
+                ", userName='" + userName + '\'' +
+                ", userSurname='" + userSurname + '\'' +
+                ", userEmail='" + userEmail + '\'' +
+                ", userPhone='" + userPhone + '\'' +
+                ", voivodeship='" + voivodeship + '\'' +
+                ", city='" + city + '\'' +
                 '}';
     }
 
@@ -78,7 +103,7 @@ public class MyService {
         return date;
     }
 
-    public Category getCategory() {
+    public String getCategory() {
         return category;
     }
 
@@ -110,15 +135,35 @@ public class MyService {
         return extraPrice;
     }
 
-    public User getUser() {
-        return user;
+    public String getVoivodeship() {
+        return voivodeship;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public String getUserSurname() {
+        return userSurname;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public String getUserPhone() {
+        return userPhone;
     }
 
     public void setDate(Long date) {
         this.date = date;
     }
 
-    public void setCategory(Category category) {
+    public void setCategory(String category) {
         this.category = category;
     }
 
@@ -148,10 +193,6 @@ public class MyService {
 
     public void setExtraPrice(Float extraPrice) {
         this.extraPrice = extraPrice;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     public void setId(String id) {

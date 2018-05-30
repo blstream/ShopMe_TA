@@ -78,9 +78,9 @@ public class SearchResultsPage extends SearchServicePage {
             if (getNumberOfPage(number + 1).getText().equals(String.valueOf(number + 2)))
                 getNumberOfPage(number + 1).click();
             else
-                getNumberOfPage(4).click();
+                getNumberOfPage(5).click();
         } catch (IndexOutOfBoundsException e) {
-            getNumberOfPage(4).click();
+            getNumberOfPage(5).click();
         }
     }
 
@@ -104,11 +104,8 @@ public class SearchResultsPage extends SearchServicePage {
     public void areLastServicesVisible() {
         wait.until(ExpectedConditions.visibilityOf(previousButton));
         int lastPage = Integer.valueOf(activePageButton.getText());
-        if (lastPage < 10) {
-            assertTrue(getServicesTitles().get(0).substring(0, 2).equals(String.valueOf((lastPage - 1) * 10 + 1)));
-        } else {
-            assertTrue(getServicesTitles().get(0).substring(0, 3).equals(String.valueOf((lastPage - 1) * 10 + 1)));
-        }
+            String url = driver.getCurrentUrl();
+            Assert.assertTrue(url.contains("page="+lastPage));
     }
 
     public String getLastPageNumberVisible() {
@@ -144,10 +141,8 @@ public class SearchResultsPage extends SearchServicePage {
         int last = servicesTitles.size();
         for (int j = 0; j < pageNumberInFE; j++) {
             for (int i = 0; i < last; i++) {
-                int b = getServiceRowElement(i).getText().length();
                 MyService service = restAssuredMethods.searchForServices(titlePhrase).get(10 * j + i);
-                assertTrue(String.valueOf((10 * j + i + 1) + ". " + service.title + "\n" + service.category.getName() + "\n" + service.basePrice)
-                        .contains(getServiceRowElement(i).getText().substring(0, b - 14)));
+                assertTrue(String.valueOf(service.title ).equals(getServiceRowElement(i).getText()));
             }
             if (j + 1 < pageNumberInFE) {
                 pushNextPageNumberButton(j);
@@ -178,10 +173,10 @@ public class SearchResultsPage extends SearchServicePage {
             assertTrue(lastPageButton.isDisplayed());
     }
 
-    public void deleteServicesFromPage(int numberOfElements, int pageNumber, String title) {
+    public void deleteServicesFromPage(int numberOfElements, int pageNumber, String title, String token) {
         List<MyService> deleteList = restAssuredMethods.searchForServicesOnPage(pageNumber, 10, title).content;
         for (int i = 0; i < numberOfElements; ++i) {
-            restAssuredMethods.deleteServiceById(deleteList.get(i).id);
+            restAssuredMethods.deleteServiceById(deleteList.get(i).id, token);
         }
     }
 
