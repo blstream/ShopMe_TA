@@ -35,7 +35,7 @@ public class RestAssuredMethods {
         Gson gson = new Gson();
         String result = gson.toJson(content);
         RestAssured.baseURI = this.baseURI;
-        RestAssured.given().header("Authorization", "Bearer " + authenticationToken).contentType("application/json").body(result).when().post("/offers").then().assertThat().statusCode(200);
+        RestAssured.given().header("Authorization", "Bearer " + authenticationToken).contentType("application/json").body(result).when().post("/offers").then().assertThat().statusCode(201);
     }
 
     public void addServices(DataTable services, String authenticationToken) {
@@ -151,7 +151,7 @@ public class RestAssuredMethods {
         Gson gson = new Gson();
         String result = gson.toJson(user);
         RestAssured.baseURI = this.baseURI;
-        RestAssured.given().contentType("application/json").body(result).when().post("/users").then().assertThat().statusCode(200);
+        RestAssured.given().contentType("application/json").body(result).when().post("/users").then().assertThat().statusCode(201);
     }
 
     public String authorizeAndGetBearerToken() {
