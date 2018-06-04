@@ -1,5 +1,5 @@
 Feature:  PRODPFIP-354 Signinig user out
-  As a signed in user I want to be able to myself out
+  As a signed in user I want to be able to sign myself out
 
   Background:
     Given I go to ShopMe main page
