@@ -14,8 +14,7 @@ Feature:  PRODPFIP-354 Signinig user out
     When I push logout button
     And  I am redirected to the main page
     And I go back to previous page
-    Then I am redirected to the main page
-    And I am not authenticated
+    Then I am not authenticated
 
   Scenario: Signing out from ShopMe website with refreshing current page
     When I push logout button
@@ -23,4 +22,3 @@ Feature:  PRODPFIP-354 Signinig user out
     And I refresh page
     Then I am redirected to the main page
     And I am not authenticated
-
