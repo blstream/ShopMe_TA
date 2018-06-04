@@ -6,6 +6,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static tests.Hooks.driver;
 import static tests.Hooks.wait;
@@ -51,6 +52,7 @@ public class ServiceProfilePage extends SearchServicePage {
     }
 
     public void waitForTitleVisibleAfterAddOffer() {
+        WebDriverWait wait = new WebDriverWait(driver, 3);
         wait.until(ExpectedConditions.visibilityOf(serviceTitle));
         Assert.assertTrue(serviceTitle.isDisplayed());
     }
