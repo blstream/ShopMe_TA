@@ -124,4 +124,16 @@ public class SearchServicePage {
         Assert.assertTrue(myName.equals(loggedInUserName.getText()));
         Assert.assertTrue(signInInfo.isDisplayed());
     }
+
+    public void pushLogoutButton() {
+        wait.until(ExpectedConditions.elementToBeClickable(logoutButton)).click();
+    }
+
+    public void refreshPage() {
+        driver.navigate().refresh();
+    }
+
+    public void navigateToPreviousPage(){
+        driver.navigate().back();
+    }
 }
