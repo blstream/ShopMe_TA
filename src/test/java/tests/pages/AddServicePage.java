@@ -11,7 +11,6 @@ import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,18 +43,6 @@ public class AddServicePage extends SearchServicePage {
     @FindBy(how = How.NAME, using = "offerExtraPrice")
     public WebElement extraPrice;
 
-    @FindBy(how = How.NAME, using = "offerUserName")
-    public WebElement userName;
-
-    @FindBy(how = How.NAME, using = "offerEmail")
-    public WebElement userEmail;
-
-    @FindBy(how = How.NAME, using = "offerPhone")
-    public WebElement userPhone;
-
-    @FindBy(how = How.NAME, using = "offerUserAdditionalInfo")
-    public WebElement aboutMe;
-
     @FindBy(how = How.CLASS_NAME, using = "form__button")
     public WebElement submitButton;
 
@@ -80,7 +67,6 @@ public class AddServicePage extends SearchServicePage {
     public String RA_basicDescription;
     public String RA_extendedDescription;
     public String RA_extraDescription;
-    public String RA_aboutMe;
 
 
     public void setRA_title(String RA_title) {
@@ -99,24 +85,12 @@ public class AddServicePage extends SearchServicePage {
         this.RA_extraDescription = RA_extraDescription;
     }
 
-    public void setRA_aboutMe(String RA_aboutMe) {
-        this.RA_aboutMe = RA_aboutMe;
-    }
-
     public AddServicePage() {
         PageFactory.initElements(driver, this);
     }
 
     public void sendTitle(String title) {
         offerTitle.sendKeys(title);
-    }
-
-    public void sendName(String name) {
-        userName.sendKeys(name);
-    }
-
-    public void sendEmail(String email) {
-        userEmail.sendKeys(email);
     }
 
     public void sendBasicDescription(String basic_description) {
@@ -151,9 +125,6 @@ public class AddServicePage extends SearchServicePage {
         }
     }
 
-    public void sendAboutMe(String about_me) {
-        aboutMe.sendKeys(about_me);
-    }
 
     public void pushSubmitButton() {
         wait.until(ExpectedConditions.elementToBeClickable(submitButton));
@@ -172,16 +143,8 @@ public class AddServicePage extends SearchServicePage {
         extraDescription.sendKeys(generateString(length));
     }
 
-    public void sendAboutMeDescription(int length) {
-        aboutMe.sendKeys(generateString(length));
-    }
-
     public String generateString(int length) {
         return StringUtils.leftPad("", length, 'a');
-    }
-
-    public void sendUserPhone(String phone) {
-        userPhone.sendKeys(phone);
     }
 
     public void verifyIfConfirmationMessageIsVisible(String message) {
@@ -255,20 +218,6 @@ public class AddServicePage extends SearchServicePage {
         Assert.assertTrue(check);
     }
 
-    public void RA_checkAboutMe() {
-        Boolean check = false;
-        RestAssured.baseURI = "https://patronage2018.intive-projects.com/api";
-        RequestSpecification httpRequest = RestAssured.given();
-        Response response = httpRequest.get("/offers");
-        List<String> additionalInfos = response.jsonPath().getList("content.user.additionalInfo");
-        for (String n : additionalInfos) {
-            if (n.equals(RA_aboutMe)) {
-                check = true;
-                break;
-            }
-        }
-        Assert.assertTrue(check);
-    }
 
     public void RA_checkExtraDescription() {
         Boolean check = false;
@@ -295,10 +244,6 @@ public class AddServicePage extends SearchServicePage {
         values.add(expandedPrice.getAttribute("value"));
         values.add(extraDescription.getAttribute("value"));
         values.add(extraPrice.getAttribute("value"));
-        values.add(userName.getAttribute("value"));
-        values.add(userEmail.getAttribute("value"));
-        values.add(userPhone.getAttribute("value"));
-        values.add(aboutMe.getAttribute("value"));
     }
 
     public void verifyIfValuesEqualsAfterPageRefresh() {
@@ -319,15 +264,6 @@ public class AddServicePage extends SearchServicePage {
         Assert.assertEquals(expectedLength, actualLength);
     }
 
-    public void verifyIfNameInputLimited(int expectedLength) {
-        int actualLength = userName.getAttribute("value").length();
-        Assert.assertEquals(expectedLength, actualLength);
-    }
-
-    public void verifyIfPhoneInputLimited(int expectedLength) {
-        int actualLength = userPhone.getAttribute("value").length();
-        Assert.assertEquals(expectedLength, actualLength);
-    }
 
     public void verifyIfBasicPriceInputLimited(int expectedLength) {
         String price = basicPrice.getAttribute("value");
@@ -348,11 +284,6 @@ public class AddServicePage extends SearchServicePage {
 
     public void verifyIfExtraDescritpionInputLimited(int expectedLength) {
         int actualLength = extraDescription.getAttribute("value").length();
-        Assert.assertEquals(expectedLength, actualLength);
-    }
-
-    public void verifyIfAboutMeInputLimited(int expectedLength) {
-        int actualLength = aboutMe.getAttribute("value").length();
         Assert.assertEquals(expectedLength, actualLength);
     }
 

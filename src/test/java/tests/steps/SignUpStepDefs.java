@@ -272,4 +272,19 @@ public class SignUpStepDefs extends SearchServicePage {
     public void fillInNipWith(String nip) {
         registrationFormPage.sendNip(nip);
     }
+
+    @And("^I fill in aboutMe with \"([^\"]*)\"$")
+    public void iFillInAboutMeWith(String aboutMe) {
+        registrationFormPage.sendAboutMe(aboutMe);
+    }
+
+    @When("^I fill in aboutMe with (\\d+) characters$")
+    public void iFillInAboutMeWithCharacters(int length) {
+        registrationFormPage.sendAboutMe(registrationFormPage.generateString(length));
+    }
+
+    @Then("^I should see in aboutMe maximum (\\d+) characters$")
+    public void iShouldSeeInAboutMeMaximumCharacters(int length) {
+        registrationFormPage.verifyIfAboutMeInputLimited(length);
+    }
 }

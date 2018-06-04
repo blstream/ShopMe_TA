@@ -89,6 +89,9 @@ public class RegistrationFormPage {
     @FindBy(how = How.NAME, using = "users__email")
     public WebElement usersEmail;
 
+    @FindBy(how = How.NAME, using = "users__additionalInfo")
+    public WebElement additionalInfo;
+
     public RegistrationFormPage() {
         PageFactory.initElements(driver, this);
     }
@@ -261,5 +264,14 @@ public class RegistrationFormPage {
     public void verifyIfValidationErrorMessageIsVisible(String message) {
         wait.until(ExpectedConditions.elementToBeClickable(registerButton));
         Assert.assertTrue(error.getText().contains(message));
+    }
+
+    public void sendAboutMe(String aboutMe) {
+        additionalInfo.sendKeys(aboutMe);
+    }
+
+    public void verifyIfAboutMeInputLimited(int expectedLength) {
+        int actualLength = additionalInfo.getAttribute("value").length();
+        Assert.assertEquals(expectedLength, actualLength);
     }
 }

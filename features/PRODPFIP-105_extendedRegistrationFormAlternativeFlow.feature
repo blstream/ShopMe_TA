@@ -18,6 +18,7 @@ Feature: PRODPFIP-105 User registration - alternative flow for extended registra
     When I fill in password with "<password>"
     And I fill in all necessary personal data with "123456789", "11111111111111111111111111"
     And I fill in all necessary address data with "Kwiatowa", "5", "Szczecin", "71-000", "Zachodniopomorskie"
+    And I fill in aboutMe with "Opis testowy o mnie"
     And I accept statute
     And I accept terms of personal data processing
     And I click Register button
@@ -35,6 +36,7 @@ Feature: PRODPFIP-105 User registration - alternative flow for extended registra
     When I fill in password with "TestPassword1"
     And I fill in all necessary personal data with "<phone_number>", "<bank_account>"
     And I fill in all necessary address data with "Kwiatowa", "5", "Szczecin", "71-000", "Zachodniopomorskie"
+    And I fill in aboutMe with "Opis testowy o mnie"
     And I accept statute
     And I accept terms of personal data processing
     And I click Register button
@@ -115,6 +117,7 @@ Feature: PRODPFIP-105 User registration - alternative flow for extended registra
     When I fill in password with "TestPassword1"
     And I fill in all necessary personal data with "123456789", "11111111111111111111111111"
     And I fill in all necessary address data with "<street>", "<number>", "<city>", "<post_code>", "<voivodeship>"
+    And I fill in aboutMe with "Opis testowy o mnie"
     And I accept statute
     And I accept terms of personal data processing
     And I click Register button
@@ -167,6 +170,7 @@ Feature: PRODPFIP-105 User registration - alternative flow for extended registra
     When I fill in password with "TestPassword1"
     And I fill in all necessary personal data with "123456789", "11111111111111111111111111"
     And I fill in all necessary address data with "Kwiatowa", "5", "Szczecin", "71-000", "Zachodniopomorskie"
+    And I fill in aboutMe with "Opis testowy o mnie"
     And I accept statute
     And I don't accept terms of personal data processing
     And I click Register button
@@ -176,6 +180,7 @@ Feature: PRODPFIP-105 User registration - alternative flow for extended registra
     When I fill in password with "TestPassword1"
     And I fill in all necessary personal data with "123456789", "11111111111111111111111111"
     And I fill in all necessary address data with "Kwiatowa", "5", "Szczecin", "71-000", "Zachodniopomorskie"
+    And I fill in aboutMe with "Opis testowy o mnie"
     And I don't accept statute
     And I accept terms of personal data processing
     And I click Register button
@@ -187,6 +192,7 @@ Feature: PRODPFIP-105 User registration - alternative flow for extended registra
     And I fill in all necessary address data with "Kwiatowa", "5", "Szczecin", "71-000", "Zachodniopomorskie"
     And I select dataForInvoice checkbox
     And I fill in all necessary invoice data with "<c_name>", "<nip>", "<c_street>", "<c_number>", "<c_post_code>", "<c_city>"
+    And I fill in aboutMe with "Opis testowy o mnie"
     And I accept statute
     And I accept terms of personal data processing
     And I click Register button
@@ -301,3 +307,7 @@ Feature: PRODPFIP-105 User registration - alternative flow for extended registra
     When I select dataForInvoice checkbox
     And I fill in invoiceAddressCity with 51 characters
     Then I should see in invoiceAddressCity maximum 50 characters
+
+  Scenario: Signing up for ShopMe website with 801 character additional info
+    When I fill in aboutMe with 801 characters
+    Then I should see in aboutMe maximum 800 characters

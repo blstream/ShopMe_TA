@@ -4,12 +4,12 @@ Feature: PRODPFIP-198 Adding new service - extension with province and city of t
 
   Background:
     Given I go to ShopMe main page
-    And I am an signed in to the application with email "test@gmail.com" and password "TestPassword1"
+    And I am an signed in to the application with email "john.doe@gmail.com" and password "Password1234"
     And I push add service button
     And I can see adding form
     And I fill in all necessary data
-    # | title          | category | basic_description | basic_price | name | email          | phone     |
-      | Oferta testowa | Inne     | Opis testowy      | 100         | Jan  | test@email.com | 100200300 |
+    # | title          | category | basic_description | basic_price |
+      | Oferta testowa | Inne     | Opis testowy      | 100         |
 
   Scenario Outline: Adding new basic service with new required fields - positive flow
     Given I can see city field disabled
@@ -17,7 +17,7 @@ Feature: PRODPFIP-198 Adding new service - extension with province and city of t
     And I fill in city with "<city>"
     And I press Add service button
     Then I should see confirmation message "Pomyślnie dodano ofertę"
-    And I am redirected to the main page
+    And I am redirected to the profile page of the service
 
     Examples:
       | province            | city                           |

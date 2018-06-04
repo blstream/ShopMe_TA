@@ -18,6 +18,7 @@ Feature: PRODPFIP-104 User registration
     And I fill in password with "<password>"
     And I fill in all necessary personal data with "<phone_number>", "<bank_account>"
     And I fill in all necessary address data with "<street>", "<number>", "<city>", "<post_code>", "<voivodeship>"
+    And I fill in aboutMe with "<aboutMe>"
     And I select dataForInvoice checkbox
     And I fill in all necessary invoice data with "<c_name>", "<nip>", "<c_street>", "<c_number>", "<c_post_code>", "<c_city>"
     And I accept statute
@@ -28,5 +29,5 @@ Feature: PRODPFIP-104 User registration
     And I should be registered user in database
 
     Examples:
-      | name | surname  | password      | phone_number | bank_account               | street   | number | city     | post_code | c_name       | nip        | c_street    | c_number | c_post_code | c_city   | voivodeship |
-      | Jan  | Kowalski | TestPassword1 | 012345678    | 55299610810888313485136811 | Kwiatowa | 2      | Szczecin | 70-000    | Test Company | 0123456789 | Truskawkowa | 2        | 70-111      | Szczecin | Pomorskie   |
+      | name | surname  | password      | phone_number | bank_account               | street   | number | city     | post_code | c_name       | nip        | c_street    | c_number | c_post_code | c_city   | voivodeship | aboutMe     |
+      | Jan  | Kowalski | TestPassword1 | 012345678    | 55299610810888313485136811 | Kwiatowa | 2      | Szczecin | 70-000    | Test Company | 0123456789 | Truskawkowa | 2        | 70-111      | Szczecin | Pomorskie   | Opis o mnie |
