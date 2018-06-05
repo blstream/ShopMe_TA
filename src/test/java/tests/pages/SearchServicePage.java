@@ -42,9 +42,6 @@ public class SearchServicePage {
     @FindBy(how = How.CLASS_NAME, using = "user-name")
     public WebElement loggedInUserName;
 
-    @FindBy(how = How.XPATH, using = "//span[contains(text(),'zalogowano:')]")
-    public WebElement signInInfo;
-
     public SearchServicePage() {
         PageFactory.initElements(driver, this);
     }
@@ -122,6 +119,5 @@ public class SearchServicePage {
 
     public void iSeeAuthenticationInfo(String myName) {
         Assert.assertTrue(myName.equals(loggedInUserName.getText()));
-        Assert.assertTrue(signInInfo.isDisplayed());
     }
 }
