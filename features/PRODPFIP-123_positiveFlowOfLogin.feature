@@ -1,4 +1,4 @@
-@inProgress @workingGood
+@workingGood
 Feature: PRODPFIP-123 Authenticate to the ShopMe website
   As a registered user I want to be able to successful sign in to the ShopMe website
 
@@ -18,4 +18,4 @@ Feature: PRODPFIP-123 Authenticate to the ShopMe website
 
     Examples:
       | email              | password     | user_name |
-      | john.doe@gmail.com | Password1234 | John Doe  |
+      | john.doe@gmail.com | Password1234 | John      |
