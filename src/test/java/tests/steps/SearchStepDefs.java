@@ -24,10 +24,10 @@ public class SearchStepDefs {
     SearchResultsPage searchResultsPage = new SearchResultsPage();
     RestAssuredMethods restAssuredMethods = new RestAssuredMethods("https://patronage2018.intive-projects.com/api");
 
-    @Given("^that there are no services added$")
-    public void thatThereAreNoServicesAdded() {
-        restAssuredMethods.deleteAllServices();
-    }
+//    @Given("^that there are no services added$")
+//    public void thatThereAreNoServicesAdded() {
+//        restAssuredMethods.deleteAllServices();
+//    }
 
     @And("^I add services$")
     public void iAddServices(DataTable services) {

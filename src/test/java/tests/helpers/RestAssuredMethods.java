@@ -23,31 +23,30 @@ public class RestAssuredMethods {
         MyService content = new MyService();
 
         content.title = service.getTitle();
-        content.category = new Category(service.category.getName());
+        content.category = service.getCategory();
         content.baseDescription = service.getBaseDesription();
         content.basePrice = service.getBasePrice();
-        content.user = new User(service.user.getName(), service.user.getEmail(), service.user.getPhoneNumber(), service.user.getAdditionalInfo(), service.user.voivodeship, service.user.getCity());
         content.extendedDescription = service.getExtendedDesription();
         content.extendedPrice = service.getExtendedPrice();
         content.extraDescription = service.getExtraDesription();
         content.extraPrice = service.getExtraPrice();
+        content.voivodeship = service.getVoivodeship();
+        content.city = service.getCity();
         Gson gson = new Gson();
         String result = gson.toJson(content);
         RestAssured.baseURI = this.baseURI;
-        RestAssured.given().header("Authorization", "Bearer " + authenticationToken).contentType("application/json").body(result).when().post("/offers").then().assertThat().statusCode(200);
+        RestAssured.given().header("Authorization", "Bearer " + authenticationToken).contentType("application/json").body(result).when().post("/offers").then().assertThat().statusCode(201);
     }
 
     public void addServices(DataTable services, String authenticationToken) {
         DataTable dt = services;
         MyService service = new MyService();
-        User user1 = new User();
         for (int i = 0; i < dt.getGherkinRows().size(); i++) {
             DataTableRow someRow = dt.getGherkinRows().get(i);
 
             service.title = someRow.getCells().get(0);
-            service.category = new Category(someRow.getCells().get(1));
-            user1.voivodeship = new Voivodeship(someRow.getCells().get(12));
-            service.user = new User(someRow.getCells().get(2), someRow.getCells().get(3), someRow.getCells().get(4), someRow.getCells().get(5), user1.voivodeship, someRow.getCells().get(13));
+            service.category = someRow.getCells().get(1);
+            service.voivodeship = someRow.getCells().get(12);
             service.baseDescription = someRow.getCells().get(6);
             service.basePrice = Float.valueOf(someRow.getCells().get(7));
             service.extendedDescription = someRow.getCells().get(8);
@@ -59,11 +58,14 @@ public class RestAssuredMethods {
         }
     }
 
-    public void deleteServiceById(String id) {
+    public void deleteServiceById(String id, String authenticationToken) {
         MyService serviceToDelete = getServiceById(id);
         if (serviceToDelete != null) {
             RestAssured.baseURI = this.baseURI;
-            RestAssured.given().contentType("application/json").when().delete("/offers/" + id).then().assertThat().statusCode(200);
+            RestAssured.given().header("Authorization", "Bearer " + authenticationToken)
+                    .contentType("application/json")
+                    .when().delete("/offers/" + id)
+                    .then().assertThat().statusCode(200);
         }
     }
 
@@ -119,16 +121,16 @@ public class RestAssuredMethods {
         return allElementsTitle;
     }
 
-    public void deleteAllServices() {
-        List<MyService> deleteList = getAllServices();
-        for (int i = 0; i < deleteList.size(); i++) {
-            deleteServiceById(deleteList.get(i).id);
-        }
-    }
-
-    public void deleteService(MyService myService) {
-        deleteServiceById(myService.id);
-    }
+//    public void deleteAllServices() {
+//        List<MyService> deleteList = getAllServices();
+//        for (int i = 0; i < deleteList.size(); i++) {
+//            deleteServiceById(deleteList.get(i).id, token);
+//        }
+//    }
+//
+//    public void deleteService(MyService myService) {
+//        deleteServiceById(myService.id);
+//    }
 
     public void addUserWithEmail(String email) {
         Address address = new Address("5d214c01-95c3-4ec4-8f68-51dfb80b191c", "Niepodległości", "12/1", "Szczecin", "70-125");
@@ -148,7 +150,7 @@ public class RestAssuredMethods {
         Gson gson = new Gson();
         String result = gson.toJson(user);
         RestAssured.baseURI = this.baseURI;
-        RestAssured.given().contentType("application/json").body(result).when().post("/users").then().assertThat().statusCode(200);
+        RestAssured.given().contentType("application/json").body(result).when().post("/users").then().assertThat().statusCode(201);
     }
 
     public String authorizeAndGetBearerToken() {

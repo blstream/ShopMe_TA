@@ -7,11 +7,11 @@ import cucumber.api.java.en.When;
 import gherkin.formatter.model.DataTableRow;
 import org.junit.Assert;
 import tests.helpers.RestAssuredMethods;
-import tests.objects.Category;
 import tests.objects.MyService;
 import tests.objects.User;
 import tests.objects.Voivodeship;
 import tests.pages.SearchResultsPage;
+import static tests.Hooks.driver;
 
 import java.util.List;
 
@@ -33,7 +33,7 @@ public class PaginationStepDefs {
         for (int i = 0; i < servicesBeforeAdd.size(); i++)
             Assert.assertTrue(servicesBeforeAdd.get(i).equalsOnList(newServices.get(i + 10)));
         for (int i = 0; i < 10; i++)
-            Assert.assertTrue(searchResultsPage.getServicesTitles().get(i).substring(4).equals(servicesFromFourthPage.get(i).title));
+            Assert.assertTrue(searchResultsPage.getServicesTitles().get(i).equals(servicesFromFourthPage.get(i).title));
     }
 
     @When("^I add (\\d+) different services$")
@@ -45,9 +45,10 @@ public class PaginationStepDefs {
             DataTableRow someRow = dt.getGherkinRows().get(0);
 
             service.title = someRow.getCells().get(0) + String.valueOf(i);
-            service.category = new Category(someRow.getCells().get(1));
+            service.category = someRow.getCells().get(1);
             user1.voivodeship = new Voivodeship(someRow.getCells().get(12));
-            service.user = new User(someRow.getCells().get(2), someRow.getCells().get(3), someRow.getCells().get(4), someRow.getCells().get(5), user1.voivodeship, someRow.getCells().get(13));
+            service.voivodeship = someRow.getCells().get(12);
+            service.city = someRow.getCells().get(13);
             service.baseDescription = someRow.getCells().get(6);
             service.basePrice = Float.valueOf(someRow.getCells().get(7)) + i;
             service.extendedDescription = someRow.getCells().get(8);
@@ -166,7 +167,8 @@ public class PaginationStepDefs {
 
     @And("^I delete (\\d+) services from the page number (\\d+) with searching phrase \"([^\"]*)\"$")
     public void iDeleteServicesFromTheSecondPage(int servicesNumber, int pageNumber, String title) {
-        searchResultsPage.deleteServicesFromPage(servicesNumber, pageNumber, title);
+        String token = restAssuredMethods.authorizeAndGetBearerToken();
+        searchResultsPage.deleteServicesFromPage(servicesNumber, pageNumber, title, token);
     }
 
     @Then("^The results for \"([^\"]*)\" are shifted (\\d+) to the back$")
@@ -178,6 +180,12 @@ public class PaginationStepDefs {
         for (int i = 10 + numberOfDeleteResults; i < newServices.size(); i++)
             Assert.assertTrue(servicesBeforeAdd.get(i).equalsOnList(newServices.get(i - numberOfDeleteResults)));
         for (int i = 0; i < 10; i++)
-            Assert.assertTrue(searchResultsPage.getServicesTitles().get(i).substring(4).equals(servicesFromFourthPage.get(i).title));
+            Assert.assertTrue(searchResultsPage.getServicesTitles().get(i).equals(servicesFromFourthPage.get(i).title));
+    }
+
+    @And("^I am on (\\d+) page$")
+    public void iAmOnPage(int pageNumber) {
+        String url = driver.getCurrentUrl();
+        Assert.assertTrue(url.contains("page="+pageNumber));
     }
 }
