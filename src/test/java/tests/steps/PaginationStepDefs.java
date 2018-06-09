@@ -186,7 +186,6 @@ public class PaginationStepDefs {
     @And("^I am on (\\d+) page$")
     public void iAmOnPage(int pageNumber) {
         String url = driver.getCurrentUrl();
-        System.out.println(url);
         Assert.assertTrue(url.contains("page="+pageNumber));
     }
 }
