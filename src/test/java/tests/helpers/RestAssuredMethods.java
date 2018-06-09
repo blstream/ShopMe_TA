@@ -41,13 +41,12 @@ public class RestAssuredMethods {
     public void addServices(DataTable services, String authenticationToken) {
         DataTable dt = services;
         MyService service = new MyService();
-        User user1 = new User();
         for (int i = 0; i < dt.getGherkinRows().size(); i++) {
             DataTableRow someRow = dt.getGherkinRows().get(i);
 
             service.title = someRow.getCells().get(0);
             service.category = someRow.getCells().get(1);
-            user1.voivodeship = new Voivodeship(someRow.getCells().get(12));
+            service.voivodeship = someRow.getCells().get(12);
             service.baseDescription = someRow.getCells().get(6);
             service.basePrice = Float.valueOf(someRow.getCells().get(7));
             service.extendedDescription = someRow.getCells().get(8);
