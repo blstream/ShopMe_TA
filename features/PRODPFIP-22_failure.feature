@@ -28,7 +28,7 @@ Feature: PRODPFIP-22 failure error message
     And I refresh page
     Then I can see error message "coś poszło nie tak"
 
-  Scenario: Display error message after inserting a hyperlink in adding offer form.
+  Scenario: Display error message after inserting a hyperlink in adding offer form
     Given I go to ShopMe main page
     And I am an signed in to the application with email "john.doe@gmail.com" and password "Password1234"
     And I push add service button
@@ -47,7 +47,7 @@ Feature: PRODPFIP-22 failure error message
     And I push SignUp button
     And I fill in all necessary registration data with testEmail, "Jan", "Kowalski",
     And I push Register button
-    When I change email address with "john.doe@gmail.com"
+    When I change testEmail address into "john.doe@gmail.com"
     And I fill in password with "Password1"
     And I fill in all necessary personal data with "000000000", "55299610810888313485136811"
     And I fill in all necessary address data with "Ulica", "10", "Szczecin", "70-786", "Zachodniopomorskie"
