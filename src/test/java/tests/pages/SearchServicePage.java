@@ -120,4 +120,16 @@ public class SearchServicePage {
     public void iSeeAuthenticationInfo(String myName) {
         Assert.assertTrue(myName.equals(loggedInUserName.getText()));
     }
+
+    public void pushLogoutButton() {
+        wait.until(ExpectedConditions.elementToBeClickable(logoutButton)).click();
+    }
+
+    public void refreshPage() {
+        driver.navigate().refresh();
+    }
+
+    public void navigateToPreviousPage(){
+        driver.navigate().back();
+    }
 }
