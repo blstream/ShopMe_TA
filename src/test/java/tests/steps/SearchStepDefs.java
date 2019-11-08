@@ -1,86 +1,38 @@
 package tests.steps;
 
-import com.google.gson.JsonObject;
 import cucumber.api.DataTable;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import gherkin.formatter.model.DataTableRow;
-import io.restassured.RestAssured;
-import io.restassured.path.json.JsonPath;
-import io.restassured.response.Response;
-import io.restassured.response.ResponseBody;
-import io.restassured.specification.RequestSpecification;
+import tests.helpers.RestAssuredMethods;
 import tests.pages.SearchResultsPage;
 import tests.pages.SearchServicePage;
 
-import java.util.HashMap;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
 
 public class SearchStepDefs {
 
     SearchServicePage searchServicePage = new SearchServicePage();
     SearchResultsPage searchResultsPage = new SearchResultsPage();
+    RestAssuredMethods restAssuredMethods = new RestAssuredMethods("https://patronage2018.intive-projects.com/api");
 
+//    @Given("^that there are no services added$")
+//    public void thatThereAreNoServicesAdded() {
+//        restAssuredMethods.deleteAllServices();
+//    }
 
-    @Given("^that there are no services added$")
-    public void thatThereAreNoServicesAdded() {
-        RestAssured.baseURI = "https://patronage2018.intive-projects.com/api";
-        RequestSpecification httpRequest = RestAssured.given();
-        Response response = httpRequest.get("/offers");
-        ResponseBody body = response.getBody();
-        List<HashMap> offers = new JsonPath(body.asString()).get(".");
-        for (int i = 0; i < offers.size(); i++) {
-            String offer = offers.get(i).get("id").toString();
-            RestAssured.given().when().delete("/offers/" + offer);
-        }
-        response = httpRequest.get("/offers");
-        body = response.getBody();
-        offers = new JsonPath(body.asString()).get(".");
-        assertTrue(offers.size() == 0);
-    }
-
-    @And("^I add services via BE$")
-    public void iAddServicesViaBE(DataTable services) {
-
-        DataTable dt = services;
-        RestAssured.baseURI = "https://patronage2018.intive-projects.com/api/";
-        RequestSpecification httpRequest = RestAssured.given();
-        Response response = httpRequest.get("/categories");
-        ResponseBody body = response.getBody();
-        List<HashMap> categories = new JsonPath(body.asString()).get(".");
-        HashMap category = categories.get(0);
-
-        for (int i = 0; i < dt.getGherkinRows().size(); i++) {
-
-            DataTableRow someRow = dt.getGherkinRows().get(i);
-            String str = someRow.getCells().get(0);
-
-            JsonObject newService = new JsonObject();
-            newService.addProperty("id", "aaa2e1cd-6319-4fa3-b05f-d47f4aec7dac");
-            newService.addProperty("title", str);
-            newService.addProperty("baseDescription", "Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
-            newService.addProperty("basePrice", "10");
-            JsonObject userJson = new JsonObject();
-            userJson.addProperty("id", "aaa2e1cd-6319-4fa3-b05f-d47f4aec7dac");
-            userJson.addProperty("name", "Jan Kowalski");
-            userJson.addProperty("email", "example@mail.com");
-            userJson.addProperty("phoneNumber", "012345678");
-            newService.add("user", userJson);
-            JsonObject categoryJson = new JsonObject();
-            categoryJson.addProperty("id", category.get("id").toString());
-            categoryJson.addProperty("name", category.get("name").toString());
-            newService.add("category", categoryJson);
-            RestAssured.given().contentType("application/json").body(newService.toString()).when().post("/offers").then().assertThat().statusCode(200);
-        }
-    }
-
-    @When("^I navigate to the main page$")
-    public void iNavigateToTheMainPage() {
-        searchServicePage.goToMainPage();
+    @And("^I add services$")
+    public void iAddServices(DataTable services) {
+        String token = restAssuredMethods.authorizeAndGetBearerToken();
+        restAssuredMethods.addServices(services, token);
     }
 
     @And("^I enter a searching phrase \"([^\"]*)\" into the search field$")
@@ -95,13 +47,15 @@ public class SearchStepDefs {
 
     @Then("^search results are visible$")
     public void searchResultAreVisible() {
-        assertTrue(searchResultsPage.isResultsPresent());
+        searchResultsPage.waitForNewResults();
     }
 
     @And("^I see that title of the service contains \"([^\"]*)\"$")
     public void iSeeThatTitleOfTheServiceContains(String searchPhrase) {
-        List<String> titles = searchResultsPage.getElementsTitles();
-        for (int i = 0; i < titles.size(); i++) {
+        List<String> titles = searchResultsPage.getServicesTitles();
+        int numberOfElements = titles.size();
+        assertTrue(numberOfElements > 0);
+        for (int i = 0; i < numberOfElements; i++) {
             String title = titles.get(i).toLowerCase();
             assertTrue(title.contains(searchPhrase.toLowerCase()));
         }
@@ -109,24 +63,31 @@ public class SearchStepDefs {
 
     @And("^I see basic price and added data of each record$")
     public void iSeeBasicPriceAndAddedDataOfEachRecord() {
-        List<String> prices = searchResultsPage.getElementsPrices();
-        List<String> dates = searchResultsPage.getElementsDates();
-
-        assertTrue(prices.size() == dates.size());
-        for (int i = 0; i < prices.size(); i++) {
+        List<String> prices = searchResultsPage.getServicesPrices();
+        List<String> dates = searchResultsPage.getServicesDates();
+        int numberOfElementsPrices = prices.size();
+        int numberOfElementsDates = dates.size();
+        assertTrue(numberOfElementsPrices > 0 && numberOfElementsDates > 0);
+        for (int i = 0; i < numberOfElementsPrices; i++) {
             String price = prices.get(i);
+            assertFalse(price.isEmpty());
+        }
+        for (int i = 0; i < numberOfElementsDates; i++) {
             String date = dates.get(i);
-            assertTrue(!price.isEmpty() && !date.isEmpty());
+            assertFalse(date.isEmpty());
         }
     }
 
-    @And("^all results are sorted in ascending way$")
-    public void allResultsAreSortedInAscendingWay() {
-        List<String> dates = searchResultsPage.getElementsDates();
+    @And("^all results are sorted by date descending$")
+    public void allResultsAreSortedByDateDescending() {
+        List<String> dates = searchResultsPage.getServicesDates();
         for (int i = 0; i < dates.size() - 1; i++) {
-            Long nextDataL = Long.valueOf(dates.get(i + 1));
-            Long actualDateL = Long.valueOf(dates.get(i));
-            assertTrue(actualDateL <= nextDataL);
+            String nextDataL = String.valueOf(dates.get(i + 1));
+            String actualDateL = String.valueOf(dates.get(i));
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+            LocalDate dateNext = LocalDate.parse(nextDataL, formatter);
+            LocalDate dateActual = LocalDate.parse(actualDateL, formatter);
+            assertTrue(dateNext.compareTo(dateActual) >= 0);
         }
     }
 
@@ -139,5 +100,47 @@ public class SearchStepDefs {
     @And("^I press Enter key$")
     public void iPressEnterKey() {
         searchServicePage.submitByEnter();
+    }
+
+    @Then("^I can see no results message \"([^\"]*)\"$")
+    public void iCanSeeNoResultsMessage(String expectedNoResultsMessage) {
+        String noResultsMessage = searchResultsPage.getNoResultsMessage();
+        assertEquals(expectedNoResultsMessage, noResultsMessage);
+    }
+
+    @And("^I see service \"([^\"]*)\" at the first place$")
+    public void iSeeServiceAtTheFirstPlace(String newService) {
+        String firstService = searchResultsPage.getTitle(0);
+        assertTrue(firstService.contains(newService));
+    }
+
+    @Then("^search results for the new phrase \"([^\"]*)\" are visible$")
+    public void searchResultsForTheNewPhraseAreVisible(String expectedService) {
+        searchResultsPage.areNewResultsPresent(expectedService);
+    }
+
+    @When("^I try to fill in search field with (\\d+) characters$")
+    public void iTryToFillInSearchFieldWithCharacters(int phraseLength) {
+        searchServicePage.sendSearchPhrase(phraseLength);
+    }
+
+    @Then("^I should see in search field exactly (\\d+) characters$")
+    public void iShouldSeeInSearchFieldExactlyCharacters(int expectedPhraseLength) {
+        int phraseLength = searchServicePage.getSearchPhraseLength();
+        assertEquals(expectedPhraseLength, phraseLength);
+    }
+
+    @Then("^the search button is not clickable$")
+    public void theSearchButtonIsNotClickable() {
+        searchServicePage.searchBtnIsNotClickable();
+    }
+
+    @And("^I see the category$")
+    public void iSeeTheCategory() {
+        List<String> categories = searchResultsPage.getServicesCategories();
+        for (int i = 0; i < categories.size(); i++) {
+            String category = categories.get(i);
+            assertFalse(category.isEmpty());
+        }
     }
 }

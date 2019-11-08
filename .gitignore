@@ -43,3 +43,4 @@ Thumbs.db
 atlassian-ide-plugin.xml
 target/
 *.iml
+drivers/
